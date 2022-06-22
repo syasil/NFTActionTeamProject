@@ -1,4 +1,4 @@
-package NftAuction;
+package UserJoin;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;

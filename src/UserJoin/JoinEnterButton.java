@@ -1,4 +1,4 @@
-package NftAuction;
+package UserJoin;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

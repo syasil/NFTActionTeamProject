@@ -1,4 +1,4 @@
-package NftAuction;
+package UserJoin;
 
 import java.awt.SystemColor;
 
