@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,6 +68,22 @@ public class Basic extends JFrame{
 		panel.add(signupButton);
 		panel.add(missingButton);
 		frame.setVisible(true);
+		
+		
+		
+		//***********기능*********
+		signupButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new NewUser();
+			}
+		});
+		
+		
+		
+		
+		
 	}
 
 }
