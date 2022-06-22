@@ -4,47 +4,37 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 public class JoinTextFieldBuilder {
+	
 	private JFrame frame;
 	
 	private JoinTextField joinIdTextField;
 	private JoinTextField joinPasswordTextField;
-	private JoinTextField joinCheckPasswordTextField;
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	private JoinTextField joinPasswordCheckTextField;
 	
 	
 	
-	
-	public JoinTextFieldBuilder(int x, int y, int width, int height, JFrame frame) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+	public JoinTextFieldBuilder(JFrame frame) {
+		
 		this.frame = frame;
 		
-		
-		
 	}
 
-	public void buildJoinIdTextField() {
-		joinIdTextField = new JoinIdJTextField(x, y, width, height, frame);
-		System.out.println(x);
-		joinIdTextField.setTextField();
+	public void buildJoinIdTextField(int x, int y, int width, int heigth) {
+		
+		joinIdTextField = new JoinIdTextField(x, y, width, heigth, frame);
 		
 	}
 
-	public void buildJoinPassWordTextField() {
-		//joinPasswordTextField.setTextField();
+	public void buildJoinPassWordTextField(int x, int y, int width, int heigth) {
+		
+		joinPasswordTextField = new JoinPasswordTextField(x, y, width, heigth, frame);
+		
 	}
 
-	public void buildJoinCheckPassWordTextField() {
-		//joinCheckPasswordTextField.setTextField();
+	public void buildJoinCheckPassWordTextField(int x, int y, int width, int heigth) {
+		
+		joinPasswordCheckTextField = new JoinPasswordCheckTextField(x, y, width, heigth, frame);
 		
 	}
 	
-	public JTextField getJoinIdTextField() {
-		return joinIdTextField.getTextField();
-	}
 }
