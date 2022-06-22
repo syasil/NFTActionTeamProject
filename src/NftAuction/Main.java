@@ -44,8 +44,7 @@ public class Main {
 		mainFrame.getContentPane().setLayout(null);
 		
 		FacadeJoinPage GeneralUserJoinPage = new FacadeJoinPage(1, mainFrame);
-		//1 == ÀÏ¹İÀ¯Àú ,2 == ±â¾÷À¯Àú 
-		
+		//1 == ì¼ë°˜íšŒì› ,2 == ê´€ë¦¬ìíšŒì›
 		
 		
 	}

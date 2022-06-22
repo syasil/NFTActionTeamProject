@@ -27,7 +27,7 @@ public class JoinPasswordTextField implements JoinTextField{
 		frame.getContentPane().add(textField);
 	}
 	
-	// ÇØ´ç textfield¸¦ x, y, width, height·Î set
+	// textfield ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ë¥¼ x, y, width, height ê°’ìœ¼ë¡œ set
 	public void setBoundTextField(int x, int y, int width, int heigth) {
 		
 		System.out.println("joinPasswordTextField::setTextField");

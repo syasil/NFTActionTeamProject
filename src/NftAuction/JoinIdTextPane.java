@@ -38,7 +38,7 @@ public class JoinIdTextPane implements JoinTextPane {
 		
 	}
 
-	//textPaneÀÇ À§Ä¡ ¹× Å©±â¸¦ º¯°æÇÏ´Â ÇÔ¼ö
+	//textPane ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ë¥¼ x, y, width, height ê°’ìœ¼ë¡œ set
 	@Override
 	public void setBoundTextPane(int x, int y, int width, int height) {
 		
@@ -46,7 +46,7 @@ public class JoinIdTextPane implements JoinTextPane {
 		
 	}
 	
-	//textPaneÀÇ ¹è°æ»öÀ» º¯°æÇÏ´Â ÇÔ¼ö
+	//textPaneì˜ ë°°ê²½ìƒ‰ì„ color ê°’ìœ¼ë¡œ set
 	@Override
 	public void SetBackgroundTextPane(SystemColor color) {
 	
@@ -54,7 +54,7 @@ public class JoinIdTextPane implements JoinTextPane {
 		
 	}
 	
-	//textPaneÀÇ ³»¿ëÀ» º¯°æÇÏ´Â ÇÔ¼ö
+	//textPaneì˜ ë‚´ìš©ì„ text ê°’ìœ¼ë¡œ set
 	@Override
 	public void setContentTextPane(String text) {
 	
