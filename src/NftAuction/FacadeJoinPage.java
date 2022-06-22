@@ -25,20 +25,20 @@ public class FacadeJoinPage {
 		
 		
 		joinTextPaneBuilder.buildJoinIdTextpane(15, 50, 60, 20,SystemColor.menu, "\uC544\uC774\uB514"); 
-		//x =15, y=50, width=60 height =20, backgroundColor = SystemColor.menu, text = 酒捞叼  idtextField 积己
+		//x =15, y=50, width=60 height =20, backgroundColor = SystemColor.menu, text = id  idtextField 靸濎劚
 		
 		joinTextFieldBuilder.buildJoinIdTextField(120, 50, 150, 20); 
-		//x =120, y=50, width=150, height =20 idtextField 积己
+		//x =120, y=50, width=150, height =20 idtextField 靸濎劚
 		
 		
 
 		
-		joinTextFieldBuilder.buildJoinPassWordTextField(120, 100, 150, 20); //x =120, y=100, width=150, height =20牢 passwordtextField 积己
-		joinTextFieldBuilder.buildJoinCheckPassWordTextField(120, 150, 150, 20); //x =120, y=100, width=150, height =20牢 passwordCHecktextField 积己
+		joinTextFieldBuilder.buildJoinPassWordTextField(120, 100, 150, 20); //x =120, y=100, width=150, height =20 passwordtextField 靸濎劚
+		joinTextFieldBuilder.buildJoinCheckPassWordTextField(120, 150, 150, 20); //x =120, y=100, width=150, height =20 passwordCHecktextField 靸濎劚
 		
 		
 		
-		joinButtonBuilder.buildJoinEnterButton(70, 400, 100, 25);//x =70, y=400, width=100, height =25牢 joinButton 积己
+		joinButtonBuilder.buildJoinEnterButton(70, 400, 100, 25);//x =70, y=400, width=100, height =25 joinButton 靸濎劚
 		
 	}
 }
