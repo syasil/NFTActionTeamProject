@@ -1,4 +1,4 @@
-package ProductRegister;
+package ProductRegisterPage;
 
 import javax.swing.JFrame;
 

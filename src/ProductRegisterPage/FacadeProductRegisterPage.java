@@ -1,4 +1,4 @@
-package ProductRegister;
+package ProductRegisterPage;
 
 import java.awt.SystemColor;
 
@@ -16,7 +16,9 @@ public class FacadeProductRegisterPage {
 		
 		ProductRegisterTextPaneBuilder productRegisterTextPaneBuilder = new ProductRegisterTextPaneBuilder(frame);
 		ProductRegisterTextFieldBuilder productRegisterTextFieldBuilder = new ProductRegisterTextFieldBuilder(frame);
-		ProductRegisterButtonbuilder productRegisterButtonbuilder = new ProductRegisterButtonbuilder(frame);
+		ProductRegisterButtonBuilder productRegisterButtonbuilder = new ProductRegisterButtonBuilder(frame);
+		ProductRegisterLabelBuilder productRegisterLabelBuilder = new ProductRegisterLabelBuilder(frame);
+		
 		
 		productRegisterTextPaneBuilder.BuildProductRegisterNameTextPane(15, 50, 60, 20, SystemColor.menu, "상품명");
 		
@@ -29,17 +31,18 @@ public class FacadeProductRegisterPage {
 		productRegisterTextFieldBuilder.BuildProductRegisterContentTextField(120, 100, 500, 200);
 		
 		
+		productRegisterLabelBuilder.BuildProductRegisterImageLabel(120, 300, 100, 100);
+	
+		productRegisterTextPaneBuilder.BuildProductRegisterImageContentTextPane(150, 500, 500, 20, SystemColor.menu, "");
+		productRegisterButtonbuilder.BuildProductRegisterImageButton(15, 500, 120, 20, "이미지 업로드");
 		
-		productRegisterButtonbuilder.BuildProductRegisterNameTextField(15, 500, 120, 20, "이미지 업로드");
-		productRegisterTextPaneBuilder.BuildProductRegisterNameTextPane(150, 500, 120, 20, SystemColor.menu, "");
+		productRegisterButtonbuilder.BuildProductRegisterEnterButton(700, 500, 80, 20, "등록");
 		
-		
-		
-		
-		
-		
+	
 		
 	}
+
+	
 	
 
 }

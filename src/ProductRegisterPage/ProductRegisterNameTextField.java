@@ -1,12 +1,12 @@
-package ProductRegister;
+package ProductRegisterPage;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-public class ProductRegisterContentTextField implements ProductRegisterTextField{
-	
+public class ProductRegisterNameTextField implements ProductRegisterTextField{
+
 	private JFrame frame;
-	private JTextField textField;
+	private static JTextField textField;
 	
 	private int x;
 	private int y;
@@ -14,7 +14,7 @@ public class ProductRegisterContentTextField implements ProductRegisterTextField
 	private int height;
 	
 	
-	public ProductRegisterContentTextField(int x, int y, int width, int height ,JFrame frame) {
+	public ProductRegisterNameTextField(int x, int y, int width, int height ,JFrame frame) {
 		
 		this.x = x;
 		this.y = y;
@@ -38,7 +38,14 @@ public class ProductRegisterContentTextField implements ProductRegisterTextField
 		
 		textField.setBounds(x, y, width, height);
 	}
+
+	public static String getTextFieldValue() {
+		
+		return textField.getText();
+		
+	}
 	
 	
-	
+
+
 }

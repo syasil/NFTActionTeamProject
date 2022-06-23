@@ -1,8 +1,15 @@
-package ProductRegister;
+package ProductRegisterPage;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import FileFinder.FileFinder;
+
 
 public class ProductRegisterImageButton implements ProductRegisterButton{
 
@@ -29,6 +36,20 @@ public class ProductRegisterImageButton implements ProductRegisterButton{
 		setBoundButton(x, y, width, height);
 		setContentButton(text);
 		frame.getContentPane().add(button);
+		
+		
+		
+		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			
+				System.out.println("actionPerformed");
+				FileFinder filefinder = new FileFinder(frame);
+				
+			}
+		});
+		
 	}
 
 	//  button 의 위치와 크기를 x, y, width, height 값으로 set

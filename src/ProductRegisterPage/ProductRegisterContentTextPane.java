@@ -1,14 +1,14 @@
-package ProductRegister;
+package ProductRegisterPage;
 
 import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
-public class ProductRegisterNameTextPane implements ProductRegisterTextpane{
+public class ProductRegisterContentTextPane implements ProductRegisterTextpane{
 
 	private JFrame frame;
-	private JTextPane textPane;
+	private static JTextPane textPane;
 	
 	private int x;
 	private int y;
@@ -17,7 +17,7 @@ public class ProductRegisterNameTextPane implements ProductRegisterTextpane{
 	private SystemColor color;
 	private String text;
 	
-	public ProductRegisterNameTextPane(int x, int y, int width, int height, JFrame frame, SystemColor color, String text) {
+	public ProductRegisterContentTextPane(int x, int y, int width, int height, JFrame frame, SystemColor color, String text) {
 		
 		this.x = x;
 		this.y = y;
@@ -54,12 +54,13 @@ public class ProductRegisterNameTextPane implements ProductRegisterTextpane{
 	}
 	
 	//textPane의 내용을 text 값으로 set
-	@Override
-	public void setContentTextPane(String text) {
+
+	public static void setContentTextPane(String text) {
 	
 		textPane.setText(text);
 		
 	}
 
 }
+
 
