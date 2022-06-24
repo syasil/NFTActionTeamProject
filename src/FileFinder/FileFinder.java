@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ImageProcesser.ImageSizeModifider;
+import ImageProcesser.ProductImageSaver;
 import ProductRegisterPage.ProductRegisterImageContentTextPane;
 import ProductRegisterPage.ProductRegisterImageLabel;
 
@@ -23,7 +24,7 @@ public class FileFinder {
 	
 	private JFrame frame;
 	private JFileChooser fileChooser;
-	private Image image;
+	private BufferedImage image;
 	private String url;
 	
 	private ImageSizeModifider imageSizeModifider = new ImageSizeModifider();
@@ -53,7 +54,10 @@ public class FileFinder {
 				e.printStackTrace();
 				
 			}
-	
+			ProductImageSaver productImageSaver = new ProductImageSaver();
+			productImageSaver.setImage(image);
+			
+		
 			ProductRegisterImageLabel.setImage(new ImageIcon(imageSizeModifider.resizeImageFile(image, 100, 100)));
 			
 		}
