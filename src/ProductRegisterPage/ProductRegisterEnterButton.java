@@ -1,5 +1,6 @@
 package ProductRegisterPage;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ import ProductRegisterDataBase.DatabaseProductInsert;
 public class ProductRegisterEnterButton implements ProductRegisterButton{
 	private JFrame frame;
 	private JButton button;
+	private Font font;
 	
 	private int x;
 	private int y;
@@ -19,19 +21,23 @@ public class ProductRegisterEnterButton implements ProductRegisterButton{
 	private int height;
 	
 	
-	public ProductRegisterEnterButton(int x, int y, int width, int height ,JFrame frame, String text) {
+	
+	public ProductRegisterEnterButton(int x, int y, int width, int height ,JFrame frame, String text, Font font) {
 		
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.frame = frame;
+		this.font = font;
 		
 		System.out.println("ProductRegisterEnterButton::buildJButton");
 		
 		button = new JButton();
 		setBoundButton(x, y, width, height);
 		setContentButton(text);
+		//setFontButton(font);
+		
 		frame.getContentPane().add(button);
 		
 		
@@ -62,6 +68,11 @@ public class ProductRegisterEnterButton implements ProductRegisterButton{
 	public void setContentButton(String text) {
 	
 		button.setText(text);
+		
+	}
+	public void setFontButton(Font font) {
+		
+		button.setFont(font);
 		
 	}
 
