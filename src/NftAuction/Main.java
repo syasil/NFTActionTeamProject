@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import ProductRegister.FacadeProductRegisterPage;
 import UserJoin.FacadeJoinPage;
 
 import java.awt.Color;
