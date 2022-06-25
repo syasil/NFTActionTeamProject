@@ -3,11 +3,11 @@ package DBConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBConn {
+public class JdbcUtil {
 	// 데이터 베이스 연결
 	public static Connection con;
 	
-	public static Connection get() {
+	public static Connection getConnection() {
 		Connection conn = null;
 		
 		//연결

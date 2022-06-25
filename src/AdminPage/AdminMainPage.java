@@ -3,6 +3,7 @@ package AdminPage;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -34,7 +35,7 @@ import javax.swing.border.Border;
 public class AdminMainPage extends JFrame {
 	
 	// 관리자 로그인 후 보여지는 화면
-	AdminMainPage(){
+	AdminMainPage() throws SQLException{
 		//부모 컨테이너 생성, 컨테이너 레이아웃 설정
 		Container c = getContentPane();
 		c.setLayout(new FlowLayout());
@@ -44,19 +45,16 @@ public class AdminMainPage extends JFrame {
 		
 		//보여줄 목록 생성
 		ListPanel list1 = new ListPanel("상품목록");
-		ListPanel list2 = new ListPanel("회원목록");
 		
 
 		//여백설정
 		Border emptyBorder = BorderFactory.createEmptyBorder(30,50,30,50);
 		jlTitel.setBorder(emptyBorder);
 		list1.setBorder(emptyBorder);
-		list2.setBorder(emptyBorder);
 		
 		//add panel
 		c.add(jlTitel);
 		c.add(list1);
-		c.add(list2);
 				
 		//main panel setting		
 		setLocation(400, 200);
@@ -66,7 +64,7 @@ public class AdminMainPage extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		new AdminMainPage();
 	}
 }
