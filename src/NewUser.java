@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -58,6 +59,7 @@ public class NewUser {
 		JTextField newuserwhatText = new JTextField(10); // 뭐할지???
 		JButton newuserCancleButton = new JButton("취소");
 		JButton newuserSignupButton = new JButton("회원가입");
+		
 
 		// ***********좌표 설정***************
 		newuserPanel.setLayout(null);
@@ -85,7 +87,7 @@ public class NewUser {
 		newuserTitle.setFont(font);
 
 		// ***********add*******************
-		frame.add(newuserPanel);
+		frame.getContentPane().add(newuserPanel);
 
 		newuserPanel.add(newuserTitle);
 		newuserPanel.add(newuserIdLabel);
@@ -112,6 +114,16 @@ public class NewUser {
 			}
 		});
 
+		
+		newuserSignupButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String resultStr = null;
+				JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
+				frame.dispose();
+			}
+		});
+		
+		
 	}
 
 }

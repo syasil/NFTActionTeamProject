@@ -14,11 +14,10 @@ public class MissingID {
 
 	private JFrame frame;
 	private JTextField txtfBirth;
-	private JTextField textField;
+	private JTextField txtfID;
 
-	String id="abc";      //***예시 - 지워야함
-	
-	
+	String id = "abc"; // ***예시 - 지워야함
+
 	/**
 	 * Launch the application.
 	 */
@@ -63,21 +62,49 @@ public class MissingID {
 		panel.add(lbID);
 
 		txtfBirth = new JTextField();
-		txtfBirth.setBounds(99, 57, 123, 28);
+		txtfBirth.setBounds(99, 57, 123, 28);	
 		panel.add(txtfBirth);
 		txtfBirth.setColumns(10);
 
 		JButton btnBirth = new JButton("ID찾기");
-		btnBirth.setBounds(244, 56, 74, 28);
-		panel.add(btnBirth);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(99, 131, 123, 28);
-		panel.add(textField);
+		
+		
+		btnBirth.addActionListener(new ActionListener() {							//기능
+			public void actionPerformed(ActionEvent e) {
+				if (txtfBirth.getText().equals(id)) { 	// 추후 데이터 베이스 넣기
+					String resultStr = null;
+					JOptionPane.showMessageDialog(null, "ID는 ****입니다.");
+				}else {
+						JOptionPane.showMessageDialog(null, "가입된 ID가 없습니다.");
+						}
+					}
+		});
+		btnBirth.setBounds(244, 56, 82, 28);
+		panel.add(btnBirth);
+
+		txtfID = new JTextField();
+		txtfID.setColumns(10);
+		txtfID.setBounds(99, 131, 123, 28);
+		panel.add(txtfID);
 
 		JButton btnID = new JButton("PW찾기");
-		btnID.setBounds(244, 130, 74, 28);
+		btnID.addActionListener(new ActionListener() {		//기능
+			public void actionPerformed(ActionEvent e) {
+				if (txtfBirth.getText().equals(id)) {	// 추후 데이터 베이스 넣기
+					String resultStr = null;
+				if (txtfID.getText().equals(id)) { 
+					JOptionPane.showMessageDialog(null, "PW는 ****입니다.");
+				}else {
+						JOptionPane.showMessageDialog(null, "ID가 잘못되었습니다.");
+						}
+				}else {
+				JOptionPane.showMessageDialog(null, "Birth가 잘못되었습니다.");
+				}
+				
+			}
+		});
+		btnID.setBounds(244, 130, 82, 28);
 		panel.add(btnID);
 
 		JButton btnOk = new JButton("확인");
@@ -88,17 +115,14 @@ public class MissingID {
 		});
 		btnOk.setBounds(145, 201, 101, 50);
 		panel.add(btnOk);
+		
+		JLabel lblMent = new JLabel("*birth와 id입력 후 pw찾기 요망");
+		lblMent.setBounds(66, 172, 178, 15);
+		panel.add(lblMent);
 		frame.setVisible(true);
 
-		// ******** 기능 ****************
+
 
 		
-		btnBirth.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			if(txtfBirth.getText().equals(id)) {		//추후 데이터 베이스 넣기
-				String resultStr = null;resultStr = JOptionPane.showInputDialog("기본 입력창입니다.");
-			}
-			}
-		});
 	}
 }
