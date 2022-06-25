@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import ProductRegister.FacadeProductRegisterPage;
+//import 오류로 [FacadeJoinPage] 와 같이 임시 주석처리함
+//import ProductRegister.FacadeProductRegisterPage;
 import UserJoin.FacadeJoinPage;
 
 import java.awt.Color;
@@ -51,7 +52,7 @@ public class Main {
 		
 		//FacadeProductRegisterPage facadeprodictRegisterPage = new FacadeProductRegisterPage(mainFrame);
 		
-		FacadeJoinPage GeneralUserJoinPage = new FacadeJoinPage(1, mainFrame);
+//		FacadeJoinPage GeneralUserJoinPage = new FacadeJoinPage(1, mainFrame);
 		//1 == 일반회원 ,2 == 관리자회원
 		
 		
