@@ -38,27 +38,31 @@ public class AdminMainPage extends JFrame {
 	AdminMainPage() throws SQLException{
 		//부모 컨테이너 생성, 컨테이너 레이아웃 설정
 		Container c = getContentPane();
-		c.setLayout(new FlowLayout());
+		c.setLayout(null);
 
 		//타이틀 텍스트 영역
 		JLabel jlTitel = new JLabel("관리자로 로그인 되었습니다.");
 		
 		//보여줄 목록 생성
-		ListPanel list1 = new ListPanel("상품목록");
+		ListPanel allPdList = new ListPanel("상품목록");
 		
 
 		//여백설정
-		Border emptyBorder = BorderFactory.createEmptyBorder(30,50,30,50);
-		jlTitel.setBorder(emptyBorder);
-		list1.setBorder(emptyBorder);
+//		Border emptyBorder = BorderFactory.createEmptyBorder(30,50,30,50);
+//		jlTitel.setBorder(emptyBorder);
+//		allPdList.setBorder(emptyBorder);
 		
 		//add panel
 		c.add(jlTitel);
-		c.add(list1);
+		c.add(allPdList);
+		
+		//etc panel setting
+		jlTitel.setBounds(10, 10, 600, 20);
+		allPdList.setBounds(5, 40, 600, 400);
 				
-		//main panel setting		
+		//main panel setting
 		setLocation(400, 200);
-		setSize(520, 600);       
+		setSize(700, 800);
 		setVisible(true);
 //		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
