@@ -1,73 +1,182 @@
+import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class practice extends JFrame{
 
-	practice(){
-	HashMap<String,String> h=new HashMap<String, String>();
-	
-	
-	Container c=getContentPane();
-	setLayout(null);
-	setSize(300,300);
-	JTextField j1=new JTextField(10);
-	JTextField j2=new JTextField(10);
-	JTextField j3=new JTextField(10);
-	JLabel l1=new JLabel("¿µ¾î");
-	JLabel l2=new JLabel("ÇÑ±Û");
-	JButton b1=new JButton("»ğÀÔ");
-	JButton b2=new JButton("Ã£±â");
-	
-	
-	j1.setBounds(40, 10, 90, 20);
-	j2.setBounds(160, 10, 90, 20);
-	j3.setBounds(40, 70, 200, 150);
-	l1.setBounds(10, 10, 30, 20);
-	l2.setBounds(130, 10, 30, 20);
-	b1.setBounds(70, 40, 60, 25);
-	b2.setBounds(140, 40, 60, 25);
-	
-	b1.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			h.put(j1.getText(), j2.getText());
-			j3.setText("»ğÀÔµÇ¾ú½À´Ï´Ù");
-		}
-	});
-	b2.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(h.containsKey(j1.getText())) {
-			j3.setText(j1.getText()+" "+h.get(j1.getText()));}
-			else {
-				j3.setText("»çÀü¿¡ µî·Ï µÇÁö ¾Ê¾Ò´Ù");
-			}
-		}
-	});
-	
-	
-	
-	c.add(l1);
-	c.add(l2);
-	c.add(j1);
-	c.add(j2);
-	c.add(j3);
-	c.add(b1);
-	c.add(b2);
-	setVisible(true);
-	}
-	
+	private JFrame frame;
+	private JTextField txtfBirth;
+	private JTextField txtfID;
+
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
-		new practice();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					practice window = new practice();
+					// window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
+	/**
+	 * Create the application.
+	 */
+	public practice() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		JFrame frame = new JFrame();
+		frame.setBounds(100, 100, 382, 340);
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+
+		JLabel lbBirth = new JLabel("Birth : ");
+		lbBirth.setBounds(56, 52, 60, 36);
+		panel.add(lbBirth);
+
+		JLabel lbID = new JLabel("ID : ");
+		lbID.setBounds(56, 126, 60, 36);
+		panel.add(lbID);
+
+		txtfBirth = new JTextField();
+		txtfBirth.setBounds(99, 57, 123, 28);	
+		panel.add(txtfBirth);
+		txtfBirth.setColumns(10);
+
+		JButton btnBirth = new JButton("IDì°¾ê¸°");
+		
+		
+		
+		btnBirth.addActionListener(new ActionListener() {							//ê¸°ëŠ¥
+			public void actionPerformed(ActionEvent e) {
+				Connection conn=null; //DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
+				PreparedStatement psmt=null;//sqlï¿½ï¿½ ï¿½ï¿½Ã¼
+				ResultSet rs=null; //sqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+				
+				
+				try {
+					String que="select * from enrol";
+					
+					conn=connecDb.get(); //DBï¿½ï¿½ï¿½ï¿½
+					
+					psmt=conn.prepareStatement(que);
+					rs=psmt.executeQuery();
+					//select => exectueQuery()
+					//DML(insert,update,delete) => executeUpdate();
+					
+					while(rs.next()) {
+						
+						String sub_no=rs.getString(1);
+						String stu_no=rs.getString(2);
+						int enr_grade=rs.getInt(3);
+						if(txtfBirth.getText().equals(stu_no)) {
+							JOptionPane.showMessageDialog(null, enr_grade+"ì…ë‹ˆë‹¤");
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "ë“±ë¡ëœ"+txtfBirth.getText()+"ê°€ ì—†ìŠµë‹ˆë‹¤.");
+							break;
+						}
+					}
+				
+				rs.close();
+				psmt.close();
+				conn.close();
+			}catch(Exception e1) {
+				e1.getStackTrace();
+			}}
+		});
+		btnBirth.setBounds(244, 56, 82, 28);
+		panel.add(btnBirth);
+
+		txtfID = new JTextField();
+		txtfID.setColumns(10);
+		txtfID.setBounds(99, 131, 123, 28);
+		panel.add(txtfID);
+
+		JButton btnID = new JButton("PWì°¾ê¸°");
+		btnID.addActionListener(new ActionListener() {		//ê¸°ëŠ¥
+			public void actionPerformed(ActionEvent e) {
+				Connection conn=null; //DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
+				PreparedStatement psmt=null;//sqlï¿½ï¿½ ï¿½ï¿½Ã¼
+				ResultSet rs=null; //sqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+				
+				
+				try {
+					String que="select * from enrol1";
+					
+					conn=connecDb.get(); //DBï¿½ï¿½ï¿½ï¿½
+					
+					psmt=conn.prepareStatement(que);
+					rs=psmt.executeQuery();
+					//select => exectueQuery()
+					//DML(insert,update,delete) => executeUpdate();
+					
+					while(rs.next()) {
+						
+						String sub_no=rs.getString(1);
+						String stu_no=rs.getString(2);
+						int enr_grade=rs.getInt(3);
+						if(txtfID.getText().equals(stu_no)) {
+							JOptionPane.showMessageDialog(null, enr_grade+"ì…ë‹ˆë‹¤");
+						}else {
+							JOptionPane.showMessageDialog(null, "ë“±ë¡ëœ"+txtfID.getText()+"ê°€ ì—†ìŠµë‹ˆë‹¤.");
+							break;
+						}
+					}
+				
+				rs.close();
+				psmt.close();
+				conn.close();
+			}catch(Exception e1) {
+				e1.getStackTrace();
+			}}
+		});
+		btnID.setBounds(244, 130, 82, 28);
+		panel.add(btnID);
+
+		JButton btnOk = new JButton("í™•ì¸");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
+		btnOk.setBounds(145, 201, 101, 50);
+		panel.add(btnOk);
+		
+		JLabel lblMent = new JLabel("*birthì™€ idì…ë ¥ í›„ pwì°¾ê¸° ìš”ë§");
+		lblMent.setBounds(66, 172, 178, 15);
+		panel.add(lblMent);
+		frame.setVisible(true);
+
+
+
+		
+	}
 }
