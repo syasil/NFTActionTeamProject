@@ -2,6 +2,9 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,8 +18,6 @@ public class MissingID {
 	private JFrame frame;
 	private JTextField txtfBirth;
 	private JTextField txtfID;
-
-	String id = "abc"; // ***예시 - 지워야함
 
 	/**
 	 * Launch the application.
@@ -46,83 +47,138 @@ public class MissingID {
 	 */
 	private void initialize() {
 		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, 382, 340);
-		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		JPanel pnlMissing = new JPanel();
 
-		JLabel lbBirth = new JLabel("Birth : ");
-		lbBirth.setBounds(56, 52, 60, 36);
-		panel.add(lbBirth);
-
-		JLabel lbID = new JLabel("ID : ");
-		lbID.setBounds(56, 126, 60, 36);
-		panel.add(lbID);
-
-		txtfBirth = new JTextField();
-		txtfBirth.setBounds(99, 57, 123, 28);	
-		panel.add(txtfBirth);
-		txtfBirth.setColumns(10);
-
+		JLabel lbBirth = new JLabel("Birth : "); // birth 형식 설정 필요 *현재 varchar2형식
+		txtfBirth = new JTextField(10);
 		JButton btnBirth = new JButton("ID찾기");
-		
-		
-		
-		btnBirth.addActionListener(new ActionListener() {							//기능
+		JLabel lbID = new JLabel("ID : ");
+		txtfID = new JTextField(10);
+		JButton btnID = new JButton("PW찾기");
+		JButton btnOk = new JButton("확인");
+		JLabel lblMent = new JLabel("*birth와 id입력 후 pw찾기 요망");
+
+		pnlMissing.setLayout(null);
+		frame.setVisible(true);
+
+		// ***********좌표 설정***************
+
+		frame.setBounds(100, 100, 382, 340);
+		lbBirth.setBounds(56, 52, 60, 36);
+		lbID.setBounds(56, 126, 60, 36);
+		txtfBirth.setBounds(99, 57, 123, 28);
+		btnBirth.setBounds(244, 56, 82, 28);
+		txtfID.setBounds(99, 131, 123, 28);
+		btnID.setBounds(244, 130, 82, 28);
+		btnOk.setBounds(145, 201, 101, 50);
+		lblMent.setBounds(66, 172, 178, 15);
+
+		// ***********add*******************
+
+		frame.getContentPane().add(pnlMissing, BorderLayout.CENTER);
+
+		pnlMissing.add(lbBirth);
+		pnlMissing.add(txtfBirth);
+		pnlMissing.add(btnBirth);
+		pnlMissing.add(lbID);
+		pnlMissing.add(txtfID);
+		pnlMissing.add(btnID);
+		pnlMissing.add(btnOk);
+		pnlMissing.add(lblMent);
+
+		// **********기능******************
+
+		btnBirth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtfBirth.getText().equals(id)) { 	// 추후 데이터 베이스 넣기
-					String resultStr = null;
-					JOptionPane.showMessageDialog(null, "ID는 ****입니다.");
-				}else {
-						JOptionPane.showMessageDialog(null, "가입된 ID가 없습니다.");
+				Connection conn = null;
+				PreparedStatement psmt = null;
+				ResultSet rs = null;
+
+				try {
+					String que = "select * from test1";
+
+					conn = connecDb.get();
+
+					psmt = conn.prepareStatement(que);
+					rs = psmt.executeQuery();
+
+					while (rs.next()) {
+
+						String id = rs.getString(1);
+						String pw = rs.getString(2);
+						String birth = rs.getString(3);
+						if (txtfBirth.getText().equals(birth)) {
+							JOptionPane.showMessageDialog(null, "가입한 아이디는 " + id + "입니다");
+								break;
+						} else {
+							JOptionPane.showMessageDialog(null, "등록된" + txtfBirth.getText() + "가 없습니다.");
+							break;
 						}
 					}
-		});
-		btnBirth.setBounds(244, 56, 82, 28);
-		panel.add(btnBirth);
 
-		txtfID = new JTextField();
-		txtfID.setColumns(10);
-		txtfID.setBounds(99, 131, 123, 28);
-		panel.add(txtfID);
-
-		JButton btnID = new JButton("PW찾기");
-		btnID.addActionListener(new ActionListener() {		//기능
-			public void actionPerformed(ActionEvent e) {
-				if (txtfBirth.getText().equals(id)) {	// 추후 데이터 베이스 넣기
-					String resultStr = null;
-				if (txtfID.getText().equals(id)) { 
-					JOptionPane.showMessageDialog(null, "PW는 ****입니다.");
-				}else {
-						JOptionPane.showMessageDialog(null, "ID가 잘못되었습니다.");
-						}
-				}else {
-				JOptionPane.showMessageDialog(null, "Birth가 잘못되었습니다.");
+					rs.close();
+					psmt.close();
+					conn.close();
+				} catch (Exception e1) {
+					e1.getStackTrace();
 				}
-				
 			}
 		});
-		btnID.setBounds(244, 130, 82, 28);
-		panel.add(btnID);
+		// --------------------------------------------------------------------
 
-		JButton btnOk = new JButton("확인");
+		btnID.addActionListener(new ActionListener() { // 기능
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = null;
+				PreparedStatement psmt = null;
+				ResultSet rs = null;
+
+				try {
+					String que = "select * from test1";
+
+					conn = connecDb.get();
+
+					psmt = conn.prepareStatement(que);
+					rs = psmt.executeQuery();
+
+					while (rs.next()) {
+
+						String id = rs.getString(1);
+						String pw = rs.getString(2);
+						String birth = rs.getString(3);
+						if (txtfBirth.getText().equals(birth)) {
+							if (txtfID.getText().equals(id)) {
+								JOptionPane.showMessageDialog(null, "pw는 " + pw + "입니다");
+								break;
+							} else {
+								JOptionPane.showMessageDialog(null, "아이디가 잘못되엇습니다.");
+								break;
+							}
+						} else if (txtfBirth.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Birth를 입력해주세요.");
+							break;
+						} else {
+							JOptionPane.showMessageDialog(null, "등록된" + txtfBirth.getText() + "가 없습니다.");
+							break;
+						}
+					}
+
+					rs.close();
+					psmt.close();
+					conn.close();
+				} catch (Exception e1) {
+					e1.getStackTrace();
+				}
+			}
+		});
+
+		// --------------------------------------------------------------------
+
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
 		});
-		btnOk.setBounds(145, 201, 101, 50);
-		panel.add(btnOk);
-		
-		JLabel lblMent = new JLabel("*birth와 id입력 후 pw찾기 요망");
-		lblMent.setBounds(66, 172, 178, 15);
-		panel.add(lblMent);
-		frame.setVisible(true);
 
-
-
-		
 	}
 }

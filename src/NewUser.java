@@ -3,6 +3,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.text.DateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,65 +51,64 @@ public class NewUser {
 
 		frame.setSize(300, 500);
 
-		JPanel newuserPanel = new JPanel();
-		JLabel newuserTitle = new JLabel("회원가입");
-		JLabel newuserIdLabel = new JLabel("ID: ");
-		JLabel newuserPassLabel = new JLabel("PW:");
-		JLabel newuserBirthLabel = new JLabel("Birth: ");
-		JLabel newuserwhatLabel = new JLabel("what: "); // 뭐할지???
-		JTextField newuserIdText = new JTextField(10);
-		JPasswordField newuserPassText = new JPasswordField(10);
-		JTextField newuserBirthText = new JTextField(10);
-		JTextField newuserwhatText = new JTextField(10); // 뭐할지???
-		JButton newuserCancleButton = new JButton("취소");
-		JButton newuserSignupButton = new JButton("회원가입");
-		
+		JPanel pnlNewuser = new JPanel();
+		JLabel lblTitle = new JLabel("회원가입");
+		JLabel lblID = new JLabel("ID: ");
+		JLabel lblPw = new JLabel("PW:");
+		JLabel lblBirth = new JLabel("Birth: ");
+		JLabel lblNick = new JLabel("NickName: ");
+		JTextField txtfID = new JTextField(10);
+		JPasswordField txtfPw = new JPasswordField(10);
+		JTextField txtfBirth = new JTextField(10);
+		JTextField txtfNick = new JTextField(10);
+		JButton bntCancle = new JButton("취소");
+		JButton bntSignup = new JButton("회원가입");
+
+		frame.setVisible(true);
 
 		// ***********좌표 설정***************
-		newuserPanel.setLayout(null);
-		newuserTitle.setBounds(60, 10, 150, 100);
-		newuserIdLabel.setBounds(50, 100, 30, 30);
-		newuserIdText.setBounds(100, 100, 100, 30);
-		newuserPassLabel.setBounds(50, 150, 30, 30);
-		newuserPassText.setBounds(100, 150, 100, 30);
-		newuserBirthLabel.setBounds(50, 200, 40, 30);
-		newuserBirthText.setBounds(100, 200, 100, 30);
-		newuserwhatLabel.setBounds(50, 250, 40, 30);
-		newuserwhatText.setBounds(100, 250, 100, 30);
+		pnlNewuser.setLayout(null);
+		lblTitle.setBounds(60, 10, 150, 100);
+		lblID.setBounds(34, 99, 30, 30);
+		txtfID.setBounds(100, 100, 100, 30);
+		lblPw.setBounds(34, 149, 30, 30);
+		txtfPw.setBounds(100, 150, 100, 30);
+		lblBirth.setBounds(34, 199, 40, 30);
+		txtfBirth.setBounds(100, 200, 100, 30);
+		lblNick.setBounds(34, 249, 68, 30);
+		txtfNick.setBounds(100, 250, 100, 30);
 
-		newuserSignupButton.setBounds(20, 300, 100, 20);
-		newuserCancleButton.setBounds(140, 300, 100, 20);
+		bntSignup.setBounds(20, 300, 100, 20);
+		bntCancle.setBounds(140, 300, 100, 20);
 
 		// ************색상********************
-		newuserCancleButton.setBackground(Color.LIGHT_GRAY);
-		newuserSignupButton.setBackground(Color.LIGHT_GRAY);
-		newuserCancleButton.setBackground(Color.LIGHT_GRAY);
+		bntCancle.setBackground(Color.LIGHT_GRAY);
+		bntSignup.setBackground(Color.LIGHT_GRAY);
+		bntCancle.setBackground(Color.LIGHT_GRAY);
 
 		// *************폰트*********************
 		Font font = new Font("궁서", Font.BOLD, 30);
 
-		newuserTitle.setFont(font);
+		lblTitle.setFont(font);
 
 		// ***********add*******************
-		frame.getContentPane().add(newuserPanel);
+		frame.getContentPane().add(pnlNewuser);
 
-		newuserPanel.add(newuserTitle);
-		newuserPanel.add(newuserIdLabel);
-		newuserPanel.add(newuserIdText);
-		newuserPanel.add(newuserPassLabel);
-		newuserPanel.add(newuserPassText);
-		newuserPanel.add(newuserBirthLabel);
-		newuserPanel.add(newuserBirthText);
-		newuserPanel.add(newuserwhatLabel); //
-		newuserPanel.add(newuserwhatText); //
-		newuserPanel.add(newuserCancleButton);
-		newuserPanel.add(newuserSignupButton);
-
-		frame.setVisible(true);
+		pnlNewuser.add(lblTitle);
+		pnlNewuser.add(lblID);
+		pnlNewuser.add(txtfID);
+		pnlNewuser.add(lblPw);
+		pnlNewuser.add(txtfPw);
+		pnlNewuser.add(lblBirth);
+		pnlNewuser.add(txtfBirth);
+		pnlNewuser.add(lblNick);
+		pnlNewuser.add(txtfNick);
+		pnlNewuser.add(bntCancle);
+		pnlNewuser.add(bntSignup);
 
 		// **********기능******************
 
-		newuserCancleButton.addActionListener(new ActionListener() {
+		bntCancle.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -114,16 +117,38 @@ public class NewUser {
 			}
 		});
 
-		
-		newuserSignupButton.addActionListener(new ActionListener() {
+		// ------------------------------------------------------------------
+		bntSignup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+				String que = "insert into test1(id,pw,birth,nick)" + "values(?,?,?,?)";
+
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				try {
+					Class.forName("oracle.jdbc.driver.OracleDriver");
+					con = DriverManager.getConnection(url, "JYY", "@Tt38003800");
+
+					pstmt = con.prepareStatement(que);
+
+					pstmt.setString(1, txtfID.getText());
+					pstmt.setString(2, txtfPw.getText());
+					pstmt.setString(3, txtfBirth.getText()); // date 타입 변경해야함
+					pstmt.setString(4, txtfNick.getText());
+
+					int n = pstmt.executeUpdate();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+
+				}
+
 				String resultStr = null;
 				JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
 				frame.dispose();
 			}
 		});
-		
-		
+
 	}
 
 }
