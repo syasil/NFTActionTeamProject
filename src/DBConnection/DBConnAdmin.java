@@ -5,59 +5,71 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DBConnAdmin {
 	
-	JdbcUtil dbConn = new JdbcUtil();
-	
-	Connection conn = null;
-	PreparedStatement psmt = null;
-	ResultSet rs = null;	
+	static JdbcUtil dbConn = new JdbcUtil();
 	
 	//db 에서 가져올 값들
-	int pd_no;
-	String pd_name;
-	String pd_desc;
-	int pd_price;		//상품값 기본 null 설정
-	int pd_reg_user;
-	java.sql.Date pd_reg_date;
+	static int pd_no;
+	static String pd_name;
+	static String pd_desc;
+	static int pd_price;		//상품값 기본 null 설정
+	static int pd_reg_user;
+	static java.sql.Date pd_reg_date;
 	
-	String que;
+	static String que;
 	
 	//DB 값 가져오기 - select
-	public void getData() throws SQLException {
+	public static String[][] getPdList() {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
 		try {
-			que = "SELECT * FROM PRODUCT_B ";
+//			que = "SELECT * FROM PRODUCT_B ";
+			que = "SELECT PRODUCT_NUMBER, PRODUCT_NAME, PRODUCT_DESCRIPTION, "
+					+ "PRODUCT_PRICE, PRODUCT_REGISTER_USER, "
+					+ "PRODUCT_REGISTER_DATE "
+					+ "FROM PRODUCT_B ";
 
 			//DB 연결
 			conn = dbConn.getConnection();
 			psmt = conn.prepareStatement(que);
 			rs = psmt.executeQuery();
 			
+			//반환값 저장
+			ArrayList<String[]> pdlist = new ArrayList<String[]>(); 
+			
 			while(rs.next()) {
-				pd_no = rs.getInt(1);
-				pd_name = rs.getString(2);
-				pd_desc = rs.getString(3);
-				pd_price = rs.getInt(4);
-				pd_reg_user = rs.getInt(5);
-				pd_reg_date = rs.getDate(6);
-				
-//				psmt.setInt(1, pd_no); 
-//				psmt.setString(2, pd_name); 
-//				psmt.setString(3, pd_desc); 
-//				psmt.setInt(4, pd_price); 
-//				psmt.setInt(5, pd_reg_user);
-//				psmt.setDate(6, pd_reg_date);
-				
+				pdlist.add (new String[] {
+						rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getString(6)
+				});
+//				pd_no = rs.getInt(1);
+//				pd_name = rs.getString(2);
+//				pd_desc = rs.getString(3);
+//				pd_price = rs.getInt(4);
+//				pd_reg_user = rs.getInt(5);
+//				pd_reg_date = rs.getDate(6);
 			}
+			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
+			String[][] arr = new String[pdlist.size()][6];
+			return pdlist.toArray(arr);
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return null;
 		}
-		rs.close();
-		psmt.close();
-		conn.close();
+//		rs.close();
+//		psmt.close();
+//		conn.close();
 	}
 	
 	
