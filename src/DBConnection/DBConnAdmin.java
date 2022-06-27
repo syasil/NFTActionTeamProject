@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import AdminPage.ListPanel;
+
 public class DBConnAdmin {
 	
 	static JdbcUtil dbConn = new JdbcUtil();
@@ -18,7 +20,8 @@ public class DBConnAdmin {
 	static int pd_reg_user;
 	static java.sql.Date pd_reg_date;
 	
-	static String que;
+	static String que;	
+	
 	
 	//DB 값 가져오기 - select
 	//전체목록, 일부 쿼리만 따로하고 한개 함수내에서 가능
@@ -64,4 +67,60 @@ public class DBConnAdmin {
 		 * rs.close(); psmt.close(); conn.close();
 		 */
 	}
+	
+	//검색결과 리스트
+	public static String[][] getPdSearch(String searchText){
+		System.out.println("1."+searchText);
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			if(searchText.equals("")) {
+				que = "SELECT PRODUCT_NUMBER, PRODUCT_NAME, PRODUCT_DESCRIPTION, "
+						+ "PRODUCT_PRICE, PRODUCT_REGISTER_USER, "
+						+ "PRODUCT_REGISTER_DATE "
+						+ "FROM PRODUCT_B ";
+				System.out.println("2.전체검색");
+			}
+			else {
+				que = "SELECT PRODUCT_NUMBER, PRODUCT_NAME, PRODUCT_DESCRIPTION, "
+						+ " PRODUCT_PRICE, PRODUCT_REGISTER_USER, PRODUCT_REGISTER_DATE "
+						+ " FROM PRODUCT_B "
+						+ " WHERE PRODUCT_NAME LIKE '%"+ searchText +"%'";
+//						+ " WHERE PRODUCT_NAME LIKE '%he%'";
+				System.out.println("3.부분검색 "+ que);
+			}
+			
+
+			//DB 연결
+			conn = dbConn.getConnection();
+			psmt = conn.prepareStatement(que);
+			rs = psmt.executeQuery();
+			
+			//반환값 저장
+			ArrayList<String[]> pdlist = new ArrayList<String[]>(); 
+			
+			while(rs.next()) {
+				pdlist.add (new String[] {
+						rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getString(6)
+				});
+			}
+			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
+			String[][] arr = new String[pdlist.size()][6];
+			return pdlist.toArray(arr);
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 }

@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
@@ -41,6 +42,7 @@ public class AdminMainPage extends JFrame {
 
 		//타이틀 텍스트 영역
 		JLabel jlTitel = new JLabel("관리자로 로그인 되었습니다.");
+		JButton btn_logout = new JButton("로그아웃");
 		
 		//보여줄 목록 생성
 		ListPanel allPdList = new ListPanel("상품목록");
@@ -48,15 +50,17 @@ public class AdminMainPage extends JFrame {
 		
 		//add panel
 		c.add(jlTitel);
+		c.add(btn_logout);
 		c.add(allPdList);
 		
-		//etc panel setting
-		jlTitel.setBounds(10, 10, 600, 20);
-		allPdList.setBounds(5, 40, 600, 400);
+		//panel position, size setting
+		jlTitel.setBounds(20, 20, 400, 20);
+		btn_logout.setBounds(500, 20, 100, 20);
+		allPdList.setBounds(15, 100, 600, 400);
 				
 		//main panel setting
-		setLocation(400, 200);
-		setSize(700, 800);
+		setLocation(200, 100);
+		setSize(650, 800);
 		setVisible(true);
 //		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
