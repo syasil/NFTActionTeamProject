@@ -21,6 +21,7 @@ public class DBConnAdmin {
 	static String que;
 	
 	//DB 값 가져오기 - select
+	//전체목록, 일부 쿼리만 따로하고 한개 함수내에서 가능
 	public static String[][] getPdList() {
 		Connection conn = null;
 		PreparedStatement psmt = null;

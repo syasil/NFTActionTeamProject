@@ -36,7 +36,6 @@ public class AdminMainPage extends JFrame {
 	
 	// 관리자 로그인 후 보여지는 화면
 	AdminMainPage() throws SQLException{
-		//부모 컨테이너 생성, 컨테이너 레이아웃 설정
 		Container c = getContentPane();
 		c.setLayout(null);
 
@@ -45,12 +44,7 @@ public class AdminMainPage extends JFrame {
 		
 		//보여줄 목록 생성
 		ListPanel allPdList = new ListPanel("상품목록");
-		
 
-		//여백설정
-//		Border emptyBorder = BorderFactory.createEmptyBorder(30,50,30,50);
-//		jlTitel.setBorder(emptyBorder);
-//		allPdList.setBorder(emptyBorder);
 		
 		//add panel
 		c.add(jlTitel);
