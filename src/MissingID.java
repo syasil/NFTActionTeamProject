@@ -58,7 +58,8 @@ public class MissingID {
 		JButton btnID = new JButton("PW찾기");
 		JButton btnOk = new JButton("확인");
 		JLabel lblMent = new JLabel("*birth와 id입력 후 pw찾기 요망");
-
+		JLabel lblMent2 = new JLabel("*yyyymmdd");
+		
 		pnlMissing.setLayout(null);
 		frame.setVisible(true);
 
@@ -73,7 +74,7 @@ public class MissingID {
 		btnID.setBounds(244, 130, 82, 28);
 		btnOk.setBounds(145, 201, 101, 50);
 		lblMent.setBounds(66, 172, 178, 15);
-
+		lblMent2.setBounds(66, 96, 82, 20);
 		// ***********add*******************
 
 		frame.getContentPane().add(pnlMissing, BorderLayout.CENTER);
@@ -86,6 +87,7 @@ public class MissingID {
 		pnlMissing.add(btnID);
 		pnlMissing.add(btnOk);
 		pnlMissing.add(lblMent);
+		pnlMissing.add(lblMent2);
 
 		// **********기능******************
 
@@ -105,9 +107,9 @@ public class MissingID {
 
 					while (rs.next()) {
 
-						String id = rs.getString(1);
-						String pw = rs.getString(2);
-						String birth = rs.getString(3);
+						String id = rs.getString(2);
+						String pw = rs.getString(3);
+						String birth = rs.getString(4);
 						if (txtfBirth.getText().equals(birth)) {
 							JOptionPane.showMessageDialog(null, "가입한 아이디는 " + id + "입니다");
 								break;
@@ -143,9 +145,9 @@ public class MissingID {
 
 					while (rs.next()) {
 
-						String id = rs.getString(1);
-						String pw = rs.getString(2);
-						String birth = rs.getString(3);
+						String id = rs.getString(2);
+						String pw = rs.getString(3);
+						String birth = rs.getString(4);
 						if (txtfBirth.getText().equals(birth)) {
 							if (txtfID.getText().equals(id)) {
 								JOptionPane.showMessageDialog(null, "pw는 " + pw + "입니다");
@@ -156,6 +158,7 @@ public class MissingID {
 							}
 						} else if (txtfBirth.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Birth를 입력해주세요.");
+							System.out.println(id+pw+birth);
 							break;
 						} else {
 							JOptionPane.showMessageDialog(null, "등록된" + txtfBirth.getText() + "가 없습니다.");

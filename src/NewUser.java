@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.text.DateFormat;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import javax.swing.JTextField;
 public class NewUser {
 
 	private JFrame frame;
+	private JTextField txtfWallet;
 
 	/**
 	 * Launch the application.
@@ -63,7 +65,12 @@ public class NewUser {
 		JTextField txtfNick = new JTextField(10);
 		JButton bntCancle = new JButton("취소");
 		JButton bntSignup = new JButton("회원가입");
-
+		JLabel lblMent = new JLabel("*yyyymmdd");
+		JLabel lblWallet = new JLabel("Wallet: ");
+		txtfWallet = new JTextField(10);
+		
+		
+		
 		frame.setVisible(true);
 
 		// ***********좌표 설정***************
@@ -77,10 +84,13 @@ public class NewUser {
 		txtfBirth.setBounds(100, 200, 100, 30);
 		lblNick.setBounds(34, 249, 68, 30);
 		txtfNick.setBounds(100, 250, 100, 30);
-
-		bntSignup.setBounds(20, 300, 100, 20);
-		bntCancle.setBounds(140, 300, 100, 20);
-
+		lblMent.setBounds(20, 219, 82, 20);
+		bntSignup.setBounds(20, 387, 100, 20);
+		bntCancle.setBounds(132, 387, 100, 20);
+		lblWallet.setBounds(34, 289, 68, 30);
+		txtfWallet.setBounds(100, 289, 100, 30);
+		
+		
 		// ************색상********************
 		bntCancle.setBackground(Color.LIGHT_GRAY);
 		bntSignup.setBackground(Color.LIGHT_GRAY);
@@ -105,6 +115,13 @@ public class NewUser {
 		pnlNewuser.add(txtfNick);
 		pnlNewuser.add(bntCancle);
 		pnlNewuser.add(bntSignup);
+		pnlNewuser.add(lblMent);
+		pnlNewuser.add(lblWallet);
+		pnlNewuser.add(txtfWallet);
+		
+		
+		
+		
 
 		// **********기능******************
 
@@ -122,8 +139,8 @@ public class NewUser {
 			public void actionPerformed(ActionEvent e) {
 
 				String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
-				String que = "insert into test1(id,pw,birth,nick)" + "values(?,?,?,?)";
-
+				String que = "insert into test1(no,id,pw,birth,nick)" + "values(seq_test.NEXTVAL,?,?,?,?)";
+				
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				try {
@@ -131,12 +148,13 @@ public class NewUser {
 					con = DriverManager.getConnection(url, "JYY", "@Tt38003800");
 
 					pstmt = con.prepareStatement(que);
-
+					
+					//pstmt.setString(1,null); 	  시퀀스 테스트 완료
 					pstmt.setString(1, txtfID.getText());
 					pstmt.setString(2, txtfPw.getText());
-					pstmt.setString(3, txtfBirth.getText()); // date 타입 변경해야함
+					pstmt.setString(3, txtfBirth.getText()); 
 					pstmt.setString(4, txtfNick.getText());
-
+					
 					int n = pstmt.executeUpdate();
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -150,5 +168,4 @@ public class NewUser {
 		});
 
 	}
-
 }

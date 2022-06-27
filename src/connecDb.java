@@ -6,11 +6,12 @@ public class connecDb {
 	public static Connection get() {
 		Connection conn = null;
 		/*
-		create table test1(
-				id varchar2(20),
-				pw varchar2(20),
-				birth varchar2(20),
-				nick varchar2(20));*/
+		create table test1 (
+			NO NUMBER(3),
+			ID VARCHAR2(20),
+			PW NUMBER(10),
+			BIRTH DATE,
+			NICK VARCHAR2(20));*/
 		//테스트용 테이블
 		try {
 
