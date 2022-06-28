@@ -4,11 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import swing.CLabel;
+import swing.CPanel;
 import swing.CScrollPane;
 
 public class PanelList extends JFrame {
@@ -43,12 +44,12 @@ public class PanelList extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		JPanel panel = new JPanel();
+		CPanel panel = new CPanel();
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		for (int i = 0; i < 100; i++) {
-			panel.add(new JLabel("안녕" + i)); 
+			panel.add(new CLabel("안녕" + i)); 
 		}
 		
 		

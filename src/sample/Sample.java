@@ -22,8 +22,14 @@ public class Sample extends CPanel {
 	private CPanel instance;
 	private CTextField txtUserID;
 	private CTextField txtUserPW;
-	
+
 	public Sample() {
+		this(0);
+	}
+	
+	
+	public Sample(int roundSize) {
+		super(roundSize);
 		this.instance = this;
 		initComponents();
 	}

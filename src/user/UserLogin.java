@@ -107,10 +107,10 @@ public class UserLogin extends CPanel {
 		//////////////////////////////////
 		// 패널 닫기
 		//////////////////////////////////
-		CLabel lblClose = new CLabel("X");
+		CLabel lblClose = new CLabel("×");
 		lblClose.setFont(new Font("Arial", Font.PLAIN, 40));
 		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblClose.setBounds(361, 10, 27, 45);
+		lblClose.setBounds(358, 12, 30, 30);
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				instance.setVisible(false);

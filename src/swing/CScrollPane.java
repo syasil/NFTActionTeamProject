@@ -37,8 +37,8 @@ public class CScrollPane extends JScrollPane {
 		};
 
 		MyScrollbarUI() {
-			imageThumb = FauxImage.create(5, 5, Color.DARK_GRAY);
-			imageTrack = FauxImage.create(5, 5, Color.LIGHT_GRAY);
+			imageThumb = FauxImage.create(5, 5, Color.GRAY);
+			imageTrack = FauxImage.create(5, 5, Color.DARK_GRAY);
 		}
 		
 		@Override

@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -20,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import db.DB;
 import swing.CButton;
+import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
 
@@ -77,10 +77,8 @@ public class List extends JFrame {
 		txtKeyword.setBounds(12, 60, 188, 32);
 		contentPane.add(txtKeyword);
 		
-		JLabel lblWordList = new JLabel("직원 목록");
+		CLabel lblWordList = new CLabel("직원 목록");
 		lblWordList.setBounds(12, 100, 188, 30);
-		lblWordList.setForeground(Color.WHITE);
-		lblWordList.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		contentPane.add(lblWordList);
 		
 		CButton btnSearch = new CButton("검색하기");
@@ -97,8 +95,9 @@ public class List extends JFrame {
 		btnAddWord.setBounds(12, 519, 320, 30);
 		btnAddWord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Insert frame = new Insert();
-				frame.setVisible(true);
+				Insert insertFrame = new Insert();
+				insertFrame.setLocationRelativeTo(btnAddWord);
+				insertFrame.setVisible(true);
 			}
 		});
 		contentPane.add(btnAddWord);
