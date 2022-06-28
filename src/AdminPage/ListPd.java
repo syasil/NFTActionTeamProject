@@ -42,27 +42,27 @@ public class ListPd extends JFrame {
 	private void initSet() {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		setBounds(200,100,650,800);
-		//List Panel setting
 		setVisible(true);
 		contentPane.setLayout(null);
-		contentPane.setBackground(Color.white);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-		//상품 목록 영역
+		//상품 목록 타이틀 영역
 		JLabel jlListTitel = new JLabel("상품목록");
-		jlListTitel.setBounds(10, 5, 100, 20);
+		jlListTitel.setBounds(40, 25, 100, 20);
 		contentPane.add(jlListTitel);
+		
+		//상품 목록 안내 텍스트 영역
+		JLabel jlListText = new JLabel("상품이름 검색 시 대,소문자를 구분해서 입력하세요");
+		jlListText.setBounds(310, 65, 500, 20);
+		contentPane.add(jlListText);
 		
 		//검색어 입력 영역
 		jtPdSearch = new JTextField();
-		jtPdSearch.setBounds(120, 30, 200, 20);
+		jtPdSearch.setBounds(270, 90, 200, 20);
 		contentPane.add(jtPdSearch);
 		
 		//검색버튼 영역
 		JButton btn_PdSearch = new JButton("검색");
-		btn_PdSearch.setBounds(350, 30, 100, 20);
+		btn_PdSearch.setBounds(480, 90, 100, 20);
 		contentPane.add(btn_PdSearch);
 		
 		btn_PdSearch.addActionListener(new ActionListener() {
@@ -74,17 +74,17 @@ public class ListPd extends JFrame {
 		});
 		
 		//테이블 생성
-		model = new DefaultTableModel(new String[]{"No", "그림명","설명","낙찰가","등록인","등록일시"}, 0);
+		model = new DefaultTableModel(new String[]{"No", "상품명","설명","가격","등록인","등록일시"}, 0);
 		pdListTable = new JTable(model);
-//		pdListTable.setEnabled(false);
-//		pdListTable.setAutoCreateRowSorter(true);
+		pdListTable.setEnabled(false);				//테이블 데이터 편집금지
+		pdListTable.setAutoCreateRowSorter(true);	//테이블 데이터 행 정렬 설정
 		pdListTable.setRowHeight(30);
 		
 		//각 셀 사이즈 설정
 		pdListTable.getColumn("No").setPreferredWidth(20);
-		pdListTable.getColumn("그림명").setPreferredWidth(200);
+		pdListTable.getColumn("상품명").setPreferredWidth(200);
 		pdListTable.getColumn("설명").setPreferredWidth(200);
-		pdListTable.getColumn("낙찰가").setPreferredWidth(20);
+		pdListTable.getColumn("가격").setPreferredWidth(20);
 		pdListTable.getColumn("등록인").setPreferredWidth(30);
 		pdListTable.getColumn("등록일시").setPreferredWidth(80);
 		pdListTable.setSize(550, 300);
@@ -92,10 +92,13 @@ public class ListPd extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane(pdListTable);
-		scrollPane.setBounds(100, 60, 550, 300);
+		scrollPane.setBounds(40, 120, 550, 300);
 		contentPane.add(scrollPane);
 		
-		
+
+		//List Panel setting
+		setBounds(350,200,650,500);
+		contentPane.setBackground(Color.white);
 	}
 	
 	//목록 가져오기, 검색기능
@@ -136,14 +139,11 @@ public class ListPd extends JFrame {
 				String[] pdlist = {pdNo, pdName, pdDesc, pdprice, pdRegUser, pdRegDate};
 				model.addRow(pdlist);
 			}
-			System.out.println(que);
 			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
 			
 			rs.close();
 			psmt.close();
 			conn.close();
-			
-			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

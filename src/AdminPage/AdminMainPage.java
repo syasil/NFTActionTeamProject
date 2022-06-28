@@ -3,6 +3,8 @@ package AdminPage;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -46,18 +48,49 @@ public class AdminMainPage extends JFrame {
 		c.add(jlTitel);
 		
 		JButton btn_logout = new JButton("로그아웃");
-		btn_logout.setBounds(500, 20, 100, 20);
+		btn_logout.setBounds(300, 20, 100, 20);
 		c.add(btn_logout);
 		
+		//상품관리 버튼+텍스트
+		JLabel jlPdNotice = new JLabel("등록된 상품을 관리합니다");
+		jlPdNotice.setBounds(100, 100, 400, 20);
+		c.add(jlPdNotice);
+		
+		JButton btn_listPd = new JButton("상품관리");
+		btn_listPd.setBounds(300, 100, 100, 20);
+		c.add(btn_listPd);
+		
 		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
-//		ListPanel allPdList = new ListPanel("상품목록");
-//		ListPd allPdList = new ListPd();
-//		c.add(allPdList);
-//		allPdList.setBounds(15, 100, 600, 400);
+		btn_listPd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//상품관리 버튼 클릭 시 ListPd 호출 -
+				new ListPd();
+			}
+		});
+		
+		//회원관리 버튼+텍스트
+		JLabel jlUserNotice = new JLabel("회원 목록을 조회하고 관리합니다.");
+		jlUserNotice.setBounds(100, 130, 400, 20);
+		c.add(jlUserNotice);
+		
+		JButton btn_listUser = new JButton("회원관리");
+		btn_listUser.setBounds(300, 130, 100, 20);
+		c.add(btn_listUser);
+		
+		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
+		btn_listUser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ListPd();
+			}
+		});
+		
+		
 				
 		//main panel setting
 		setLocation(200, 100);
-		setSize(650, 800);
+		setSize(450, 500);
 		setVisible(true);
 //		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
