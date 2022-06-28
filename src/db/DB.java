@@ -10,7 +10,7 @@ public class DB {
 		
 		try {
 			String id = "MSB";
-			String pw = "momo1004";
+			String pw = "*******";
 			String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 			
 			// JDBC 드라이버를 로딩하는 코드 => DriverManager에 등록
