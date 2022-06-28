@@ -102,7 +102,6 @@ public class List extends JFrame {
 		});
 		contentPane.add(btnAddWord);
 		
-
 		model = new DefaultTableModel(new String[] {"번호", "이름", "직무", "입사일"}, 0);
 		tblEmployee = new JTable(model);
 		tblEmployee.setEnabled(false);

@@ -14,6 +14,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import image.ResizeImage;
 import sample.Sample;
 import swing.CButton;
 import swing.CLabel;
@@ -84,7 +85,7 @@ public class Main extends JFrame {
 
 		
 		btnLogin = new CButton("로그인");
-		btnLogin.setBounds(260, 20, 150, 30);
+		btnLogin.setBounds(340, 20, 120, 30);
 		btnLogin.addActionListener(new ActionListener() {
 			
 			@Override
@@ -98,8 +99,8 @@ public class Main extends JFrame {
 			}
 		});
 		
-		btnJoin = new CButton("회원가입");
-		btnJoin.setBounds(420, 20, 150, 30);
+		btnJoin = new CButton("회원가입", "DARK");
+		btnJoin.setBounds(470, 20, 120, 30);
 		btnJoin.addActionListener(new ActionListener() {
 			
 			@Override
@@ -132,7 +133,9 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(15, 60, 500, 20);
 		lblAuthor.setForeground(Color.LIGHT_GRAY);
 		
-		CPanel pnlAuction = new CPanel(new ImageIcon("images/sample2.jpg").getImage(), 20);
+		//CPanel pnlAuction = new CPanel(new ImageIcon("images/sample3.png").getImage(), 20);
+		ImageIcon img = ResizeImage.resize("images/sample2.jpg", 500, 500);
+		CPanel pnlAuction = new CPanel(img.getImage(), 20);
 		pnlAuction.setLayout(null);
 		pnlAuction.setBounds(50, 120, 500, 500);
 		
