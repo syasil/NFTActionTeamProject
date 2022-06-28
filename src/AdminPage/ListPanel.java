@@ -44,14 +44,17 @@ public class ListPanel  extends JPanel {
 		JTextField jtPdSearch = new JTextField();
 		JButton btn_PdSearch = new JButton("검색");
 
-		//DB 연결 테스트
-		//받아온 pdlist(pdlistdata)를 jTable에 넣기
+		//DB 연결 테스트: 받아온 pdlist(pdlistdata)를 jTable에 넣기
 //		String[][] pdlistdata = DBConnAdmin.getPdList();
-		String[][] pdSchData = DBConnAdmin.getPdSearch(searchText);
+//		DefaultTableModel tableModel = new DefaultTableModel(pdlistdata, headers);
+		
+//		String[][] pdSchData = DBConnAdmin.getPdSearch(searchText);
 		String[] headers = new String[]{"No", "그림명","설명","낙찰가","등록인","등록일시"};
 
-//		DefaultTableModel tableModel = new DefaultTableModel(pdlistdata, headers);
-		DefaultTableModel tableModel = new DefaultTableModel(pdSchData, headers);
+		DefaultTableModel tableModel = new DefaultTableModel(DBConnAdmin.getPdList(), headers);
+		JTable table = new JTable(tableModel);
+		JScrollPane scrollpane = new JScrollPane(table);	//스크롤설정
+		
 		
 		//검색 버튼 이벤트
 		btn_PdSearch.addActionListener(new ActionListener() {
@@ -59,18 +62,21 @@ public class ListPanel  extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				searchText = jtPdSearch.getText();
 				tableModel.setRowCount(0);
+				
 				//검색어를 where 절 조건으로, 검색된 데이터 불러오기
-				String[][] pdSchData = DBConnAdmin.getPdSearch(searchText);
-				tableModel.addRow(pdSchData);
+				DBConnAdmin.getPdSearch(searchText);
+//				tableModel.addRow(pdSchData);
 				
-				Arrays.toString(pdSchData);
-				System.out.println(Arrays.toString(pdSchData));
+//				String[] strRow = {empno, ename, job, hiredate};
+//				tableModel.addRow(strRow);
 				
+
+				
+				
+//				System.out.println(Arrays.deepToString(pdSchData));
 			}
 		});
 		
-		JTable table = new JTable(tableModel);
-		JScrollPane scrollpane = new JScrollPane(table);	//스크롤설정
 		
 		
 		//셀 간격 조정

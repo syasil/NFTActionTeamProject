@@ -6,10 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.table.DefaultTableModel;
 
 import AdminPage.ListPanel;
 
 public class DBConnAdmin {
+	
+	private static DefaultTableModel model;
 	
 	static JdbcUtil dbConn = new JdbcUtil();
 	
@@ -58,18 +63,18 @@ public class DBConnAdmin {
 			String[][] arr = new String[pdlist.size()][6];
 			return pdlist.toArray(arr);
 			
-			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
+		
 		/*
 		 * rs.close(); psmt.close(); conn.close();
 		 */
 	}
 	
 	//검색결과 리스트
-	public static String[][] getPdSearch(String searchText){
+	public static void getPdSearch(String searchText){
 		System.out.println("1."+searchText);
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -89,8 +94,7 @@ public class DBConnAdmin {
 						+ " PRODUCT_PRICE, PRODUCT_REGISTER_USER, PRODUCT_REGISTER_DATE "
 						+ " FROM PRODUCT_B "
 						+ " WHERE PRODUCT_NAME LIKE '%"+ searchText +"%'";
-//						+ " WHERE PRODUCT_NAME LIKE '%he%'";
-				System.out.println("3.부분검색 "+ que);
+				System.out.println("3.부분검색");
 			}
 			
 
@@ -100,26 +104,41 @@ public class DBConnAdmin {
 			rs = psmt.executeQuery();
 			
 			//반환값 저장
-			ArrayList<String[]> pdlist = new ArrayList<String[]>(); 
+//			ArrayList<String[]> pdlist = new ArrayList<String[]>(); 
 			
 			while(rs.next()) {
-				pdlist.add (new String[] {
-						rs.getString(1),
-						rs.getString(2),
-						rs.getString(3),
-						rs.getString(4),
-						rs.getString(5),
-						rs.getString(6)
-				});
+				String pdNo = rs.getString(1);
+				String pdName = rs.getString(2);
+				String pdDesc = rs.getString(3);
+				String pdRegUser = rs.getString(4);
+				String pdRegDate = rs.getString(5);
+				
+				String[] pdlist = {pdNo, pdName, pdDesc, pdRegUser, pdRegDate};
+				model.addRow(pdlist);
 			}
 			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
-			String[][] arr = new String[pdlist.size()][6];
-			return pdlist.toArray(arr);
+			
+			rs.close();
+			psmt.close();
+			conn.close();
+			
+//			while(rs.next()) {
+//				pdlist.add (new String[] {
+//						rs.getString(1),
+//						rs.getString(2),
+//						rs.getString(3),
+//						rs.getString(4),
+//						rs.getString(5),
+//						rs.getString(6)
+//				});
+//			}
+//			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
+//			String[][] arr = new String[pdlist.size()][6];
+//			return pdlist.toArray(arr);
 			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return null;
 		}
 	}
 	

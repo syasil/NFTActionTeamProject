@@ -42,21 +42,18 @@ public class AdminMainPage extends JFrame {
 
 		//타이틀 텍스트 영역
 		JLabel jlTitel = new JLabel("관리자로 로그인 되었습니다.");
-		JButton btn_logout = new JButton("로그아웃");
-		
-		//보여줄 목록 생성
-		ListPanel allPdList = new ListPanel("상품목록");
-
-		
-		//add panel
-		c.add(jlTitel);
-		c.add(btn_logout);
-		c.add(allPdList);
-		
-		//panel position, size setting
 		jlTitel.setBounds(20, 20, 400, 20);
+		c.add(jlTitel);
+		
+		JButton btn_logout = new JButton("로그아웃");
 		btn_logout.setBounds(500, 20, 100, 20);
-		allPdList.setBounds(15, 100, 600, 400);
+		c.add(btn_logout);
+		
+		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
+//		ListPanel allPdList = new ListPanel("상품목록");
+//		ListPd allPdList = new ListPd();
+//		c.add(allPdList);
+//		allPdList.setBounds(15, 100, 600, 400);
 				
 		//main panel setting
 		setLocation(200, 100);
