@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import db.DB;
 import swing.CButton;
 import swing.CLabel;
 import swing.CTextField;
@@ -49,8 +54,17 @@ public class Insert extends JFrame {
 		UIManager.put("Panel.background", Color.WHITE);
 		UIManager.put("OptionPane.messageFont", new Font("맑은 고딕", Font.PLAIN, 16)); 
 		UIManager.put("OptionPane.buttonFont", new Font("맑은 고딕", Font.PLAIN, 16));
+		
+		
+		initComponents();
 
 		
+		
+
+
+	}
+	
+	private void initComponents() {
 		setResizable(false);
 		setBounds(100, 100, 360, 410);
 		setLocationRelativeTo(getRootPane());
@@ -61,8 +75,9 @@ public class Insert extends JFrame {
 		contentPane.setLayout(null);
 		
 		CLabel lblNewLabel = new CLabel("신규 등록하기");
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
 		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
-		lblNewLabel.setBounds(12, 10, 320, 15);
+		lblNewLabel.setBounds(12, 10, 320, 34);
 		contentPane.add(lblNewLabel);
 		
 		txtUserID = new CTextField();
@@ -79,37 +94,80 @@ public class Insert extends JFrame {
 		txtUserPWRe.setColumns(10);
 		
 		CLabel lblUserID = new CLabel("회원 아이디");
-		lblUserID.setBounds(39, 62, 107, 30);
+		lblUserID.setBounds(39, 54, 107, 30);
 		contentPane.add(lblUserID);
 		
 		CLabel lblUserPW = new CLabel("회원 비밀번호");
-		lblUserPW.setBounds(39, 144, 107, 30);
+		lblUserPW.setBounds(39, 134, 107, 30);
 		contentPane.add(lblUserPW);
 		
 		CLabel lblUserPWRe = new CLabel("비밀번호 확인");
-		lblUserPWRe.setBounds(39, 221, 107, 30);
+		lblUserPWRe.setBounds(39, 214, 107, 30);
 		contentPane.add(lblUserPWRe);
 		
 		
 		CButton btnInsert = new CButton("입력하기");
-		btnInsert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (txtUserID.getText().equals("")) {
-
-					JOptionPane.showMessageDialog(getRootPane(), "아이디를 입력하시오.", "확인", JOptionPane.INFORMATION_MESSAGE);
-					txtUserID.requestFocus();
-					return;
-				}
-				
-				if (txtUserPW.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "비밀번호를 입력하시오.");
-					txtUserPW.requestFocus();
-					return;
-				}
-			}
-		});
 		btnInsert.setBounds(39, 309, 264, 30);
+		btnInsert.addActionListener(new InsertUser());
+
 		contentPane.add(btnInsert);
 	}
+
+	class InsertUser implements ActionListener {
+		
+		
+		Connection conn = null; 
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			if (txtUserID.getText().equals("")) {
+				JOptionPane.showMessageDialog(getRootPane(), "아이디를 입력하시오.", "확인", JOptionPane.INFORMATION_MESSAGE);
+				txtUserID.requestFocus();
+				return;
+			}
+			
+			if (txtUserPW.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "비밀번호를 입력하시오.");
+				txtUserPW.requestFocus();
+				return;
+			}
+			
+			if (!txtUserPW.getText().equals(txtUserPWRe.getText())) {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
+				txtUserPWRe.requestFocus();
+				return;
+			}
+			
+			///////////////////////////////////////////////
+			// 디비에 입력해보자
+			///////////////////////////////////////////////
+			String sql = "insert into emp1(e_id, empno, ename, job, hiredate) values (seq_emp_e_id,nextval,?, ?, ?, sysdate)";
+			
+			
+			try {
+				conn = DB.get();
+				psmt = conn.prepareStatement(sql);
+				
+				//pstmt.setInt(1, 1234);
+				psmt.setString(1, "1238");
+				psmt.setString(2, "JACKS");
+				psmt.setString(3, "<b>BB</b>");
+
+				int n = psmt.executeUpdate(); // DB 갱신됨
+				
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	
+	
 }

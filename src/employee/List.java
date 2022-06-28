@@ -22,6 +22,7 @@ import swing.CButton;
 import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
+import java.awt.Component;
 
 public class List extends JFrame {
 
@@ -110,7 +111,7 @@ public class List extends JFrame {
 
 		//JScrollPane scrollPane = new JScrollPane(tblEmployee);
 		CScrollPane scrollPane = new CScrollPane(tblEmployee);
-		scrollPane.setBounds(12, 140, 320, 369);
+		scrollPane.setBounds(12, 140, 320, 357);
 		
 		contentPane.add(scrollPane);
 	}
