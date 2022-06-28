@@ -57,12 +57,12 @@ public class ListPd extends JFrame {
 		
 		//검색어 입력 영역
 		jtPdSearch = new JTextField();
-		jtPdSearch.setBounds(200, 30, 200, 20);
+		jtPdSearch.setBounds(120, 30, 200, 20);
 		contentPane.add(jtPdSearch);
 		
 		//검색버튼 영역
 		JButton btn_PdSearch = new JButton("검색");
-		btn_PdSearch.setBounds(420, 30, 100, 20);
+		btn_PdSearch.setBounds(350, 30, 100, 20);
 		contentPane.add(btn_PdSearch);
 		
 		btn_PdSearch.addActionListener(new ActionListener() {
@@ -129,12 +129,14 @@ public class ListPd extends JFrame {
 				String pdNo = rs.getString(1);
 				String pdName = rs.getString(2);
 				String pdDesc = rs.getString(3);
-				String pdRegUser = rs.getString(4);
-				String pdRegDate = rs.getString(5);
+				String pdprice = rs.getString(4);
+				String pdRegUser = rs.getString(5);
+				String pdRegDate = rs.getString(6);
 				
-				String[] pdlist = {pdNo, pdName, pdDesc, pdRegUser, pdRegDate};
+				String[] pdlist = {pdNo, pdName, pdDesc, pdprice, pdRegUser, pdRegDate};
 				model.addRow(pdlist);
 			}
+			System.out.println(que);
 			System.out.println("DBConnAdmin: 데이터 가져오기 성공");
 			
 			rs.close();
