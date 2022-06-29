@@ -98,7 +98,7 @@ public class MissingID {
 				ResultSet rs = null;
 
 				try {
-					String que = "select * from test1";
+					String que = "select * from user_t";
 
 					conn = connecDb.get();
 
@@ -115,6 +115,7 @@ public class MissingID {
 								break;
 						} else {
 							JOptionPane.showMessageDialog(null, "등록된" + txtfBirth.getText() + "가 없습니다.");
+							
 							break;
 						}
 					}
@@ -136,7 +137,7 @@ public class MissingID {
 				ResultSet rs = null;
 
 				try {
-					String que = "select * from test1";
+					String que = "select * from user_t";
 
 					conn = connecDb.get();
 
@@ -148,12 +149,14 @@ public class MissingID {
 						String id = rs.getString(2);
 						String pw = rs.getString(3);
 						String birth = rs.getString(4);
+						
 						if (txtfBirth.getText().equals(birth)) {
 							if (txtfID.getText().equals(id)) {
 								JOptionPane.showMessageDialog(null, "pw는 " + pw + "입니다");
 								break;
 							} else {
 								JOptionPane.showMessageDialog(null, "아이디가 잘못되엇습니다.");
+								
 								break;
 							}
 						} else if (txtfBirth.getText().equals("")) {

@@ -5,14 +5,7 @@ public class connecDb {
 
 	public static Connection get() {
 		Connection conn = null;
-		/*
-		create table test1 (
-			NO NUMBER(3),
-			ID VARCHAR2(20),
-			PW NUMBER(10),
-			BIRTH DATE,
-			NICK VARCHAR2(20));*/
-		//테스트용 테이블
+		
 		try {
 
 			String id = "JYY";

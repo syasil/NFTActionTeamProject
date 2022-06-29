@@ -55,9 +55,9 @@ public class logIn extends JFrame {
 		JButton bntlogOut = new JButton("로그아웃");
 		JLabel lblTitle = new JLabel("NFT 경매 시스템");
 		JLabel lblWelcome = new JLabel("환영합니다");
-		JLabel lblUserID = new JLabel(Basic.userID+" 님"); // 닉네임 연동
-		JLabel lblPoint = new JLabel("포인트 : ****"); // 포인트 연동
-		JLabel lblImg = new JLabel("이미지 넣을곳"); // 팀 마크??? or 사이트 마크??
+		JLabel lblUserID = new JLabel(Basic.userID+" 님"); 
+		JLabel lblPoint = new JLabel("포인트 : "+Basic.userPoint); 
+		JLabel lblImg = new JLabel(" "); // 팀 마크??? or 사이트 마크??
 
 		frameAfter.setVisible(false);
 
@@ -93,7 +93,8 @@ public class logIn extends JFrame {
 				Basic.userNo="";
 				Basic.userID="";
 				Basic.userNick="";
-				
+				Basic.userPoint=0;
+				Basic.userIcon="";
 				new Basic().setVisible(true);
 			}
 		});

@@ -76,20 +76,18 @@ public class practice extends JFrame{
 		
 		btnBirth.addActionListener(new ActionListener() {							//기능
 			public void actionPerformed(ActionEvent e) {
-				Connection conn=null; //DB�� �����ϴ� �������̽�
-				PreparedStatement psmt=null;//sql�� ��ü
-				ResultSet rs=null; //sql�� ���� ��ȯ(���� ���࿡ ���� ����� ����)
+				Connection conn=null; 
+				PreparedStatement psmt=null;
+				ResultSet rs=null; 
 				
 				
 				try {
-					String que="select * from enrol";
+					String que="select * from enrol1";
 					
-					conn=connecDb.get(); //DB����
+					conn=connecDb.get(); 
 					
 					psmt=conn.prepareStatement(que);
 					rs=psmt.executeQuery();
-					//select => exectueQuery()
-					//DML(insert,update,delete) => executeUpdate();
 					
 					while(rs.next()) {
 						

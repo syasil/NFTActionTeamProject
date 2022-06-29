@@ -16,11 +16,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Basic {
-	public static String userNo="";
-	public static String userID="";
-	public static String userNick="";
-	private JFrame frameBefore;
+	public static String userNo = "";
+	public static String userID = "";
+	public static String userNick = "";
+	public static int userPoint = 0;
+	public static String userIcon = "";
 
+	private JFrame frameBefore;
 
 	/**
 	 * Launch the application.11
@@ -81,7 +83,6 @@ public class Basic {
 		Font font = new Font("궁서", Font.ITALIC, 40);
 		lblTitle.setFont(new Font("궁서", Font.ITALIC, 40));
 
-		
 		// ***********add*******************
 		frameBefore.getContentPane().add(pnlBefore);
 		pnlBefore.add(lblID);
@@ -92,9 +93,7 @@ public class Basic {
 		pnlBefore.add(bntSign);
 		pnlBefore.add(bntMissing);
 		pnlBefore.add(lblTitle);
-		
-		
-		
+
 		frameBefore.setVisible(true);
 
 		// ***********기능*********
@@ -120,37 +119,47 @@ public class Basic {
 				Connection conn = null;
 				PreparedStatement psmt = null;
 				ResultSet rs = null;
-
+		
 				try {
-					String que = "select * from test1 where id='"+txtfID.getText()+"'";
-
+					
+					String que = "select * from user_t where user_id='" + txtfID.getText() + "'";
+				//	String que = "select * from user_t,point where user_id='" + txtfID.getText() + "'";
+				//	String que = "select user_t.user_no,user_t.user_id,user_t.user_pass,user_t.user_bir,user_t.user_nick,user_t.user_icon,point.pnt_total from user_t left outer join point on user_id='" + txtfID.getText() + "'";
+					
+					
 					conn = connecDb.get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
 					
 					
-					if(rs.next()) {
-						String no= rs.getString(1);
+					if (rs.next()) {
+						
+						String no = rs.getString(1);
 						String id = rs.getString(2);
 						String pw = rs.getString(3);
 						String birth = rs.getString(4);
-						String nick=rs.getString(5);
+						String nick = rs.getString(5);
+						String icon = rs.getString(6);
+					//	int point = rs.getInt(7);
+			
+						
 						if (txtfPw.getText().equals(pw)) {
 							frameBefore.setVisible(false);
-							userNo=no;
-							userID=id;
-							userNick=nick;
+							userNo = no;
+							userID = id;
+							userNick = nick;
+							userIcon = icon;
+					//		userPoint=point;
 							new logIn().setVisible(true);
-							
-							System.out.println(userID);
+			
 						} else {
 							JOptionPane.showMessageDialog(null, "비밀번호가 잘못되었습니다.");
 //							
 						}
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "등록된" + txtfID.getText() + "가 없습니다.");
-//						
+					
 					}
 //					
 
@@ -160,9 +169,10 @@ public class Basic {
 				} catch (Exception e1) {
 					e1.getStackTrace();
 				}
+				
 			}
 		});
-		
+
 	}
 
 	public void setVisible(boolean b) {
