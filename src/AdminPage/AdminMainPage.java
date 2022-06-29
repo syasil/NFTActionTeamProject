@@ -50,11 +50,10 @@ public class AdminMainPage extends JFrame {
 		btn_listPd.setBounds(300, 150, 120, 25);
 		c.add(btn_listPd);
 		
-		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
+		//상품관리 버튼 이벤트
 		btn_listPd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//상품관리 버튼 클릭 시 ListPd 호출 -
 				new ListPd();
 			}
 		});
@@ -64,15 +63,15 @@ public class AdminMainPage extends JFrame {
 		jlUserNotice.setBounds(45, 190, 400, 20);
 		c.add(jlUserNotice);
 		
+		//회원관리 버튼 이벤트
 		CButton btn_listUser = new CButton("회원관리");
 		btn_listUser.setBounds(300, 190, 120, 25);
 		c.add(btn_listUser);
 		
-		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
 		btn_listUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ListPd();
+				new ListUser();
 			}
 		});
 		
@@ -83,7 +82,7 @@ public class AdminMainPage extends JFrame {
 		setLocation(200, 100);
 		setSize(450, 500);
 		setVisible(true);
-//		setResizable(false);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	

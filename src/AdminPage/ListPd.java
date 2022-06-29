@@ -51,7 +51,7 @@ public class ListPd extends JFrame {
 		contentPane.add(jlListTitel);
 		
 		//상품 목록 안내 텍스트 영역
-		CLabel jlListText = new CLabel("상품이름 검색 시 대,소문자를 구분해서 입력하세요");
+		CLabel jlListText = new CLabel("상품명 검색 시 대,소문자를 구분해서 입력하세요");
 		jlListText.setBounds(210, 65, 500, 20);
 		contentPane.add(jlListText);
 		
@@ -82,11 +82,11 @@ public class ListPd extends JFrame {
 		
 		//각 셀 사이즈 설정
 		pdListTable.getColumn("No").setPreferredWidth(20);
-		pdListTable.getColumn("상품명").setPreferredWidth(200);
+		pdListTable.getColumn("상품명").setPreferredWidth(150);
 		pdListTable.getColumn("설명").setPreferredWidth(200);
-		pdListTable.getColumn("가격").setPreferredWidth(20);
+		pdListTable.getColumn("가격").setPreferredWidth(50);
 		pdListTable.getColumn("등록인").setPreferredWidth(30);
-		pdListTable.getColumn("등록일시").setPreferredWidth(80);
+		pdListTable.getColumn("등록일시").setPreferredWidth(100);
 		pdListTable.setSize(550, 300);
 		pdListTable.setPreferredScrollableViewportSize(new Dimension(550, 300));
 		
@@ -134,7 +134,7 @@ public class ListPd extends JFrame {
 				String pdDesc = rs.getString(3);
 				String pdprice = rs.getString(4);
 				String pdRegUser = rs.getString(5);
-				String pdRegDate = rs.getString(6);
+				String pdRegDate = rs.getString(6).substring(0, 11);
 				
 				String[] pdlist = {pdNo, pdName, pdDesc, pdprice, pdRegUser, pdRegDate};
 				model.addRow(pdlist);
