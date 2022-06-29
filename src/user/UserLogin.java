@@ -13,11 +13,7 @@ public class UserLogin extends CPanel {
 	private CPasswordField txtUserPW;
 	
 	public UserLogin() {
-		this(0);
-	}
-
-	public UserLogin(int roundSize) {
-		super(roundSize);
+		super(30);
 		this.instance = this;
 		initComponents();
 	}
@@ -31,9 +27,8 @@ public class UserLogin extends CPanel {
 		setBackground(Color.decode("#1A1A25"));
 		setBounds(100, 0, 400, 436);
 		
-		CLabel lblTitle = new CLabel("로그인");
+		CLabel lblTitle = new CLabel("로그인", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
-		lblTitle.setFont(new Font("맑은 고딕", Font.BOLD, 28));
 		add(lblTitle);
 		
 		CLabel lblID = new CLabel("아이디 (이메일)");
@@ -107,8 +102,7 @@ public class UserLogin extends CPanel {
 		//////////////////////////////////
 		// 패널 닫기
 		//////////////////////////////////
-		CLabel lblClose = new CLabel("×");
-		lblClose.setFont(new Font("Arial", Font.PLAIN, 40));
+		CLabel lblClose = new CLabel("×", 40);
 		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblClose.setBounds(358, 12, 30, 30);
 		lblClose.addMouseListener(new MouseAdapter() {

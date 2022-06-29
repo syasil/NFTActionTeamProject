@@ -97,7 +97,7 @@ public class List extends JFrame {
 		btnAddWord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Insert insertFrame = new Insert();
-				insertFrame.setLocationRelativeTo(btnAddWord);
+				insertFrame.setLocationRelativeTo(btnAddWord.getTopLevelAncestor());
 				insertFrame.setVisible(true);
 			}
 		});

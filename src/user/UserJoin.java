@@ -3,6 +3,8 @@ package user;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import image.ResizeImage;
 import main.Main;
 import swing.*;
 
@@ -13,11 +15,7 @@ public class UserJoin extends CPanel {
 	private CPasswordField txtUserPW_Re;
 
 	public UserJoin() {
-		this(0);
-	}
-	
-	public UserJoin(int roundSize) {
-		super(roundSize);
+		super(30);
 		this.instance = this;
 		initComponents();
 	}
@@ -27,63 +25,82 @@ public class UserJoin extends CPanel {
 		/////////////////////////
 		// 패널 기본 설정
 		/////////////////////////
-		setBounds(100, 0, 400, 600);
+		setBounds(100, 0, 400, 662);
+
 		
-		CLabel lblTitle = new CLabel("회원가입");
+		/////////////////////////
+		// 타이틀
+		/////////////////////////
+		CLabel lblTitle = new CLabel("회원가입", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
-		lblTitle.setFont(new Font("맑은 고딕", Font.BOLD, 28));
 		add(lblTitle);
 		
+		/////////////////////////
+		// 아이디
+		/////////////////////////
 		CLabel lblID = new CLabel("아이디 (이메일)");
 		lblID.setBounds(25, 94, 347, 30);
 		add(lblID);
 		
 		txtUserID = new CTextField();
-		txtUserID.setBounds(25, 130, 347, 40);
+		txtUserID.setBounds(25, 130, 170, 40);
 		add(txtUserID);
 		
+		CButton btnVerifyID = new CButton("중복확인");
+		btnVerifyID.setBounds(211, 130, 161, 40);
+		add(btnVerifyID);
+
+
+		/////////////////////////
+		// 비밀번호, 비밀번호 확인
+		/////////////////////////
 		CLabel lblPW = new CLabel("비밀번호");
-		lblPW.setBounds(25, 180, 347, 30);
+		lblPW.setBounds(25, 180, 174, 30);
 		add(lblPW);
 		
 		txtUserPW = new CPasswordField();
-		txtUserPW.setBounds(25, 213, 347, 40);
+		txtUserPW.setBounds(25, 213, 170, 40);
 		add(txtUserPW);
-
-		
-
 		
 		CLabel lblPWCheck = new CLabel("비밀번호 확인");
-		lblPWCheck.setBounds(25, 263, 347, 30);
+		lblPWCheck.setBounds(202, 180, 170, 30);
 		add(lblPWCheck);
 		
 		txtUserPW_Re = new CPasswordField();
-		txtUserPW_Re.setBounds(25, 298, 347, 40);
+		txtUserPW_Re.setBounds(202, 213, 170, 40);
 		add(txtUserPW_Re);
 		
+
+		/////////////////////////
+		// 닉네임
+		/////////////////////////
 		CLabel lblNickname = new CLabel("닉네임");
-		lblNickname.setBounds(25, 346, 347, 30);
+		lblNickname.setBounds(25, 263, 347, 30);
 		add(lblNickname);
 		
 		CTextField txtUserNickname = new CTextField();
-		txtUserNickname.setBounds(25, 379, 347, 40);
+		txtUserNickname.setBounds(25, 292, 347, 40);
 		add(txtUserNickname);
+
 		
+		/////////////////////////
+		// 전자 지갑
+		/////////////////////////
 		CLabel lblWallet = new CLabel("전자지갑 번호");
-		lblWallet.setBounds(25, 429, 347, 30);
+		lblWallet.setBounds(25, 342, 347, 30);
 		add(lblWallet);
 		
 		CTextField txtUserWallet = new CTextField();
-		txtUserWallet.setBounds(25, 464, 174, 40);
+		txtUserWallet.setBounds(25, 374, 170, 40);
 		add(txtUserWallet);
 		
 		CButton btnVerifyWallet = new CButton("인증하기");
 		btnVerifyWallet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(), "전자지갑 인층 처리");
+				JOptionPane.showMessageDialog(getParent(), txtUserWallet.getText() + "전자지갑 인층 처리");
 			}
 		});
-		btnVerifyWallet.setBounds(211, 464, 161, 40);
+		btnVerifyWallet.setBounds(211, 374, 161, 40);
 		add(btnVerifyWallet);
 
 	
@@ -91,7 +108,7 @@ public class UserJoin extends CPanel {
 		// 가입하기 버튼
 		//////////////////////////////////
 		CButton btnJoin = new CButton("가입하기");
-		btnJoin.setBounds(25, 528, 347, 40);
+		btnJoin.setBounds(25, 594, 347, 40);
 		btnJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -104,8 +121,7 @@ public class UserJoin extends CPanel {
 		//////////////////////////////////
 		// 패널 닫기
 		//////////////////////////////////
-		CLabel lblClose = new CLabel("×");
-		lblClose.setFont(new Font("Arial", Font.PLAIN, 40));
+		CLabel lblClose = new CLabel("×", 40);
 		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblClose.setBounds(358, 12, 30, 30);
 		lblClose.addMouseListener(new MouseAdapter() {
@@ -113,7 +129,24 @@ public class UserJoin extends CPanel {
 				instance.setVisible(false);
 			}
 		});
-		add(lblClose);	
+		add(lblClose);
+		
+		CLabel lblProfilePic = new CLabel("전자지갑 번호");
+		lblProfilePic.setText("프로필 사진");
+		lblProfilePic.setBounds(25, 424, 101, 30);
+		add(lblProfilePic);
+		
+		JButton btnNewButton;
+		ImageIcon img = ResizeImage.resize("images/sample1.jpg", 130, 130);
+		btnNewButton = new CImageButton(img, 130);
+		btnNewButton.setBounds(133, 432, 130, 130);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		add(btnNewButton);
+		
 	
 	}
 	

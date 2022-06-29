@@ -57,11 +57,6 @@ public class Insert extends JFrame {
 		
 		
 		initComponents();
-
-		
-		
-
-
 	}
 	
 	private void initComponents() {

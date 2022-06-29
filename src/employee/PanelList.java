@@ -59,7 +59,7 @@ public class PanelList extends JFrame {
 			}
 			 
 			ImageIcon img = ResizeImage.resize(imageFile, 50, 50);
-			CPanel pnlImage = new CPanel(img.getImage(), 10);
+			CPanel pnlImage = new CPanel(img, 10);
 			pnlImage.setBounds(10, 10, 50, 50);
 			CLabel lbl1 = new CLabel("안녕하세요" + i);
 			CLabel lbl2 = new CLabel("반가워요.. 제목을 넣어요" + i);

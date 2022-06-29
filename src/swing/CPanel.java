@@ -26,21 +26,21 @@ public class CPanel extends JPanel {
 	}
 	
 	public CPanel(String img) {
-		this(new ImageIcon(img).getImage(), 0);
+		this(new ImageIcon(img), 0);
 	}
 	
 	public CPanel(String img, int roundSize) {
-		this(new ImageIcon(img).getImage(), roundSize);
+		this(new ImageIcon(img), roundSize);
 	}
 	
-	public CPanel(Image img) {
+	public CPanel(ImageIcon img) {
 		this(img, 0);
 	}
 	
-	public CPanel(Image img, int roundSize) {
-		this.img = img;
+	public CPanel(ImageIcon img, int roundSize) {
+		this.img = img.getImage();
 		this.roundSize = roundSize;
-		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+		Dimension size = new Dimension(img.getIconWidth(), img.getIconHeight());
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);

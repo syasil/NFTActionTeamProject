@@ -79,7 +79,7 @@ public class Main extends JFrame {
 		pnlTop.setBackground(new Color(26, 26, 37));
 		pnlTop.setBounds(0, 0, 600, 70);
 		
-		pnlMain = new CPanel(new ImageIcon("images/bg.jpg").getImage());
+		pnlMain = new CPanel(new ImageIcon("images/bg.jpg"));
 		pnlMain.setLayout(null);
 		pnlMain.setBounds(0, 0, 600, 900);
 
@@ -135,7 +135,7 @@ public class Main extends JFrame {
 		
 		//CPanel pnlAuction = new CPanel(new ImageIcon("images/sample3.png").getImage(), 20);
 		ImageIcon img = ResizeImage.resize("images/sample2.jpg", 500, 500);
-		CPanel pnlAuction = new CPanel(img.getImage(), 20);
+		CPanel pnlAuction = new CPanel(img, 20);
 		pnlAuction.setLayout(null);
 		pnlAuction.setBounds(50, 120, 500, 500);
 		
@@ -162,7 +162,6 @@ public class Main extends JFrame {
 		pane.add(pnlSample, new Integer(50));
 		pane.add(pnlLogin, new Integer(40));
 		pane.add(pnlJoin, new Integer(30));
-		
 		pane.add(pnlTop, new Integer(20));
 		pane.add(pnlMain, new Integer(10));
 		

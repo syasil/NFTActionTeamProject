@@ -19,39 +19,11 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 public class CButton extends JButton {
-
-	public float getSizeSpeed() {
-		return sizeSpeed;
-	}
-
-	public void setSizeSpeed(float sizeSpeed) {
-		this.sizeSpeed = sizeSpeed;
-	}
-
-	public Color getColor1() {
-		return color1;
-	}
-
-	public void setColor1(Color color1) {
-		this.color1 = color1;
-	}
-
-	public Color getColor2() {
-		return color2;
-	}
-
-	public void setColor2(Color color2) {
-		this.color2 = color2;
-	}
-
-	// private Color color1 = Color.decode("#0099F7");
-	// private Color color2 = Color.decode("#F11712");
 	private Color color1 = new Color(197, 38, 157);
 	private Color color2 = new Color(133, 5, 171);
 	private final Timer timer;
 	private float alpha = 0.3f;
 	private boolean mouseOver;
-	private float sizeSpeed = 1f;
 
 	public CButton() {
 		this("", "");
