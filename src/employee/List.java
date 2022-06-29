@@ -81,7 +81,7 @@ public class List extends JFrame {
 		txtKeyword.setBounds(12, 60, 188, 32);
 		contentPane.add(txtKeyword);
 		
-		CLabel lblWordList = new CLabel("직원 목록");
+		CLabel lblWordList = new CLabel("회원 목록");
 		lblWordList.setBounds(12, 100, 188, 30);
 		contentPane.add(lblWordList);
 		
@@ -106,7 +106,7 @@ public class List extends JFrame {
 		});
 		contentPane.add(btnAddWord);
 		
-		model = new DefaultTableModel(new String[] {"번호", "이름", "직무", "입사일"}, 0);
+		model = new DefaultTableModel(new String[] {"ID", "생일", "별명", "가입일"}, 0);
 		tblEmployee = new JTable(model);
 		tblEmployee.setEnabled(false);
 		tblEmployee.setAutoCreateRowSorter(true);
@@ -124,32 +124,32 @@ public class List extends JFrame {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		// 기존 데이타 다 지워주고 다시 넣어주려고
+		// 기존 데이터 다 지워주고 다시 넣어주려고
 		model.setRowCount(0);
 
 		try {
 			String sql = "";
-			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
+			String keyword = txtKeyword.getText();
 
-			sql = "select empno, ename, job, hiredate from emp1 ";
+			sql = "select USER_ID, USER_BIR, USER_NICK, USER_CREDAY from USER_T";
 
 			if (!keyword.equals("")) {
-				sql += " where ename like '%" + keyword + "%' ";
+				sql += " where USER_ID like '%" + keyword + "%' ";
 			}
 			
-			sql += " order by hiredate desc"; 
+			sql += " order by 1"; 
 
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				String empno = rs.getString(1);
-				String ename = rs.getString(2);
-				String job = rs.getString("JOB");
-				String hiredate = rs.getString("hiredate");
+				String user_id = rs.getString(1);
+				String user_bir = rs.getString(2);
+				String user_nick = rs.getString(3);
+				String user_creday = rs.getString(4);
 				
-				String[] strRow = {empno, ename, job, hiredate};
+				String[] strRow = {user_id, user_bir, user_nick, user_creday};
 				model.addRow(strRow);
 			}
 			
