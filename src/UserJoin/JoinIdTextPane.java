@@ -3,7 +3,6 @@ package UserJoin;
 import java.awt.SystemColor;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 public class JoinIdTextPane implements JoinTextPane {

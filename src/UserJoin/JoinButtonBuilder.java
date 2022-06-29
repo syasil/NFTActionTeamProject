@@ -1,6 +1,5 @@
 package UserJoin;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class JoinButtonBuilder {
