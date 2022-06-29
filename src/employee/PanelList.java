@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
-import image.ResizeImage;
+import functions.ResizeImage;
 import swing.CLabel;
 import swing.CPanel;
 import swing.CScrollPane;

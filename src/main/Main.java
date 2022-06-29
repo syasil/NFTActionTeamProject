@@ -14,13 +14,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import image.ResizeImage;
-import sample.Sample;
-import swing.CButton;
-import swing.CLabel;
-import swing.CPanel;
-import user.UserJoin;
-import user.UserLogin;
+import functions.ResizeImage;
+import functions.SlidingAnimate;
+import swing.*;
+import user.*;
 
 public class Main extends JFrame {
 
@@ -35,9 +32,9 @@ public class Main extends JFrame {
 	//////////////////////////////////////////
 	// 각 패널들 변수 선언
 	//////////////////////////////////////////
-	public static Sample pnlSample;
 	public static UserLogin pnlLogin;
 	public static UserJoin pnlJoin;
+	public static FindPassword pnlPassword;
 	
 	
 	private JPanel pnlTop; 
@@ -64,15 +61,16 @@ public class Main extends JFrame {
 		JLayeredPane pane = getLayeredPane();
 		
 		// 각 판넬 초기화..
-		pnlSample = new Sample();
-		pnlSample.setVisible(false);
-		
 		pnlLogin = new UserLogin();
 		pnlLogin.setVisible(false);
 		
 		pnlJoin = new UserJoin();
 		pnlJoin.setVisible(false);
 
+		pnlPassword = new FindPassword();
+		pnlPassword.setVisible(false);
+
+		
 		
 		pnlTop = new JPanel();
 		pnlTop.setLayout(null);
@@ -159,9 +157,10 @@ public class Main extends JFrame {
 
 		
 		// 각 페널 프레임에 추가
-		pane.add(pnlSample, new Integer(50));
-		pane.add(pnlLogin, new Integer(40));
+		pane.add(pnlLogin, new Integer(30));
 		pane.add(pnlJoin, new Integer(30));
+		pane.add(pnlPassword, new Integer(30));
+		
 		pane.add(pnlTop, new Integer(20));
 		pane.add(pnlMain, new Integer(10));
 		

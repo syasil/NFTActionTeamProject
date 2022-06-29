@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import image.ResizeImage;
+import functions.ResizeImage;
 import main.Main;
 import swing.*;
 
@@ -43,11 +43,11 @@ public class UserJoin extends CPanel {
 		add(lblID);
 		
 		txtUserID = new CTextField();
-		txtUserID.setBounds(25, 130, 170, 40);
+		txtUserID.setBounds(25, 130, 226, 40);
 		add(txtUserID);
 		
-		CButton btnVerifyID = new CButton("중복확인");
-		btnVerifyID.setBounds(211, 130, 161, 40);
+		CButton btnVerifyID = new CButton("중복확인", "DARK");
+		btnVerifyID.setBounds(257, 134, 115, 25);
 		add(btnVerifyID);
 
 
@@ -91,16 +91,16 @@ public class UserJoin extends CPanel {
 		add(lblWallet);
 		
 		CTextField txtUserWallet = new CTextField();
-		txtUserWallet.setBounds(25, 374, 170, 40);
+		txtUserWallet.setBounds(25, 374, 226, 40);
 		add(txtUserWallet);
 		
-		CButton btnVerifyWallet = new CButton("인증하기");
+		CButton btnVerifyWallet = new CButton("인증하기", "DARK");
 		btnVerifyWallet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(getParent(), txtUserWallet.getText() + "전자지갑 인층 처리");
 			}
 		});
-		btnVerifyWallet.setBounds(211, 374, 161, 40);
+		btnVerifyWallet.setBounds(257, 382, 115, 25);
 		add(btnVerifyWallet);
 
 	
@@ -133,13 +133,13 @@ public class UserJoin extends CPanel {
 		
 		CLabel lblProfilePic = new CLabel("전자지갑 번호");
 		lblProfilePic.setText("프로필 사진");
-		lblProfilePic.setBounds(25, 424, 101, 30);
+		lblProfilePic.setBounds(219, 480, 101, 30);
 		add(lblProfilePic);
 		
 		JButton btnNewButton;
-		ImageIcon img = ResizeImage.resize("images/sample1.jpg", 130, 130);
+		ImageIcon img = ResizeImage.resize("images/profile.jpg", 130, 130);
 		btnNewButton = new CImageButton(img, 130);
-		btnNewButton.setBounds(133, 432, 130, 130);
+		btnNewButton.setBounds(35, 442, 130, 130);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
