@@ -9,6 +9,10 @@ import main.Main;
 import swing.*;
 
 public class UserJoin extends CPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CPanel instance;
 	private CTextField txtUserID;
 	private CPasswordField txtUserPW;
