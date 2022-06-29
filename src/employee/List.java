@@ -22,10 +22,13 @@ import swing.CButton;
 import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
-import java.awt.Component;
 
 public class List extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private CTextField txtKeyword;
 

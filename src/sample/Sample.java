@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import main.Main;
@@ -19,6 +18,10 @@ import swing.CPanel;
 import swing.CTextField;
 
 public class Sample extends CPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CPanel instance;
 	private CTextField txtUserID;
 	private CTextField txtUserPW;

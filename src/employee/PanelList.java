@@ -4,15 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
-
 import image.ResizeImage;
 import swing.CLabel;
 import swing.CPanel;
@@ -20,6 +15,10 @@ import swing.CScrollPane;
 
 public class PanelList extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

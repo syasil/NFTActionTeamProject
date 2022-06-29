@@ -24,6 +24,10 @@ import user.UserLogin;
 
 public class Main extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//////////////////////////////////////////
 	// 프로그램 전체에서 쓰이는 변수 선언
 	//////////////////////////////////////////
