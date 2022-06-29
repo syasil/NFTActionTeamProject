@@ -17,6 +17,11 @@ import javax.swing.plaf.metal.MetalScrollBarUI;
 
 public class CScrollPane extends JScrollPane {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CScrollPane(Component view) {
 		super(view);
 		JScrollBar sb = getVerticalScrollBar();
@@ -28,6 +33,11 @@ public class CScrollPane extends JScrollPane {
 		
 		private Image imageThumb, imageTrack;
 		private JButton b = new JButton() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Dimension getPreferredSize() {
