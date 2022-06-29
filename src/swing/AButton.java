@@ -18,50 +18,22 @@ import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-public class CButton extends JButton {
-
-	public float getSizeSpeed() {
-		return sizeSpeed;
-	}
-
-	public void setSizeSpeed(float sizeSpeed) {
-		this.sizeSpeed = sizeSpeed;
-	}
-
-	public Color getColor1() {
-		return color1;
-	}
-
-	public void setColor1(Color color1) {
-		this.color1 = color1;
-	}
-
-	public Color getColor2() {
-		return color2;
-	}
-
-	public void setColor2(Color color2) {
-		this.color2 = color2;
-	}
-
-	// private Color color1 = Color.decode("#0099F7");
-	// private Color color2 = Color.decode("#F11712");
-	private Color color1 = new Color(197, 38, 157);
-	private Color color2 = new Color(133, 5, 171);
+public class AButton extends JButton {
+	private Color color1 = new Color(0, 198, 251);
+	private Color color2 = new Color(0, 91, 234);
 	private final Timer timer;
 	private float alpha = 0.3f;
 	private boolean mouseOver;
-	private float sizeSpeed = 1f;
 
-	public CButton() {
+	public AButton() {
 		this("", "");
 	}
 	
-	public CButton(String text) {
+	public AButton(String text) {
 		this(text, "");
 	}
 
-	public CButton(String text, String color) {
+	public AButton(String text, String color) {
 		if (color.equals("DARK")) {
 			color1 = Color.GRAY;
 			color2 = Color.GRAY;
@@ -72,7 +44,7 @@ public class CButton extends JButton {
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setBorder(new EmptyBorder(10, 20, 10, 20));
 		setFocusable(false);
-		setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		setText(text);
 
 		addMouseListener(new MouseAdapter() {

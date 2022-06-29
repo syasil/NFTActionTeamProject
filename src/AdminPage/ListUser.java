@@ -13,21 +13,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DBConnection.JdbcUtil;
-import swing.CButton;
-import swing.CLabel;
-import swing.CPanel;
-import swing.CScrollPane;
-import swing.CTextField;
+import swing.*;
 
 public class ListUser  extends JFrame {
 	//회원목록 패널
 	
 	static JdbcUtil dbConn = new JdbcUtil();
-	private CPanel contentPane;
-	private CTextField jtSearch;
+	private APanel contentPane;
+	private ATextField jtSearch;
 	
 	private DefaultTableModel model;
-	private JTable UserListTable;
+	private ATable UserListTable;
 	
 	public static void main(String[] args) {
 		new ListUser();
@@ -39,28 +35,28 @@ public class ListUser  extends JFrame {
 	}
 	
 	private void initSet() {
-		contentPane = new CPanel();
+		contentPane = new APanel();
 		setContentPane(contentPane);
 		setVisible(true);
 		contentPane.setLayout(null);
 		
 		//회원목록 타이틀 영역
-		CLabel jlListTitel = new CLabel("회원목록");
+		ALabel jlListTitel = new ALabel("회원목록");
 		jlListTitel.setBounds(40, 25, 100, 20);
 		contentPane.add(jlListTitel);
 		
 		//회원목록 안내 텍스트 영역
-		CLabel jlListText = new CLabel("회원이름과 닉네임으로 검색가능합니다");
+		ALabel jlListText = new ALabel("회원이름과 닉네임으로 검색가능합니다");
 		jlListText.setBounds(270, 65, 500, 20);
 		contentPane.add(jlListText);
 		
 		//검색어 입력 영역
-		jtSearch = new CTextField();
+		jtSearch = new ATextField();
 		jtSearch.setBounds(270, 90, 200, 25);
 		contentPane.add(jtSearch);
 		
 		//검색버튼 영역
-		CButton btn_PdSearch = new CButton("검색");
+		AButton btn_PdSearch = new AButton("검색");
 		btn_PdSearch.setBounds(480, 90, 100, 25);
 		contentPane.add(btn_PdSearch);
 		
@@ -73,10 +69,7 @@ public class ListUser  extends JFrame {
 		
 		//테이블 생성
 		model = new DefaultTableModel(new String[]{"No", "아이디", "닉네임", "생일","가입일",}, 0);
-		UserListTable = new JTable(model);
-//		UserListTable.setEnabled(false);				//테이블 데이터 편집금지
-		UserListTable.setAutoCreateRowSorter(true);	//테이블 데이터 행 정렬 설정
-		UserListTable.setRowHeight(30);
+		UserListTable = new ATable(model);
 		
 		//각 셀 사이즈 설정
 		UserListTable.getColumn("No").setPreferredWidth(50);
@@ -88,7 +81,7 @@ public class ListUser  extends JFrame {
 		UserListTable.setPreferredScrollableViewportSize(new Dimension(550, 300));
 		
 		
-		CScrollPane scrollPane = new CScrollPane(UserListTable);
+		AScrollPane scrollPane = new AScrollPane(UserListTable);
 		scrollPane.setBounds(40, 125, 550, 300);
 		contentPane.add(scrollPane);
 		

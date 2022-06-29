@@ -15,9 +15,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
-public class CScrollPane extends JScrollPane {
+public class AScrollPane extends JScrollPane {
 	
-	public CScrollPane(Component view) {
+	public AScrollPane(Component view) {
 		super(view);
 		JScrollBar sb = getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(5, Integer.MAX_VALUE));
@@ -35,15 +35,15 @@ public class CScrollPane extends JScrollPane {
 			}
 		
 		};
-
+		
 		MyScrollbarUI() {
-			imageThumb = FauxImage.create(5, 5, Color.GRAY);
-			imageTrack = FauxImage.create(5, 5, Color.DARK_GRAY);
+			imageThumb = FauxImage.create(5, 5, Color.decode("#005bea"));
+			imageTrack = FauxImage.create(5, 5, Color.decode("#f5f8ff"));
 		}
 		
 		@Override
 		protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
-			g.setColor(Color.blue);
+//			g.setColor(Color.blue);
 			((Graphics2D) g).drawImage(imageThumb, r.x, r.y, r.width, r.height, null);
 		}
 		

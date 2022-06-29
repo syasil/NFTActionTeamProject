@@ -9,20 +9,20 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class CTextField extends JTextField {
+public class ATextField extends JTextField {
 	private Shape shape;
 	
-	public CTextField() {
+	public ATextField() {
 		this(50);
 	}
 	
-	public CTextField(int size) {
+	public ATextField(int size) {
 		super(size);
 		setOpaque(false);
 		setForeground(Color.DARK_GRAY);
 		//setBackground(Color.decode("#1A1A25"));
 		setBackground(Color.WHITE);
-		setFont(new Font("맑은 고딕", Font.PLAIN, 16));
+		setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 	}
 
