@@ -138,16 +138,14 @@ public class UserJoin extends CPanel {
 		
 		JButton btnNewButton;
 		ImageIcon img = ResizeImage.resize("images/profile.jpg", 130, 130);
-		btnNewButton = new CImageButton(img, 130);
-		btnNewButton.setBounds(35, 442, 130, 130);
+		btnNewButton = new CImageButton(img, 100);
+		btnNewButton.setBounds(35, 342, 130, 130);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		add(btnNewButton);
-		
-	
 	}
 	
 	public static void main(String args[]) {
