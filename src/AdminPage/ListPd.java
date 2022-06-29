@@ -8,24 +8,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import DBConnection.JdbcUtil;
+import swing.CButton;
+import swing.CLabel;
+import swing.CPanel;
+import swing.CScrollPane;
+import swing.CTextField;
 
 public class ListPd extends JFrame {
 	//상품목록 패널
 	//ListPanel.java를 새로 작업 중
 	
 	static JdbcUtil dbConn = new JdbcUtil();
-	private JPanel contentPane;
-	private JTextField jtPdSearch;
+	private CPanel contentPane;
+	private CTextField jtPdSearch;
 	
 	private DefaultTableModel model;
 	private JTable pdListTable;
@@ -40,29 +40,29 @@ public class ListPd extends JFrame {
 	}
 	
 	private void initSet() {
-		contentPane = new JPanel();
+		contentPane = new CPanel();
 		setContentPane(contentPane);
 		setVisible(true);
 		contentPane.setLayout(null);
 		
 		//상품 목록 타이틀 영역
-		JLabel jlListTitel = new JLabel("상품목록");
+		CLabel jlListTitel = new CLabel("상품목록");
 		jlListTitel.setBounds(40, 25, 100, 20);
 		contentPane.add(jlListTitel);
 		
 		//상품 목록 안내 텍스트 영역
-		JLabel jlListText = new JLabel("상품이름 검색 시 대,소문자를 구분해서 입력하세요");
-		jlListText.setBounds(310, 65, 500, 20);
+		CLabel jlListText = new CLabel("상품이름 검색 시 대,소문자를 구분해서 입력하세요");
+		jlListText.setBounds(210, 65, 500, 20);
 		contentPane.add(jlListText);
 		
 		//검색어 입력 영역
-		jtPdSearch = new JTextField();
-		jtPdSearch.setBounds(270, 90, 200, 20);
+		jtPdSearch = new CTextField();
+		jtPdSearch.setBounds(270, 90, 200, 25);
 		contentPane.add(jtPdSearch);
 		
 		//검색버튼 영역
-		JButton btn_PdSearch = new JButton("검색");
-		btn_PdSearch.setBounds(480, 90, 100, 20);
+		CButton btn_PdSearch = new CButton("검색");
+		btn_PdSearch.setBounds(480, 90, 100, 25);
 		contentPane.add(btn_PdSearch);
 		
 		btn_PdSearch.addActionListener(new ActionListener() {
@@ -91,8 +91,8 @@ public class ListPd extends JFrame {
 		pdListTable.setPreferredScrollableViewportSize(new Dimension(550, 300));
 		
 		
-		JScrollPane scrollPane = new JScrollPane(pdListTable);
-		scrollPane.setBounds(40, 120, 550, 300);
+		CScrollPane scrollPane = new CScrollPane(pdListTable);
+		scrollPane.setBounds(40, 125, 550, 300);
 		contentPane.add(scrollPane);
 		
 

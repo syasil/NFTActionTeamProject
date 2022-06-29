@@ -1,18 +1,15 @@
 package AdminPage;
 
+import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
 
+import swing.CButton;
+import swing.CLabel;
 
 /**
  * 관리자 로그인 후 보여지는 화면
@@ -26,38 +23,31 @@ import javax.swing.border.Border;
  * @author harteh
  *
  */
-/*
- * PRODUCT_B 테이블 
-  PRODUCT_NUMBER NUMBER(*, 0) NOT NULL PK
-, PRODUCT_NAME VARCHAR2(20 BYTE) NOT NULL 
-, PRODUCT_DESCRIPTION VARCHAR2(100 BYTE) NOT NULL 
-, PRODUCT_PRICE NUMBER 
-, PRODUCT_REGISTER_USER NUMBER(*, 0) 
-, PRODUCT_REGISTER_DATE DATE NOT NULL 
- */
+
 public class AdminMainPage extends JFrame {
 	
 	// 관리자 로그인 후 보여지는 화면
 	AdminMainPage() throws SQLException{
 		Container c = getContentPane();
 		c.setLayout(null);
+		c.setBackground(new Color(26, 26, 37));
 
 		//타이틀 텍스트 영역
-		JLabel jlTitel = new JLabel("관리자로 로그인 되었습니다.");
-		jlTitel.setBounds(20, 20, 400, 20);
+		CLabel jlTitel = new CLabel("관리자로 로그인 되었습니다");
+		jlTitel.setBounds(210, 63, 400, 20);
 		c.add(jlTitel);
 		
-		JButton btn_logout = new JButton("로그아웃");
-		btn_logout.setBounds(300, 20, 100, 20);
+		CButton btn_logout = new CButton("로그아웃");
+		btn_logout.setBounds(300, 35, 120, 25);
 		c.add(btn_logout);
 		
 		//상품관리 버튼+텍스트
-		JLabel jlPdNotice = new JLabel("등록된 상품을 관리합니다");
-		jlPdNotice.setBounds(100, 100, 400, 20);
+		CLabel jlPdNotice = new CLabel("등록된 상품을 관리합니다");
+		jlPdNotice.setBounds(45, 150, 400, 20);
 		c.add(jlPdNotice);
 		
-		JButton btn_listPd = new JButton("상품관리");
-		btn_listPd.setBounds(300, 100, 100, 20);
+		CButton btn_listPd = new CButton("상품관리");
+		btn_listPd.setBounds(300, 150, 120, 25);
 		c.add(btn_listPd);
 		
 		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
@@ -70,12 +60,12 @@ public class AdminMainPage extends JFrame {
 		});
 		
 		//회원관리 버튼+텍스트
-		JLabel jlUserNotice = new JLabel("회원 목록을 조회하고 관리합니다.");
-		jlUserNotice.setBounds(100, 130, 400, 20);
+		CLabel jlUserNotice = new CLabel("회원 목록을 조회하고 관리합니다");
+		jlUserNotice.setBounds(45, 190, 400, 20);
 		c.add(jlUserNotice);
 		
-		JButton btn_listUser = new JButton("회원관리");
-		btn_listUser.setBounds(300, 130, 100, 20);
+		CButton btn_listUser = new CButton("회원관리");
+		btn_listUser.setBounds(300, 190, 120, 25);
 		c.add(btn_listUser);
 		
 		//보여줄 목록 생성 -> 버튼으로 대체. 새창으로 띄우기
@@ -89,6 +79,7 @@ public class AdminMainPage extends JFrame {
 		
 				
 		//main panel setting
+		
 		setLocation(200, 100);
 		setSize(450, 500);
 		setVisible(true);
