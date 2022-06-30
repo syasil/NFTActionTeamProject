@@ -2,24 +2,29 @@ package AdminPage;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import DBConnection.GetDataTest;
+import DBConnection.GetData;
 import swing.AButton;
 import swing.ALabel;
+import swing.APanel;
 
 public class AdminMainPage extends JFrame {
 	
 	//데이터 가져오기 테스트
-	GetDataTest gdt = new GetDataTest();
-	String s1 = gdt.todayAuc;
+	GetData getData = new GetData();
 	
 	// 관리자 로그인 후 보여지는 화면
 	AdminMainPage() {
@@ -37,16 +42,49 @@ public class AdminMainPage extends JFrame {
 		c.add(jlTitel);
 		
 		
-		//데이터 가져오기 테스트
-		GetDataTest getData = new GetDataTest();
-		String auctionCnt = getData.todayAuc;
+		//데이터 가져오기 시작
+		String todayAucCnt = getData.todayAuc;
 				
-		//불러온 텍스트 영역
-		ALabel jlTest = new ALabel("오늘 실행된 경매 건수는 총 "+ auctionCnt + "건 입니다.");
-		jlTest.setBounds(180, 120, 400, 20);
-		c.add(jlTest);
+		//1.오늘 진행된 경매 건수 데이터 
+		ALabel jlAucCnt = new ALabel("진행경매 총 "+ todayAucCnt + "건");
+		jlAucCnt.setBounds(100, 120, 400, 20);
+		c.add(jlAucCnt);
+		//2.오늘 거래된 경매 금액
+		ALabel jlAucPrice = new ALabel("거래금액 총 "+ todayAucCnt + "건");
+		jlAucCnt.setBounds(100, 120, 400, 20);
+		c.add(jlAucPrice);
 		
-		//데이터 가져오기 테스트
+		//데이터 가져오기 끝
+		
+		//화면 중간 데이터 보여주는 영역
+		//1.경매건수 - 경매내역 리스트
+		APanel jPAucCnt=new APanel();
+		jPAucCnt.setBackground(Color.decode("#3ace89"));
+		jPAucCnt.setBounds(50, 160, 460, 320);
+		jPAucCnt.setVisible(true);
+		c.add(jPAucCnt);
+		//2.경매금액 - 거래회원목록 리스트
+		APanel jPAucPrice=new APanel();
+		jPAucPrice.setBackground(Color.decode("#3ace89"));
+		jPAucPrice.setBounds(50, 160, 460, 320);
+		jPAucPrice.setVisible(false);
+		c.add(jPAucPrice);
+		
+		//이벤트 테스트
+		jPAucPrice.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				jPAucCnt.setVisible(false);
+				jPAucPrice.setVisible(true);
+			 }
+	     });
+		c.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				jPAucPrice.setVisible(false);
+			}
+		});
+		
+		//이벤트 테스트
+		
 		
 		
 		//상품관리 버튼+텍스트
