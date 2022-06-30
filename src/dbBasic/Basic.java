@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class Basic {
 	public static void main(String[] args) throws SQLException {
 
-		/////////////////////////////////
+		////////////////////////////////
 		// 디비 연결할 변수 선언
-		/////////////////////////////////
+		////////////////////////////////
 		Connection conn = null; // DB와 연결하는 인터페이스
 		PreparedStatement psmt = null; // sql 문 객체
 		ResultSet rs = null; // sql에 대한 반환(쿼리 실행에 대한 결과값 저장

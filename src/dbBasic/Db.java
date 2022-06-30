@@ -7,7 +7,7 @@ public class Db {
 
 	public static Connection get() {
 		Connection conn = null;
-		
+		//
 		try {
 			String id = "system";
 			String pw = "rhdkfk1351";
