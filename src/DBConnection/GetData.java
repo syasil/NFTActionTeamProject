@@ -4,22 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.swing.table.DefaultTableModel;
+
 public class GetData {
+	
+	static JdbcUtil dbConn = new JdbcUtil();
+	private DefaultTableModel modelAuc;
 	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	String que = null;
 
 	// 오늘 시작된 경매 건수
 	public String todayAuc = getTodayAUC();
 	public String getTodayAUC() {
 		
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-		
 		try {
-			String que = "SELECT COUNT(*) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_START), 1, 10) = TO_CHAR(SYSDATE)";
+			que = "SELECT COUNT(*) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_START), 1, 10) = TO_CHAR(SYSDATE)";
 			
 			//DB 연결
 			conn = JdbcUtil.getConnection();
@@ -39,6 +41,8 @@ public class GetData {
 			return null;
 		}
 	}
+	
+	
 	
 	
 	

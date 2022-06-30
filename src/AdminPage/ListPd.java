@@ -27,7 +27,7 @@ public class ListPd extends JFrame {
 	private ATextField jtPdSearch;
 	
 	private DefaultTableModel model;
-	private JTable pdListTable;
+	private ATable pdListTable;
 	
 	public static void main(String[] args) {
 		new ListPd();
