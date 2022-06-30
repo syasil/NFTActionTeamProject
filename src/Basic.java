@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +24,11 @@ import javax.swing.JTextField;
 public class Basic {
 	public static String userNo = "";
 	public static String userID = "";
+	public static String userPw = "";
+	public static String userBirth = "";
 	public static String userNick = "";
-	public static int userPoint = 0;
-	public static ImageIcon userIcon;
+	public static int userPoint = 1;
+	public static ImageIcon userIcon = null;
 
 	private JFrame frameBefore;
 
@@ -123,48 +127,58 @@ public class Basic {
 				Connection conn = null;
 				PreparedStatement psmt = null;
 				ResultSet rs = null;
-		
+
 				try {
+
 					
-				//	String que = "select * from user_t where user_id='" + txtfID.getText() + "'";
-					String que = "select * from user_t,point where user_id='" + txtfID.getText() + "'";
-					//String que = "select user_t.user_no,user_t.user_id,user_t.user_pass,user_t.user_bir,user_t.user_nick,user_t.user_icon,point.pnt_total from user_t left outer join point on user_id='" + txtfID.getText() + "'";
+					String que = "select*from user_t natural join point where user_id='" + txtfID.getText() + "'";
 					
-					
+
 					conn = connecDb.get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
-					
-					
+
 					if (rs.next()) {
-						
-						String no = rs.getString(1);
-						String id = rs.getString(2);
+
+						String no = rs.getString(2);
+						String id = rs.getString(1);
 						String pw = rs.getString(3);
 						String birth = rs.getString(4);
 						String nick = rs.getString(5);
-						//String icon = rs.getString(6);	-> blob파일 읽어와야함  실현못함
-						int point = rs.getInt(10);
-			
+
+						Blob blob = rs.getBlob("user_icon");		//이미지파일 불러오는중
+						InputStream inputStream = blob.getBinaryStream();
+						int bytesRead = -1;
+						byte[] buffer = new byte[4096];
+						inputStream.close();
 						
-						if (txtfPw.getText().equals(pw)) {
+						ImageIcon icon=new ImageIcon(blob.getBytes(1, (int) blob.length()),"description");  //이미지 불러옴
+						Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // 크기조절 후 이미지에 넣기
+						ImageIcon icon2 = new ImageIcon(image); // ImageIcon에 조절된 이지 넣기
+						
+						
+						
+						int point = rs.getInt(9);
+
+						if (txtfPw.getText().equals(rs.getString(3))) {
 							frameBefore.setVisible(false);
 							userNo = no;
 							userID = id;
 							userNick = nick;
-							//userIcon = icon;     -> blob파일 읽어와야함  실현못함
-							
+							userBirth = birth;
+							userIcon=icon2;		
 							userPoint=point;
+
 							new logIn().setVisible(true);
-			
+
 						} else {
 							JOptionPane.showMessageDialog(null, "비밀번호가 잘못되었습니다.");
 //							
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "등록된" + txtfID.getText() + "가 없습니다.");
-					
+
 					}
 //					
 
@@ -174,7 +188,7 @@ public class Basic {
 				} catch (Exception e1) {
 					e1.getStackTrace();
 				}
-				
+
 			}
 		});
 

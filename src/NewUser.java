@@ -190,7 +190,7 @@ public class NewUser {
 					file = new File(txtf_img.getText());
 					fis = new FileInputStream(file);
 
-					Basic.userIcon = icon2; // -> blob파일 읽어와야함 실현못함 그래서 임시로 넣음
+				//	Basic.userIcon = icon2; 
 				} catch (Exception e1) {
 					e1.getStackTrace();
 				}
@@ -202,6 +202,7 @@ public class NewUser {
 
 		btnPw.addActionListener(new ActionListener() { // 비밀번호 재확인
 			public void actionPerformed(ActionEvent e) {
+				if (!txtfPw.getText().equals("")) {
 				if (txtfPw.getText().equals(txtfRePw.getText())) {
 					txtfPw.setEnabled(false);
 					txtfRePw.setEnabled(false);
@@ -209,7 +210,7 @@ public class NewUser {
 				} else {
 					JOptionPane.showMessageDialog(null, "비밀번호가 다릅니다.");
 				}
-
+				}
 			}
 		});
 
@@ -244,8 +245,6 @@ public class NewUser {
 					return;
 				}
 
-			//	if (!(txtfID.getText()).equals("")) { // && !txtfNick.equals(null) && !txtfPw.equals(null) &&
-														// !txtfBirth.equals(null) && !txtfRePw.equals(null)) {
 				else {
 					String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 					String que = "insert into user_t(USER_NO,USER_ID,USER_PASS,USER_BIR,USER_NICK,USER_CREDAY,USER_ICON)"
@@ -264,7 +263,7 @@ public class NewUser {
 						pstmt.setString(3, txtfBirth.getText());
 						pstmt.setString(4, txtfNick.getText());
 
-						pstmt.setBinaryStream(5, fis, (int) file.length());
+						pstmt.setBinaryStream(5, fis, (int) file.length()); // 이미지 db에 저장
 
 						int n = pstmt.executeUpdate();
 					} catch (Exception e1) {
@@ -274,7 +273,7 @@ public class NewUser {
 					String resultStr = null;
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
 					frame.dispose();
-				} 
+				}
 			}
 		});
 //------------------------------------------------------------------------------------------
@@ -299,8 +298,10 @@ public class NewUser {
 							JOptionPane.showMessageDialog(null, "확인 되었습니다.");
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "없는 지갑입니다.");
-						txtfWallet.setText(null);
+						if (!txtfWallet.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "없는 지갑입니다.");
+							txtfWallet.setText(null);
+						}
 					}
 
 					rs.close();
@@ -334,9 +335,10 @@ public class NewUser {
 
 						}
 					} else {
-						txtfID.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "확인 되었습니다.");
-
+						if (!txtfID.getText().equals("")) {
+							txtfID.setEnabled(false);
+							JOptionPane.showMessageDialog(null, "확인 되었습니다.");
+						}
 					}
 
 					rs.close();
@@ -356,7 +358,7 @@ public class NewUser {
 
 				try {
 					String que = "select * from user_t where user_Nick='" + txtfNick.getText() + "'";
-					//
+
 					conn = connecDb.get();
 
 					psmt = conn.prepareStatement(que);
@@ -370,9 +372,10 @@ public class NewUser {
 
 						}
 					} else {
-						txtfNick.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "확인 되었습니다.");
-
+						if (!txtfNick.getText().equals("")) {
+							txtfNick.setEnabled(false);
+							JOptionPane.showMessageDialog(null, "확인 되었습니다.");
+						}
 					}
 
 					rs.close();
@@ -387,10 +390,10 @@ public class NewUser {
 		// ------------------------------------------------------------------------------------------
 		btnBirth.addActionListener(new ActionListener() { // 확인
 			public void actionPerformed(ActionEvent e) {
-
+				if (!txtfID.getText().equals("")) {
 				txtfBirth.setEnabled(false);
 				JOptionPane.showMessageDialog(null, "확인 되었습니다.");
-
+				}
 			}
 		});
 	}
