@@ -142,7 +142,7 @@ public class Insert extends JFrame {
 			///////////////////////////////////////////////
 			// 디비에 입력해보자
 			///////////////////////////////////////////////
-			String sql = "insert into emp1(e_id, empno, ename, job, hiredate) values (seq_emp_e_id,nextval,?, ?, ?, sysdate)";
+			String sql = "insert into USER_T(USER_NO, USER_ID, USER_PASS, USER_CREDAY) values (SEQ_INCREASE_USER_NO,?, ?, sysdate)";
 			
 			
 			try {
