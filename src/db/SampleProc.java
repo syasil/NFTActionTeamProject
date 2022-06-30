@@ -16,7 +16,7 @@ public class SampleProc {
 		ResultSet rs = null; // sql에 대한 반환(쿼리 실행에 대한 결과값 저장
 		
 		try {
-			conn = DB.getConnection(); // DB연결
+			conn = DB.get(); // DB연결
 
 			// 프로시저 호출
 			cs = conn.prepareCall("begin proc_emp_get_all(?); end;");

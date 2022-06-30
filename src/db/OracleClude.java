@@ -17,7 +17,7 @@ public class OracleClude {
 		try {
 			String que = "select * from sample";
 
-			conn = DB.getConnection(); // DB연결
+			conn = DB.get(); // DB연결
 			psmt = conn.prepareStatement(que);
 			rs = psmt.executeQuery();
 			

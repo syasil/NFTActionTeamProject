@@ -136,7 +136,7 @@ public class List extends JFrame {
 			
 			sql += " order by hiredate desc"; 
 
-			conn = DB.getConnection();
+			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			

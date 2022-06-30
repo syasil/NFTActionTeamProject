@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="../lib/ojdbc8.jar"/>
-	<classpathentry kind="lib" path="D:/Work/java/lib/ucp.jar"/>
+	<classpathentry kind="lib" path="../lib/ucp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

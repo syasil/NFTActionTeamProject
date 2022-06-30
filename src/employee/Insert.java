@@ -144,7 +144,7 @@ public class Insert extends JFrame {
 			
 			
 			try {
-				conn = DB.getConnection();
+				conn = DB.get();
 				psmt = conn.prepareStatement(sql);
 				
 				//pstmt.setInt(1, 1234);
