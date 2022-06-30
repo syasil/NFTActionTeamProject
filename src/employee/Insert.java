@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -153,7 +155,8 @@ public class Insert extends JFrame {
 				psmt.setString(2, txtUserPW.getText());
 
 				int n = psmt.executeUpdate(); // DB 갱신됨
-			} catch (Exception e1) {
+				System.out.println(n>0 ? "성공" : "실패");
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
