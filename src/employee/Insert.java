@@ -149,14 +149,10 @@ public class Insert extends JFrame {
 				conn = DB.get();
 				psmt = conn.prepareStatement(sql);
 				
-				//pstmt.setInt(1, 1234);
-				psmt.setString(1, "1238");
-				psmt.setString(2, "JACKS");
-				psmt.setString(3, "<b>BB</b>");
+				psmt.setString(1, txtUserID.getText());
+				psmt.setString(2, txtUserPW.getText());
 
 				int n = psmt.executeUpdate(); // DB 갱신됨
-				
-				
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
