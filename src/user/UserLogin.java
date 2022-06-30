@@ -57,7 +57,24 @@ public class UserLogin extends CPanel {
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(), "로그인처리");
+				
+				if (txtUserID.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "아이디를 입력해 주세요.");
+					txtUserID.requestFocus();
+					return;
+				}
+				
+				String userPW = new String(txtUserPW.getPassword());
+				if (userPW.equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "비밀번호를 입력해 주세요.");
+					txtUserPW.requestFocus();
+					return;
+				}
+
+				
+				Main.USER_ID = txtUserID.getText();
+				
+				// 화면 전환.
 			}
 		});
 		add(btnLogin);

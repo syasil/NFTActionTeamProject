@@ -125,16 +125,13 @@ public class List extends JFrame {
 		model.setRowCount(0);
 
 		try {
+			String sqlWhere = "";
 			String sql = "";
 			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
 
-			sql = "select empno, ename, job, hiredate from emp1 ";
-
-			if (!keyword.equals("")) {
-				sql += " where ename like '%" + keyword + "%' ";
-			}
 			
-			sql += " order by hiredate desc"; 
+			sqlWhere = (keyword.equals("")) ? "" : " where ename like '%" + keyword + "%' ";
+			sql = "select empno, ename, job, hiredate from emp " + sqlWhere + " order by hiredate desc"; 
 
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);

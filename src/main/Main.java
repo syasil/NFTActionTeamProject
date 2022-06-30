@@ -6,18 +6,32 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import db.DB;
 import functions.ResizeImage;
 import functions.SlidingAnimate;
-import swing.*;
-import user.*;
+import swing.CButton;
+import swing.CImageButton;
+import swing.CLabel;
+import swing.CPanel;
+import user.FindPassword;
+import user.UserJoin;
+import user.UserLogin;
 
 public class Main extends JFrame {
 
@@ -44,6 +58,7 @@ public class Main extends JFrame {
 	
 	private CButton btnLogin;
 	private CButton btnJoin;
+	private CImageButton btnProfile;
 	
 	private CLabel lblRemainText;
 	private CLabel lblRemainTime;
@@ -58,9 +73,24 @@ public class Main extends JFrame {
 
 	private void initComponents() {
 
+		/////////////////////////////////////////////
+		// 경고창 배경색, 글씨 크기 변경
+		/////////////////////////////////////////////
+		UIManager.put("OptionPane.background", Color.WHITE);
+		UIManager.put("Panel.background", Color.WHITE);
+		UIManager.put("OptionPane.messageFont", new Font("맑은 고딕", Font.PLAIN, 16)); 
+		UIManager.put("OptionPane.buttonFont", new Font("맑은 고딕", Font.PLAIN, 16));
+		
+
+		/////////////////////////////////////////////
+		// 레이어드 패인 설정
+		/////////////////////////////////////////////
 		JLayeredPane pane = getLayeredPane();
 		
+
+		/////////////////////////////////////////////
 		// 각 판넬 초기화..
+		/////////////////////////////////////////////
 		pnlLogin = new UserLogin();
 		pnlLogin.setVisible(false);
 		
@@ -77,7 +107,7 @@ public class Main extends JFrame {
 		pnlTop.setBackground(new Color(26, 26, 37));
 		pnlTop.setBounds(0, 0, 600, 70);
 		
-		pnlMain = new CPanel(new ImageIcon("images/bg.jpg"));
+		pnlMain = new CPanel("images/bg.jpg");
 		pnlMain.setLayout(null);
 		pnlMain.setBounds(0, 0, 600, 900);
 
@@ -96,6 +126,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
+		pnlTop.add(btnLogin);
 		
 		btnJoin = new CButton("회원가입", "DARK");
 		btnJoin.setBounds(470, 20, 120, 30);
@@ -115,9 +146,40 @@ public class Main extends JFrame {
 				cd.start(); // 쓰레드실행
 			}
 		});
-		
-		pnlTop.add(btnLogin);
 		pnlTop.add(btnJoin);
+
+		btnProfile = new CImageButton(ResizeImage.resize("images/profile.jpg", 50, 50), 50);
+		btnProfile.setBounds(20, 10, 50, 50);
+		btnProfile.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = null;
+				PreparedStatement psmt = null;
+				ResultSet rs = null; 
+
+				try {
+					conn = DB.get();
+					psmt = conn.prepareStatement("select * from users where user_id = 'charismo@naver.com'");
+					rs = psmt.executeQuery();
+					
+					if (rs.next()) {
+						Blob blob = rs.getBlob("user_icon");
+						BufferedImage imgByte = ImageIO.read(blob.getBinaryStream(1, blob.length()));
+						ImageIcon imgOriginal = new ImageIcon(imgByte);
+						btnProfile.setImage(ResizeImage.resize(imgOriginal, 50, 50));
+					}
+					
+					rs.close(); 
+					psmt.close();
+					conn.close();
+				} catch (Exception err) {
+					err.printStackTrace();
+				}
+			}
+		});
+		pnlTop.add(btnProfile);
+
 
 		/////////////////////////////////////////
 		// 상품
