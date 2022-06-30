@@ -22,7 +22,7 @@ public class Img extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		new Img();
+	/*	new Img();
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;

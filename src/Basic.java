@@ -1,12 +1,16 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.naming.BinaryRefAddr;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +24,7 @@ public class Basic {
 	public static String userID = "";
 	public static String userNick = "";
 	public static int userPoint = 0;
-	public static String userIcon = "";
+	public static ImageIcon userIcon;
 
 	private JFrame frameBefore;
 
@@ -122,9 +126,9 @@ public class Basic {
 		
 				try {
 					
-					String que = "select * from user_t where user_id='" + txtfID.getText() + "'";
-				//	String que = "select * from user_t,point where user_id='" + txtfID.getText() + "'";
-				//	String que = "select user_t.user_no,user_t.user_id,user_t.user_pass,user_t.user_bir,user_t.user_nick,user_t.user_icon,point.pnt_total from user_t left outer join point on user_id='" + txtfID.getText() + "'";
+				//	String que = "select * from user_t where user_id='" + txtfID.getText() + "'";
+					String que = "select * from user_t,point where user_id='" + txtfID.getText() + "'";
+					//String que = "select user_t.user_no,user_t.user_id,user_t.user_pass,user_t.user_bir,user_t.user_nick,user_t.user_icon,point.pnt_total from user_t left outer join point on user_id='" + txtfID.getText() + "'";
 					
 					
 					conn = connecDb.get();
@@ -140,8 +144,8 @@ public class Basic {
 						String pw = rs.getString(3);
 						String birth = rs.getString(4);
 						String nick = rs.getString(5);
-						String icon = rs.getString(6);
-					//	int point = rs.getInt(7);
+						//String icon = rs.getString(6);	-> blob파일 읽어와야함  실현못함
+						int point = rs.getInt(10);
 			
 						
 						if (txtfPw.getText().equals(pw)) {
@@ -149,8 +153,9 @@ public class Basic {
 							userNo = no;
 							userID = id;
 							userNick = nick;
-							userIcon = icon;
-					//		userPoint=point;
+							//userIcon = icon;     -> blob파일 읽어와야함  실현못함
+							
+							userPoint=point;
 							new logIn().setVisible(true);
 			
 						} else {

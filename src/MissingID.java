@@ -50,7 +50,7 @@ public class MissingID {
 
 		JPanel pnlMissing = new JPanel();
 
-		JLabel lbBirth = new JLabel("Birth : "); // birth 형식 설정 필요 *현재 varchar2형식
+		JLabel lbBirth = new JLabel("Birth : "); 
 		txtfBirth = new JTextField(10);
 		JButton btnBirth = new JButton("ID찾기");
 		JLabel lbID = new JLabel("ID : ");
@@ -91,7 +91,7 @@ public class MissingID {
 
 		// **********기능******************
 
-		btnBirth.addActionListener(new ActionListener() {
+		btnBirth.addActionListener(new ActionListener() {		//아이디 찾는 기능
 			public void actionPerformed(ActionEvent e) {
 				Connection conn = null;
 				PreparedStatement psmt = null;
@@ -130,7 +130,7 @@ public class MissingID {
 		});
 		// --------------------------------------------------------------------
 
-		btnID.addActionListener(new ActionListener() { // 기능
+		btnID.addActionListener(new ActionListener() { // 비밀번호 찾는 기능
 			public void actionPerformed(ActionEvent e) {
 				Connection conn = null;
 				PreparedStatement psmt = null;
@@ -180,7 +180,7 @@ public class MissingID {
 
 		// --------------------------------------------------------------------
 
-		btnOk.addActionListener(new ActionListener() {
+		btnOk.addActionListener(new ActionListener() {	//확인버튼
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
