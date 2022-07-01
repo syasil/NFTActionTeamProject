@@ -8,7 +8,13 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.ScrollPaneConstants;
+
 import image.ResizeImage;
+
+import javax.swing.border.EmptyBorder;
+
+import functions.ResizeImage;
+
 import swing.CLabel;
 import swing.CPanel;
 import swing.CScrollPane;

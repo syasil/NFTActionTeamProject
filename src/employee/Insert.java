@@ -65,7 +65,7 @@ public class Insert extends JFrame {
 	
 	private void initComponents() {
 		setResizable(false);
-		setBounds(100, 100, 360, 410);
+		setBounds(100, 100, 360, 564);
 		setLocationRelativeTo(getRootPane());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,10 +106,30 @@ public class Insert extends JFrame {
 		
 		
 		CButton btnInsert = new CButton("입력하기");
-		btnInsert.setBounds(39, 309, 264, 30);
+		btnInsert.setBounds(39, 473, 264, 30);
 		btnInsert.addActionListener(new InsertUser());
 
 		contentPane.add(btnInsert);
+		
+		CLabel lblUserBirth = new CLabel("생년월일");
+		lblUserBirth.setText("생년월일");
+		lblUserBirth.setBounds(39, 298, 107, 30);
+		contentPane.add(lblUserBirth);
+		
+		CTextField txtUserBirth = new CTextField();
+		txtUserBirth.setColumns(10);
+		txtUserBirth.setBounds(39, 335, 264, 30);
+		contentPane.add(txtUserBirth);
+		
+		CLabel lblUserNick = new CLabel("별명");
+		lblUserNick.setText("별명");
+		lblUserNick.setBounds(39, 381, 107, 30);
+		contentPane.add(lblUserNick);
+		
+		CTextField txtUserNick = new CTextField();
+		txtUserNick.setColumns(10);
+		txtUserNick.setBounds(39, 418, 264, 30);
+		contentPane.add(txtUserNick);
 	}
 
 	class InsertUser implements ActionListener {
@@ -163,7 +183,4 @@ public class Insert extends JFrame {
 		
 		
 	}
-	
-	
-	
 }

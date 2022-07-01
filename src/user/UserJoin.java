@@ -1,12 +1,33 @@
 package user;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import image.ResizeImage;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import db.DB;
+import functions.ResizeImage;
 import main.Main;
-import swing.*;
+import swing.CButton;
+import swing.CImageButton;
+import swing.CLabel;
+import swing.CPanel;
+import swing.CPasswordField;
+import swing.CTextField;
 
 public class UserJoin extends CPanel {
 	/**
@@ -17,6 +38,9 @@ public class UserJoin extends CPanel {
 	private CTextField txtUserID;
 	private CPasswordField txtUserPW;
 	private CPasswordField txtUserPW_Re;
+	private CTextField txtUserNickname;
+	private CTextField txtUserWallet;
+	private File selectedFile;
 
 	public UserJoin() {
 		super(30);
@@ -32,13 +56,28 @@ public class UserJoin extends CPanel {
 		setBounds(100, 0, 400, 662);
 
 		
+		//////////////////////////////////
+		// 패널 닫기
+		//////////////////////////////////
+		CLabel lblClose = new CLabel("×", 40);
+		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblClose.setBounds(358, 12, 30, 30);
+		lblClose.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				instance.setVisible(false);
+			}
+		});
+		add(lblClose);
+
+		
 		/////////////////////////
 		// 타이틀
 		/////////////////////////
 		CLabel lblTitle = new CLabel("회원가입", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
 		add(lblTitle);
-		
+
+
 		/////////////////////////
 		// 아이디
 		/////////////////////////
@@ -47,11 +86,11 @@ public class UserJoin extends CPanel {
 		add(lblID);
 		
 		txtUserID = new CTextField();
-		txtUserID.setBounds(25, 130, 170, 40);
+		txtUserID.setBounds(25, 130, 226, 40);
 		add(txtUserID);
 		
-		CButton btnVerifyID = new CButton("중복확인");
-		btnVerifyID.setBounds(211, 130, 161, 40);
+		CButton btnVerifyID = new CButton("중복확인", "DARK");
+		btnVerifyID.setBounds(257, 136, 115, 25);
 		add(btnVerifyID);
 
 
@@ -82,7 +121,7 @@ public class UserJoin extends CPanel {
 		lblNickname.setBounds(25, 263, 347, 30);
 		add(lblNickname);
 		
-		CTextField txtUserNickname = new CTextField();
+		txtUserNickname = new CTextField();
 		txtUserNickname.setBounds(25, 292, 347, 40);
 		add(txtUserNickname);
 
@@ -94,20 +133,52 @@ public class UserJoin extends CPanel {
 		lblWallet.setBounds(25, 342, 347, 30);
 		add(lblWallet);
 		
-		CTextField txtUserWallet = new CTextField();
-		txtUserWallet.setBounds(25, 374, 170, 40);
+		txtUserWallet = new CTextField();
+		txtUserWallet.setBounds(25, 374, 226, 40);
 		add(txtUserWallet);
 		
-		CButton btnVerifyWallet = new CButton("인증하기");
+		CButton btnVerifyWallet = new CButton("인증하기", "DARK");
 		btnVerifyWallet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(getParent(), txtUserWallet.getText() + "전자지갑 인층 처리");
 			}
 		});
-		btnVerifyWallet.setBounds(211, 374, 161, 40);
+		btnVerifyWallet.setBounds(257, 382, 115, 25);
 		add(btnVerifyWallet);
 
-	
+		
+		//////////////////////////////////
+		// 프로필 사진
+		//////////////////////////////////
+		CLabel lblProfilePic = new CLabel("프로필 사진");
+		lblProfilePic.setBounds(227, 485, 101, 30);
+		add(lblProfilePic);
+		
+		ImageIcon img = ResizeImage.resize("images/profile.jpg", 130, 130);
+		CImageButton btnProfile = new CImageButton(img, 130);
+		btnProfile.setBounds(55, 441, 130, 130);
+		
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+				FileFilter imageFilter = new FileNameExtensionFilter("이미지 파일", ImageIO.getReaderFileSuffixes());
+				fileChooser.setFileFilter(imageFilter);
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int result = fileChooser.showOpenDialog(getParent());
+				
+				if (result == JFileChooser.APPROVE_OPTION) {
+					//선택한 파일의 경로 반환
+					selectedFile = fileChooser.getSelectedFile();
+					
+					ImageIcon imgFile = ResizeImage.resize(selectedFile.toString(), 130, 130); 
+					btnProfile.setImage(imgFile);
+				}
+			}
+		});
+		add(btnProfile);
+
+		
 		//////////////////////////////////
 		// 가입하기 버튼
 		//////////////////////////////////
@@ -116,42 +187,45 @@ public class UserJoin extends CPanel {
 		btnJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Connection conn = null;
+				PreparedStatement psmt = null;
+				
+				
+				try {
+					String sql = "INSERT INTO USERS (USER_NO, USER_ID, USER_PASS, USER_NICK, USER_WALLET, USER_ICON, USER_CREDAY)"
+						+ " values (seq_users.nextval, ?, ?, ?, ?, ?, SYSDATE)";
+
+					conn = DB.get(); // DB연결
+					psmt = conn.prepareStatement(sql);
+
+					
+					psmt.setString(1, txtUserID.getText());
+					psmt.setString(2, new String(txtUserPW.getPassword()));
+					psmt.setString(3, txtUserNickname.getText());
+					psmt.setString(4, txtUserWallet.getText());
+
+					FileInputStream fis = new FileInputStream(selectedFile);
+
+					psmt.setBinaryStream(5, fis,(int)selectedFile.length());
+					int result = psmt.executeUpdate();
+					
+					if(result > 0){
+						System.out.println("삽입성공");
+					}else
+					{
+						System.out.println("실패");
+					}
+					
+					psmt.close();
+					conn.close();
+				} catch (Exception err) {
+					err.printStackTrace();
+				}
+				
 				JOptionPane.showMessageDialog(getParent(), "회원가입 처리");
 			}
 		});
-		add(btnJoin);
-
-
-		//////////////////////////////////
-		// 패널 닫기
-		//////////////////////////////////
-		CLabel lblClose = new CLabel("×", 40);
-		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblClose.setBounds(358, 12, 30, 30);
-		lblClose.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				instance.setVisible(false);
-			}
-		});
-		add(lblClose);
-		
-		CLabel lblProfilePic = new CLabel("전자지갑 번호");
-		lblProfilePic.setText("프로필 사진");
-		lblProfilePic.setBounds(25, 424, 101, 30);
-		add(lblProfilePic);
-		
-		JButton btnNewButton;
-		ImageIcon img = ResizeImage.resize("images/sample1.jpg", 130, 130);
-		btnNewButton = new CImageButton(img, 130);
-		btnNewButton.setBounds(133, 432, 130, 130);
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		add(btnNewButton);
-		
-	
+		add(btnJoin);	
 	}
 	
 	public static void main(String args[]) {
