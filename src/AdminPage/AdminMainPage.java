@@ -74,7 +74,6 @@ public class AdminMainPage extends JFrame {
 		// 화면 중간 데이터 보여주는 영역
 		// 1.경매건수 - 경매내역 리스트
 		JPanel jPAucCnt = new JPanel();
-		jPAucCnt.setBackground(Color.decode("#3ace89"));
 		jPAucCnt.setBounds(50, 200, 470, 320);
 		jPAucCnt.setVisible(true);
 		c.add(jPAucCnt);
@@ -121,13 +120,13 @@ public class AdminMainPage extends JFrame {
 		
 		
 		// 2.사용자 경매내역 검색 영역
-		ALabel jlUserAuc = new ALabel("경매내역검색 : ");
+		ALabel jlUserAuc = new ALabel("회원의 경매내역검색 : ");
 		ATextField jtUserAuc = new ATextField();
 		AButton jbUserAuc = new AButton("검색");
 		
-		jlUserAuc.setBounds(50, 165, 150, 20);
-		jtUserAuc.setBounds(170, 163, 150, 28);
-		jbUserAuc.setBounds(340, 165, 90, 25);
+		jlUserAuc.setBounds(50, 165, 170, 20);
+		jtUserAuc.setBounds(220, 163, 150, 28);
+		jbUserAuc.setBounds(390, 165, 90, 25);
 		jbUserAuc.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		c.add(jlUserAuc);
 		c.add(jtUserAuc);
@@ -135,7 +134,6 @@ public class AdminMainPage extends JFrame {
 
 		// 2.회원별 경매내역 - 아이디 검색으로 그 사람의 경매내역을 불러옴
 		JPanel jPAucPrice = new JPanel();
-		jPAucPrice.setBackground(Color.decode("#f45728"));
 		jPAucPrice.setBounds(50, 200, 470, 320);
 		jPAucPrice.setVisible(false);
 		c.add(jPAucPrice);
@@ -145,26 +143,30 @@ public class AdminMainPage extends JFrame {
 		DefaultTableModel modelUserAuc = new DefaultTableModel(
 				new String[] { "경매번호", "그림명", "낙찰가격", "경매종료시간"}, 0);
 		ATable userAucTable = new ATable(modelUserAuc);
+		// 각 셀 사이즈 설정
+		userAucTable.getColumn("경매번호").setPreferredWidth(60);
+		userAucTable.getColumn("그림명").setPreferredWidth(230);
+		userAucTable.getColumn("낙찰가격").setPreferredWidth(60);
+		userAucTable.getColumn("경매종료시간").setPreferredWidth(120);
+
+		AScrollPane scrollPaneUserAuc = new AScrollPane(userAucTable);
+		scrollPaneUserAuc.setPreferredSize(new Dimension(470, 310));
+		jPAucPrice.add(scrollPaneUserAuc);
+		
+		
 		// 이벤트 테스트
 		jbUserAuc.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				inUserId = jtUserAuc.getText();
 				System.out.println(inUserId);
+				
+				modelUserAuc.setNumRows(0);
+						
 				//테이블2 생성부분 이동
 				// 테이블 생성 2 - 회원별 경매내역 검색 출력
 				//2. 회원아이디로 검색 -> 프로시저 PRO_USER_AUC_LIST 호출
 				//경매번호, p.그림명, 낙찰가, 경매종료시간
-
-				// 각 셀 사이즈 설정
-				userAucTable.getColumn("경매번호").setPreferredWidth(60);
-				userAucTable.getColumn("그림명").setPreferredWidth(230);
-				userAucTable.getColumn("낙찰가격").setPreferredWidth(60);
-				userAucTable.getColumn("경매종료시간").setPreferredWidth(120);
-
-				AScrollPane scrollPaneUserAuc = new AScrollPane(userAucTable);
-				scrollPaneUserAuc.setPreferredSize(new Dimension(470, 310));
-				jPAucPrice.add(scrollPaneUserAuc);
 
 				try {
 //					String proc = "{call pro_user_auc_list(?,?)}";

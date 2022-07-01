@@ -21,7 +21,7 @@ public class GetData {
 	public String getTodayAUC() {
 		
 		try {
-			que = "SELECT COUNT(*) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_START), 1, 10) = TO_CHAR(SYSDATE)";
+			que = "SELECT COUNT(*) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
 			
 			//DB 연결
 			conn = JdbcUtil.getConnection();
@@ -48,7 +48,7 @@ public class GetData {
 	public String getTodayAucPrice() {
 		
 		try {
-			que = "SELECT sum(AUC_LPRICE) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_START), 1, 10) = TO_CHAR(SYSDATE)";
+			que = "SELECT sum(AUC_LPRICE) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
 			
 			//DB 연결
 			conn = JdbcUtil.getConnection();
@@ -60,6 +60,7 @@ public class GetData {
 				todayAucPrice = rs.getString(1);
 			}
 			
+			System.out.println("getTodayAucPrice(): "+todayAucPrice);
 			return todayAucPrice;
 			/* rs.close(); psmt.close(); conn.close(); */
 			
