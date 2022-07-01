@@ -9,15 +9,9 @@ public class DB {
 		Connection conn = null;
 		
 		try {
-<<<<<<< HEAD
 			String id = "Three_Team";
 			String pw = "1234";
 			String url = "jdbc:oracle:thin:@localhost:1521/xe";
-=======
-			String id = "MSB";
-			String pw = "momo1004";
-			String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
->>>>>>> branch 'msb' of https://github.com/syasil/NFTAuctionTeamProject.git
 			
 			// JDBC 드라이버를 로딩하는 코드 => DriverManager에 등록
 			Class.forName("oracle.jdbc.driver.OracleDriver");
