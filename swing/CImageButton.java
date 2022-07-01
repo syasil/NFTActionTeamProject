@@ -5,12 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-
 import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -23,7 +18,6 @@ public class CImageButton extends JButton {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Image img;
 
 	private BufferedImage img;
 	private BufferedImage renderImg;
