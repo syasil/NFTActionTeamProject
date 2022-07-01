@@ -17,7 +17,7 @@ public class GetData {
 	String que = null;
 
 	// 오늘 시작된 경매 건수
-	public String todayAuc = getTodayAUC();
+	public String todayAuc;
 	public String getTodayAUC() {
 		
 		try {
@@ -28,7 +28,6 @@ public class GetData {
 			psmt = conn.prepareStatement(que);
 			rs = psmt.executeQuery();
 			
-			System.out.println(que);
 			while(rs.next()) {
 				todayAuc = rs.getString(1);
 			}
@@ -44,7 +43,7 @@ public class GetData {
 	
 	
 	// 오늘 시작된 경매 금액
-	public String todayAucPrice = getTodayAucPrice();
+	public String todayAucPrice;
 	public String getTodayAucPrice() {
 		
 		try {
@@ -55,14 +54,12 @@ public class GetData {
 			psmt = conn.prepareStatement(que);
 			rs = psmt.executeQuery();
 			
-			System.out.println(que);
 			while(rs.next()) {
 				todayAucPrice = rs.getString(1);
 			}
 			
-			System.out.println("getTodayAucPrice(): "+todayAucPrice);
 			return todayAucPrice;
-			/* rs.close(); psmt.close(); conn.close(); */
+//			rs.close(); psmt.close(); conn.close(); 
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -59,7 +59,8 @@ public class AdminMainPage extends JFrame {
 		jlTitel.setBounds(310, 70, 400, 20);
 		c.add(jlTitel);
 
-		String todayAucCnt = getData.todayAuc;
+		String todayAucCnt = getData.getTodayAUC();
+		String todayAucPrice = getData.getTodayAucPrice();
 
 		// 1.오늘 진행된 경매 건수 데이터
 		ALabel jlAucCnt = new ALabel("오늘 진행된 경매 : " + todayAucCnt + "건");
@@ -67,8 +68,8 @@ public class AdminMainPage extends JFrame {
 		jlAucCnt.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		c.add(jlAucCnt);
 		// 경매 금액 표시
-		ALabel jlAucPrice = new ALabel("오늘 거래금액 : " + todayAucCnt + "원");
-		jlAucPrice.setBounds(300, 130, 200, 20);
+		ALabel jlAucPrice = new ALabel("오늘 거래금액 : " + todayAucPrice + "원");
+		jlAucPrice.setBounds(290, 130, 220, 20);
 		c.add(jlAucPrice);
 		
 		// 화면 중간 데이터 보여주는 영역
@@ -125,8 +126,8 @@ public class AdminMainPage extends JFrame {
 		AButton jbUserAuc = new AButton("검색");
 		
 		jlUserAuc.setBounds(50, 165, 170, 20);
-		jtUserAuc.setBounds(220, 163, 150, 28);
-		jbUserAuc.setBounds(390, 165, 90, 25);
+		jtUserAuc.setBounds(240, 163, 150, 28);
+		jbUserAuc.setBounds(410, 165, 90, 25);
 		jbUserAuc.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		c.add(jlUserAuc);
 		c.add(jtUserAuc);
@@ -159,7 +160,6 @@ public class AdminMainPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				inUserId = jtUserAuc.getText();
-				System.out.println(inUserId);
 				
 				modelUserAuc.setNumRows(0);
 						
@@ -167,9 +167,7 @@ public class AdminMainPage extends JFrame {
 				// 테이블 생성 2 - 회원별 경매내역 검색 출력
 				//2. 회원아이디로 검색 -> 프로시저 PRO_USER_AUC_LIST 호출
 				//경매번호, p.그림명, 낙찰가, 경매종료시간
-
 				try {
-//					String proc = "{call pro_user_auc_list(?,?)}";
 
 					//db연결
 					conn = dbConn.getConnection();
@@ -186,7 +184,6 @@ public class AdminMainPage extends JFrame {
 					rs = (ResultSet)cs.getObject(1);
 
 					while (rs.next()) {
-						System.out.println("반복문시작");
 						String aucNo = rs.getString(1);
 						String proName = rs.getString(2);
 						String auc_LPrice = rs.getString(3);
