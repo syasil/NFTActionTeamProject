@@ -25,7 +25,7 @@ import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
 
-public class UserList extends JFrame {
+public class ProductList extends JFrame {
 
 	private JPanel contentPane;
 	private CTextField txtKeyword;
@@ -42,7 +42,7 @@ public class UserList extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserList frame = new UserList();
+					ProductList frame = new ProductList();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class UserList extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserList() {
+	public ProductList() {
 		initComponents();
 		getList();
 	}
@@ -71,7 +71,7 @@ public class UserList extends JFrame {
 		contentPane.setBackground(Color.decode("#1A1A25"));
 		contentPane.setLayout(null);
 
-		CLabel lblKeyword = new CLabel("회원 목록", 22);
+		CLabel lblKeyword = new CLabel("상품 목록", 22);
 		lblKeyword.setBounds(12, 23, 165, 30);
 		contentPane.add(lblKeyword);
 

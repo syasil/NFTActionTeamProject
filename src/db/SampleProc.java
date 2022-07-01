@@ -19,7 +19,7 @@ public class SampleProc {
 			conn = DB.get(); // DB연결
 
 			// 프로시저 호출
-			cs = conn.prepareCall("begin proc_emp_get_all(?); end;");
+			cs = conn.prepareCall("{call proc_emp_get_all(?)}");
 			cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 			//cs.setInt(2, 1000);
 
