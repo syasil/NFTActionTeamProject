@@ -14,11 +14,10 @@ public class ATable extends JTable {
 	public ATable(TableModel text) {
 		super(text);
 		setFont(new Font("맑은 고딕", Font.PLAIN ,14));
-//		setBackground(new Color(209, 231, 254));
 		setBackground(new Color(245, 248, 255));
 		setRowHeight(30);
 		setAutoCreateRowSorter(true);	//테이블 데이터 행 정렬 설정
-		setEnabled(false);	
+//		setEnabled(false);	
 	}
 
 }

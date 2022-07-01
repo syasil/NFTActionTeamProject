@@ -43,6 +43,33 @@ public class GetData {
 	}
 	
 	
+	// 오늘 시작된 경매 금액
+	public String todayAucPrice = getTodayAucPrice();
+	public String getTodayAucPrice() {
+		
+		try {
+			que = "SELECT sum(AUC_LPRICE) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_START), 1, 10) = TO_CHAR(SYSDATE)";
+			
+			//DB 연결
+			conn = JdbcUtil.getConnection();
+			psmt = conn.prepareStatement(que);
+			rs = psmt.executeQuery();
+			
+			System.out.println(que);
+			while(rs.next()) {
+				todayAucPrice = rs.getString(1);
+			}
+			
+			return todayAucPrice;
+			/* rs.close(); psmt.close(); conn.close(); */
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	
 	
 	
 	

@@ -42,6 +42,7 @@ public class AdminMainPage extends JFrame {
 	
 	// 데이터 가져오기
 	GetData getData = new GetData();
+	String inUserId = null;
 
 	// 관리자 로그인 후 보여지는 화면
 	AdminMainPage() {
@@ -58,7 +59,6 @@ public class AdminMainPage extends JFrame {
 		jlTitel.setBounds(310, 70, 400, 20);
 		c.add(jlTitel);
 
-		// 데이터 가져오기 시작
 		String todayAucCnt = getData.todayAuc;
 
 		// 1.오늘 진행된 경매 건수 데이터
@@ -67,24 +67,10 @@ public class AdminMainPage extends JFrame {
 		jlAucCnt.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		c.add(jlAucCnt);
 		// 경매 금액 표시
-		ALabel jlAucPrice = new ALabel("거래금액 : " + todayAucCnt + "원");
+		ALabel jlAucPrice = new ALabel("오늘 거래금액 : " + todayAucCnt + "원");
 		jlAucPrice.setBounds(300, 130, 200, 20);
 		c.add(jlAucPrice);
 		
-		// 2.오늘 거래된 경매 금액
-		ALabel jlUserAuc = new ALabel("경매내역검색 : ");
-		ATextField jtUserAuc = new ATextField();
-		AButton jbUserAuc = new AButton("검색");
-		
-		jlUserAuc.setBounds(50, 160, 150, 20);
-		jtUserAuc.setBounds(200, 160, 150, 20);
-		jbUserAuc.setBounds(420, 160, 100, 25);
-		jbUserAuc.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		c.add(jlUserAuc);
-		c.add(jtUserAuc);
-		c.add(jbUserAuc);
-		// 데이터 가져오기 끝
-
 		// 화면 중간 데이터 보여주는 영역
 		// 1.경매건수 - 경매내역 리스트
 		JPanel jPAucCnt = new JPanel();
@@ -99,10 +85,10 @@ public class AdminMainPage extends JFrame {
 		ATable aucListTable = new ATable(modelAuc);
 		
 		// 각 셀 사이즈 설정
-		aucListTable.getColumn("경매번호").setPreferredWidth(40);
-		aucListTable.getColumn("그림번호").setPreferredWidth(40);
+		aucListTable.getColumn("경매번호").setPreferredWidth(60);
+		aucListTable.getColumn("그림번호").setPreferredWidth(60);
 		aucListTable.getColumn("그림명").setPreferredWidth(200);
-		aucListTable.getColumn("낙찰자id").setPreferredWidth(190);
+		aucListTable.getColumn("낙찰자id").setPreferredWidth(150);
 
 		AScrollPane scrollPaneAuc = new AScrollPane(aucListTable);
 		scrollPaneAuc.setPreferredSize(new Dimension(470, 310));
@@ -133,6 +119,19 @@ public class AdminMainPage extends JFrame {
 		}
 		// 테이블 생성 1 끝
 		
+		
+		// 2.사용자 경매내역 검색 영역
+		ALabel jlUserAuc = new ALabel("경매내역검색 : ");
+		ATextField jtUserAuc = new ATextField();
+		AButton jbUserAuc = new AButton("검색");
+		
+		jlUserAuc.setBounds(50, 165, 150, 20);
+		jtUserAuc.setBounds(170, 163, 150, 28);
+		jbUserAuc.setBounds(340, 165, 90, 25);
+		jbUserAuc.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		c.add(jlUserAuc);
+		c.add(jtUserAuc);
+		c.add(jbUserAuc);
 
 		// 2.회원별 경매내역 - 아이디 검색으로 그 사람의 경매내역을 불러옴
 		JPanel jPAucPrice = new JPanel();
@@ -141,68 +140,69 @@ public class AdminMainPage extends JFrame {
 		jPAucPrice.setVisible(false);
 		c.add(jPAucPrice);
 		
-		// 테이블 생성 2 - 회원별 경매내역 검색 출력
-		//2. 회원아이디로 검색 -> 프로시저 PRO_USER_AUC_LIST 호출
-		//경매번호, p.그림명, 낙찰가, 경매종료시간
+		
+		
 		DefaultTableModel modelUserAuc = new DefaultTableModel(
 				new String[] { "경매번호", "그림명", "낙찰가격", "경매종료시간"}, 0);
 		ATable userAucTable = new ATable(modelUserAuc);
-		
-		// 각 셀 사이즈 설정
-		userAucTable.getColumn("경매번호").setPreferredWidth(40);
-		userAucTable.getColumn("그림명").setPreferredWidth(200);
-		userAucTable.getColumn("낙찰가격").setPreferredWidth(60);
-		userAucTable.getColumn("경매종료시간").setPreferredWidth(170);
-
-		AScrollPane scrollPaneUserAuc = new AScrollPane(userAucTable);
-		scrollPaneUserAuc.setPreferredSize(new Dimension(470, 310));
-		jPAucPrice.add(scrollPaneUserAuc);
-
-		try {
-			String proc = "pro_user_auc_list";
-			String inUserId = "TESTuser";
-
-			//db연결
-			conn = dbConn.getConnection();
-			//프로시저 호출
-			CallableStatement cs = conn.prepareCall("begin pro_user_auc_list(?); end;");
-			//입력 파라메터
-			cs.setString(1, inUserId);
-			//System.out.println(inUserId);
-			// 출력 파라메터
-			cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-			// 실행
-			cs.execute();
-			rs = (ResultSet)cs.getObject(1);
-			
-
-			while (rs.next()) {
-				String aucNo = rs.getString(1);
-				String proNo = rs.getString(2);
-				String proName = rs.getString(3);
-				String userId = rs.getString(4);
-
-				String[] userAuclist = { aucNo, proNo, proName, userId};
-				System.out.println(aucNo+ proNo+ proName + userId);
-				
-				modelUserAuc.addRow(userAuclist);
-			}
-			rs.close(); psmt.close(); conn.close();
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		// 테이블 생성 2 끝
-		
-		
-		
-		
-		
-		
-		
-
 		// 이벤트 테스트
+		jbUserAuc.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				inUserId = jtUserAuc.getText();
+				System.out.println(inUserId);
+				//테이블2 생성부분 이동
+				// 테이블 생성 2 - 회원별 경매내역 검색 출력
+				//2. 회원아이디로 검색 -> 프로시저 PRO_USER_AUC_LIST 호출
+				//경매번호, p.그림명, 낙찰가, 경매종료시간
+
+				// 각 셀 사이즈 설정
+				userAucTable.getColumn("경매번호").setPreferredWidth(60);
+				userAucTable.getColumn("그림명").setPreferredWidth(230);
+				userAucTable.getColumn("낙찰가격").setPreferredWidth(60);
+				userAucTable.getColumn("경매종료시간").setPreferredWidth(120);
+
+				AScrollPane scrollPaneUserAuc = new AScrollPane(userAucTable);
+				scrollPaneUserAuc.setPreferredSize(new Dimension(470, 310));
+				jPAucPrice.add(scrollPaneUserAuc);
+
+				try {
+//					String proc = "{call pro_user_auc_list(?,?)}";
+
+					//db연결
+					conn = dbConn.getConnection();
+					//프로시저 호출
+					CallableStatement cs = conn.prepareCall("begin pro_user_auc_list(?,?); end;");
+					
+					//입력 파라메터
+					cs.setString(2, inUserId);
+					// 출력 파라메터
+					cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+					
+					// 실행
+					cs.execute();
+					rs = (ResultSet)cs.getObject(1);
+
+					while (rs.next()) {
+						System.out.println("반복문시작");
+						String aucNo = rs.getString(1);
+						String proName = rs.getString(2);
+						String auc_LPrice = rs.getString(3);
+						String userId = rs.getString(4);
+
+						String[] userAuclist = { aucNo, proName, auc_LPrice, userId};
+						
+						modelUserAuc.addRow(userAuclist);
+					}
+					rs.close(); psmt.close(); conn.close();
+
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
+				// 테이블 생성 2 끝
+				
+			}
+		});
 		jbUserAuc.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				jPAucCnt.setVisible(false);
