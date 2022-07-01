@@ -1,7 +1,6 @@
-package main;
+package functions;
 
 import java.awt.Color;
-
 import javax.swing.JPanel;
 
 public class SlidingAnimate extends Thread {
