@@ -1,6 +1,7 @@
-package employee;
+package admin;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,24 +14,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import db.DB;
 import swing.CButton;
-import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
-import java.awt.Component;
 
-public class List extends JFrame {
+public class UserList extends JFrame {
 
 	private JPanel contentPane;
 	private CTextField txtKeyword;
 
 	private DefaultTableModel model;
-	private JTable tblEmployee;
+	private JTable tblUser;
+	private DefaultTableCellRenderer cellRenderer;
+
 
 	/**
 	 * Launch the application.
@@ -39,7 +40,7 @@ public class List extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					List frame = new List();
+					UserList frame = new UserList();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,76 +52,68 @@ public class List extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public List() {
+	public UserList() {
 		initComponents();
 		getList();
 	}
-	
+
 	private void initComponents() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 360, 598);
+		setTitle("회원 관리");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 600, 360);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setBackground(Color.decode("#1A1A25"));
 		contentPane.setLayout(null);
-		
-		
-		JLabel lblKeyword = new JLabel("직원 관리");
-		lblKeyword.setBounds(12, 10, 320, 30);
-		lblKeyword.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JLabel lblKeyword = new JLabel("회원 목록");
+		lblKeyword.setBounds(12, 23, 165, 30);
 		lblKeyword.setForeground(Color.WHITE);
 		lblKeyword.setFont(new Font("맑은 고딕", Font.BOLD, 22));
 		contentPane.add(lblKeyword);
-		
+
 		txtKeyword = new CTextField();
-		txtKeyword.setBounds(12, 60, 188, 32);
+		txtKeyword.setBounds(310, 25, 130, 30);
 		contentPane.add(txtKeyword);
-		
-		CLabel lblWordList = new CLabel("직원 목록");
-		lblWordList.setBounds(12, 100, 188, 30);
-		contentPane.add(lblWordList);
-		
+
 		CButton btnSearch = new CButton("검색하기");
-		btnSearch.setBounds(212, 60, 120, 30);
+		btnSearch.setBounds(452, 25, 120, 30);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getList();
 			}
 		});
 		contentPane.add(btnSearch);
-		
-		//JButton btnAddWord = new JButton("신규등록");
-		CButton btnAddWord = new CButton("신규등록");
-		btnAddWord.setBounds(12, 519, 320, 30);
-		btnAddWord.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Insert insertFrame = new Insert();
-				insertFrame.setLocationRelativeTo(btnAddWord.getTopLevelAncestor());
-				insertFrame.setVisible(true);
-			}
-		});
-		contentPane.add(btnAddWord);
-		
-		model = new DefaultTableModel(new String[] {"번호", "이름", "직무", "입사일"}, 0);
-		tblEmployee = new JTable(model);
-		tblEmployee.setEnabled(false);
-		tblEmployee.setAutoCreateRowSorter(true);
-		tblEmployee.setRowHeight(30);
 
-		//JScrollPane scrollPane = new JScrollPane(tblEmployee);
-		CScrollPane scrollPane = new CScrollPane(tblEmployee);
-		scrollPane.setBounds(12, 140, 320, 357);
-		
+		model = new DefaultTableModel(new String[] { "번호", "아이디", "닉네임", "가입일" }, 0);
+
+		tblUser = new JTable(model);
+		tblUser.setEnabled(false);
+		tblUser.getTableHeader().setPreferredSize(new Dimension(0, 30));
+		tblUser.setAutoCreateRowSorter(true);
+		tblUser.setRowHeight(30);
+		tblUser.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tblUser.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tblUser.getColumnModel().getColumn(2).setPreferredWidth(150);
+
+		cellRenderer = new DefaultTableCellRenderer();
+		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+		tblUser.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+
+		CScrollPane scrollPane = new CScrollPane(tblUser);
+		scrollPane.setSize(584, 245);
+		scrollPane.setLocation(0, 76);
 		contentPane.add(scrollPane);
 	}
 
 	private void getList() {
-		Connection conn = null; 
+		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		// 기존 데이타 다 지워주고 다시 넣어주려고
 		model.setRowCount(0);
 
@@ -128,28 +121,28 @@ public class List extends JFrame {
 			String sql = "";
 			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
 
-			sql = "select empno, ename, job, hiredate from emp1 ";
+			sql = "select user_no, user_id, userNick, user_creday from user_t ";
 
 			if (!keyword.equals("")) {
 				sql += " where ename like '%" + keyword + "%' ";
 			}
-			
-			sql += " order by hiredate desc"; 
+
+			sql += " order by hiredate desc";
 
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				String empno = rs.getString(1);
 				String ename = rs.getString(2);
 				String job = rs.getString("JOB");
 				String hiredate = rs.getString("hiredate");
-				
-				String[] strRow = {empno, ename, job, hiredate};
+
+				String[] strRow = { empno, ename, job, hiredate };
 				model.addRow(strRow);
 			}
-			
+
 			rs.close();
 			psmt.close();
 			conn.close();

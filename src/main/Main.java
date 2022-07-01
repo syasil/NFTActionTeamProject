@@ -25,13 +25,8 @@ import javax.swing.WindowConstants;
 import db.DB;
 import functions.ResizeImage;
 import functions.SlidingAnimate;
-import swing.CButton;
-import swing.CImageButton;
-import swing.CLabel;
-import swing.CPanel;
-import user.FindPassword;
-import user.UserJoin;
-import user.UserLogin;
+import swing.*;
+import user.*;
 
 public class Main extends JFrame {
 
@@ -232,7 +227,7 @@ public class Main extends JFrame {
 		getRootPane().setPreferredSize(new Dimension(600, 900));
 		pack();
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public static void main(String args[]) {

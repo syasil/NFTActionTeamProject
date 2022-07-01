@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class SampleC {
+public class OracleClude {
 	public static void main(String[] args) throws SQLException {
 		Connection conn = null; // DB와 연결하는 인터페이스
 		PreparedStatement psmt = null; // sql 문 객체
@@ -17,16 +17,19 @@ public class SampleC {
 		try {
 			String que = "select * from sample";
 
-			conn = DB.getC(); // DB연결
+			conn = DB.get(); // DB연결
 			psmt = conn.prepareStatement(que);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				String col1 = rs.getString(1);
-				String col2 = rs.getString(2);
-				String col3 = rs.getString(3);
-				String col4 = rs.getString(4);
-				System.out.println(col1 + " | " + col2 + "\t| " + col3 + "\t| " + col4 + "\t|" + rs.getString(5));
+				int s_no = rs.getInt(1);
+				String name = rs.getString(2);
+				String email = rs.getString("email");
+				Date create_date = rs.getDate("create_date");
+				
+				int sal = rs.getInt("sal");
+				int comm = rs.getInt("COMM");
+				System.out.println(s_no + " | " + name + "\t| " + email + "\t| " + create_date + "\t|" + rs.getDate("edit_date"));
 			}
 			
 			

@@ -15,7 +15,7 @@ public class Sample {
 		
 		
 		try {
-			String que = "select * from emp1";
+			String que = "select * from emp";
 
 			conn = DB.get(); // DB연결
 			psmt = conn.prepareStatement(que);

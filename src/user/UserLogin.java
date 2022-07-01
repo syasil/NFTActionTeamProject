@@ -59,7 +59,7 @@ public class UserLogin extends CPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (txtUserID.getText().equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "아이디를 입력해 주세요.     ");
+					JOptionPane.showMessageDialog(getParent(), "아이디를 입력해 주세요.");
 					txtUserID.requestFocus();
 					return;
 				}

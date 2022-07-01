@@ -15,9 +15,6 @@ public class SampleProc {
 		CallableStatement cs;
 		ResultSet rs = null; // sql에 대한 반환(쿼리 실행에 대한 결과값 저장
 		
-		
-		
-		
 		try {
 			conn = DB.get(); // DB연결
 
