@@ -45,7 +45,7 @@ public class AdminMainPage extends JFrame {
 	String inUserId = null;
 
 	// 관리자 로그인 후 보여지는 화면
-	AdminMainPage() {
+	public AdminMainPage() {
 		Container c = getContentPane();
 		c.setLayout(null);
 		c.setBackground(new Color(252, 250, 255));
@@ -63,7 +63,7 @@ public class AdminMainPage extends JFrame {
 		btn_logout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dispose();
 			}
 		});		
 
