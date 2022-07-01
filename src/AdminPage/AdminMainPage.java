@@ -58,6 +58,14 @@ public class AdminMainPage extends JFrame {
 		ALabel jlTitel = new ALabel("관리자로 로그인 되었습니다");
 		jlTitel.setBounds(310, 70, 400, 20);
 		c.add(jlTitel);
+		
+		// 로그아웃 버튼 이벤트 설정
+		btn_logout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});		
 
 		String todayAucCnt = getData.getTodayAUC();
 		String todayAucPrice = getData.getTodayAucPrice();
@@ -142,20 +150,21 @@ public class AdminMainPage extends JFrame {
 		
 		
 		DefaultTableModel modelUserAuc = new DefaultTableModel(
-				new String[] { "경매번호", "그림명", "낙찰가격", "경매종료시간"}, 0);
+				new String[] { "NO.", "낙찰회원ID", "그림명", "낙찰가격", "경매종료시간"}, 0);
 		ATable userAucTable = new ATable(modelUserAuc);
 		// 각 셀 사이즈 설정
-		userAucTable.getColumn("경매번호").setPreferredWidth(60);
-		userAucTable.getColumn("그림명").setPreferredWidth(230);
+		userAucTable.getColumn("NO.").setPreferredWidth(30);
+		userAucTable.getColumn("낙찰회원ID").setPreferredWidth(80);
+		userAucTable.getColumn("그림명").setPreferredWidth(200);
 		userAucTable.getColumn("낙찰가격").setPreferredWidth(60);
-		userAucTable.getColumn("경매종료시간").setPreferredWidth(120);
+		userAucTable.getColumn("경매종료시간").setPreferredWidth(100);
 
 		AScrollPane scrollPaneUserAuc = new AScrollPane(userAucTable);
 		scrollPaneUserAuc.setPreferredSize(new Dimension(470, 310));
 		jPAucPrice.add(scrollPaneUserAuc);
 		
 		
-		// 이벤트 테스트
+		// 경매[검색] 버튼 이벤트
 		jbUserAuc.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -175,7 +184,7 @@ public class AdminMainPage extends JFrame {
 					CallableStatement cs = conn.prepareCall("begin pro_user_auc_list(?,?); end;");
 					
 					//입력 파라메터
-					cs.setString(2, inUserId);
+					cs.setString(2, "%"+inUserId+"%");
 					// 출력 파라메터
 					cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 					
@@ -185,11 +194,12 @@ public class AdminMainPage extends JFrame {
 
 					while (rs.next()) {
 						String aucNo = rs.getString(1);
-						String proName = rs.getString(2);
-						String auc_LPrice = rs.getString(3);
-						String userId = rs.getString(4);
+						String userID = rs.getString(2);
+						String proName = rs.getString(3);
+						String auc_LPrice = rs.getString(4);
+						String endDate = rs.getString(5);
 
-						String[] userAuclist = { aucNo, proName, auc_LPrice, userId};
+						String[] userAuclist = { aucNo, userID, proName, auc_LPrice, endDate};
 						
 						modelUserAuc.addRow(userAuclist);
 					}
