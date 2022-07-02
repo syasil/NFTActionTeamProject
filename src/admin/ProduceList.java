@@ -86,7 +86,7 @@ public class ProduceList extends JFrame {
 		// 검색어
 		////////////////////////
 		txtKeyword = new CTextField();
-		txtKeyword.setBounds(329, 25, 130, 30);
+		txtKeyword.setBounds(321, 25, 130, 30);
 		txtKeyword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getList();
@@ -99,7 +99,7 @@ public class ProduceList extends JFrame {
 		// 검색 버튼
 		////////////////////////
 		CButton btnSearch = new CButton("검색하기");
-		btnSearch.setBounds(462, 25, 120, 30);
+		btnSearch.setBounds(463, 25, 120, 30);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getList();
@@ -146,7 +146,7 @@ public class ProduceList extends JFrame {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
-			Dimension dimMax = new Dimension(FRAME_WIDTH - 10, 60);
+			Dimension dimMax = new Dimension(FRAME_WIDTH - 10, 90);
 			Dimension dimPrefer = new Dimension(FRAME_WIDTH - 10, 90);
 			
 			while (rs.next()) {

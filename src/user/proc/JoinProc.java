@@ -104,14 +104,21 @@ public class JoinProc implements ActionListener {
 				// 회원가입 성공 로그인 처리
 				pnl.setVisible(false);
 				Main.USER_ID = pnl.txtUserID.getText();
+				Main.USER_NICKNAME = pnl.txtUserNickname.getText();
 				
+				// 상단 버튼 바꾸기
+				Main.pnlTop.btnLogin.setVisible(false);
+				Main.pnlTop.btnJoin.setVisible(false);
+				Main.pnlTop.btnLogout.setVisible(true);
+
+				Main.btnAddProduct.setVisible(true);
+
 				pnl.txtUserID.setText("");
 				pnl.txtUserPW.setText("");
 				pnl.txtUserPW_Re.setText("");
 				pnl.txtUserNickname.setText("");
 				pnl.txtUserWallet.setText("");
 				pnl.btnProfile.setImage(ResizeImage.resize("images/profile.jpg", 130, 130));
-				
 				
 				UserJoinWelcome pnlWelcome = new UserJoinWelcome();
 				Main.pane.add(pnlWelcome, new Integer(40));
