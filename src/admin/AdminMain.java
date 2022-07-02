@@ -1,14 +1,13 @@
 package admin;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AdminMain extends JFrame {
 
@@ -55,7 +54,7 @@ public class AdminMain extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(12, 10, 140, 44);
+		btnNewButton.setBounds(12, 10, 140, 40);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("전자지갑 목록");
@@ -63,23 +62,23 @@ public class AdminMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(12, 118, 140, 44);
+		btnNewButton_1.setBounds(12, 110, 140, 40);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("상품목록");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ProductListTable frmProductList = new ProductListTable();
+				ProductList frmProductList = new ProductList();
 				frmProductList.setVisible(true);
 				
 			}
 		});
-		btnNewButton_1_1.setBounds(12, 64, 140, 44);
+		btnNewButton_1_1.setBounds(12, 60, 140, 40);
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_1_1 = new JButton("전자지갑 로그");
-		btnNewButton_1_1_1.setBounds(12, 172, 140, 33);
+		btnNewButton_1_1_1.setBounds(12, 160, 140, 40);
 		contentPane.add(btnNewButton_1_1_1);
 	}
 }

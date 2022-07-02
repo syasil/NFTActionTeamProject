@@ -1,4 +1,4 @@
-package admin;
+package sample;
 
 import java.awt.Color;
 import java.awt.Dimension;

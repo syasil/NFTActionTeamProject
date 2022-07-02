@@ -28,7 +28,7 @@ import swing.CPanel;
 import swing.CScrollPane;
 import swing.CTextField;
 
-public class ProduceList extends JFrame {
+public class ProductList extends JFrame {
 	private final int FRAME_WIDTH = 600;
 	private final int FRAME_HEIGHT = 400;
 	private JPanel contentPane;
@@ -42,7 +42,7 @@ public class ProduceList extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProduceList frame = new ProduceList();
+					ProductList frame = new ProductList();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class ProduceList extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ProduceList() {
+	public ProductList() {
 		initComponents();
 		getList();
 	}
