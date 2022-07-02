@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +26,10 @@ import swing.CTextField;
 
 public class ProductList extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private CTextField txtKeyword;
 
@@ -124,15 +127,15 @@ public class ProductList extends JFrame {
 
 		try {
 			String sql = "";
-			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
+			String keyword = txtKeyword.getText();
 
-			sql = "select user_no, user_id, user_nick, user_creday, user_wallet, user_icon from users ";
+			sql = "select pro_no, pro_name, pro_price, pro_exp, pro_regday from t_product";
 
 			if (!keyword.equals("")) {
-				sql += " where user_id like '%" + keyword + "%' ";
+				sql += " where pro_name like '%" + keyword + "%' ";
 			}
 
-			sql += " order by user_creday desc";
+			sql += " order by pro_regday desc";
 
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
@@ -140,7 +143,7 @@ public class ProductList extends JFrame {
 
 			while (rs.next()) {
 				String[] strRow = { 
-					rs.getString("user_no"), rs.getString("user_id"), rs.getString("user_nick"), rs.getString("user_wallet"), rs.getString("user_creday")
+					rs.getString("pro_no"), rs.getString("pro_name"), rs.getString("pro_price"), rs.getString("pro_exp"), rs.getString("pro_regday")
 				};
 				model.addRow(strRow);
 			}

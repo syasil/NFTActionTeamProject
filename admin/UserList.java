@@ -127,9 +127,9 @@ public class UserList extends JFrame {
 
 		try {
 			String sql = "";
-			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
+			String keyword = txtKeyword.getText();
 
-			sql = "select user_no, user_id, user_nick, user_creday, user_wallet, user_icon from users ";
+			sql = "select user_no, user_id, user_nick, user_creday, wal_no from t_user";
 
 			if (!keyword.equals("")) {
 				sql += " where user_id like '%" + keyword + "%' ";
@@ -143,7 +143,7 @@ public class UserList extends JFrame {
 
 			while (rs.next()) {
 				String[] strRow = { 
-					rs.getString("user_no"), rs.getString("user_id"), rs.getString("user_nick"), rs.getString("user_wallet"), rs.getString("user_creday")
+					rs.getString("user_no"), rs.getString("user_id"), rs.getString("user_nick"), rs.getString("wal_no"), rs.getString("user_creday")
 				};
 				model.addRow(strRow);
 			}
