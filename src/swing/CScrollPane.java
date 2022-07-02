@@ -35,15 +35,15 @@ public class CScrollPane extends JScrollPane {
 			}
 		
 		};
-
+		
 		MyScrollbarUI() {
-			imageThumb = FauxImage.create(5, 5, Color.GRAY);
-			imageTrack = FauxImage.create(5, 5, Color.DARK_GRAY);
+			imageThumb = FauxImage.create(5, 5, Color.decode("#005bea"));
+			imageTrack = FauxImage.create(5, 5, Color.decode("#f5f8ff"));
 		}
 		
 		@Override
 		protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
-			g.setColor(Color.blue);
+//			g.setColor(Color.blue);
 			((Graphics2D) g).drawImage(imageThumb, r.x, r.y, r.width, r.height, null);
 		}
 		
@@ -78,5 +78,3 @@ public class CScrollPane extends JScrollPane {
 	
 
 }
-
-
