@@ -48,27 +48,11 @@ public class Launcher {
 		
 		frame = new JFrame();
 		frame.setTitle("런처");
-		frame.setBounds(50, 50, 210, 238);
+		frame.setBounds(50, 50, 210, 175);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container c = frame.getContentPane();
 		c.setLayout(null);
 		c.setBackground(Color.decode("#1A1A25"));
-
-		/////////////////////////
-		// 서버 버튼
-		/////////////////////////
-		CButton btnServer = new CButton("Server", "DARK");
-		btnServer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (serverMain == null) {
-					serverMain = new ServerMain();
-				}
-				
-				serverMain.setVisible(true);
-			}
-		});
-		btnServer.setBounds(12, 10, 170, 51);
-		c.add(btnServer);
 
 
 		/////////////////////////
@@ -84,7 +68,7 @@ public class Launcher {
 				adminMain.setVisible(true);
 			}
 		});
-		btnADmin.setBounds(12, 71, 170, 51);
+		btnADmin.setBounds(12, 10, 170, 51);
 		c.add(btnADmin);
 		
 
@@ -98,7 +82,7 @@ public class Launcher {
 				new Main().setVisible(true);
 			}
 		});
-		btnClient.setBounds(12, 132, 170, 51);
+		btnClient.setBounds(12, 71, 170, 51);
 		c.add(btnClient);
 	}
 }
