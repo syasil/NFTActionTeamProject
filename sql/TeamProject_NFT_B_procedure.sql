@@ -11,7 +11,7 @@ BEGIN
   open presult for
 
   SELECT A.AUC_NO, U.USER_ID, P.PRO_NAME, A.AUC_LPRICE, TO_CHAR(A.AUC_END)
-        FROM AUCTION A, USER_T U, PRODUCT_T P
+         FROM T_AUCTION A, USER_T  U, PRODUCT_T  P
       WHERE A.USER_NO = U.USER_NO
         AND A.PRO_NO = P.PRO_NO
         AND U.USER_ID like in_userId;
@@ -23,3 +23,4 @@ variable rc refcursor;
 variable uid varchar2;
 execute PRO_USER_AUC_LIST(:rc, 'TESTus%');
 print rc;
+

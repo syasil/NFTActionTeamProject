@@ -16,12 +16,12 @@ public class GetData {
 	ResultSet rs = null;
 	String que = null;
 
-	// 오늘 시작된 경매 건수
+	// 오늘 진행된 경매 건수
 	public String todayAuc;
 	public String getTodayAUC() {
 		
 		try {
-			que = "SELECT COUNT(*) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
+			que = "SELECT COUNT(*) FROM T_AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
 			
 			//DB 연결
 			conn = JdbcUtil.getConnection();
@@ -42,12 +42,12 @@ public class GetData {
 	}
 	
 	
-	// 오늘 시작된 경매 금액
+	// 오늘 진행된 경매 금액
 	public String todayAucPrice;
 	public String getTodayAucPrice() {
 		
 		try {
-			que = "SELECT sum(AUC_LPRICE) FROM AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
+			que = "SELECT sum(AUC_LPRICE) FROM T_AUCTION WHERE SUBSTR(TO_CHAR(AUC_END), 1, 10) = TO_CHAR(SYSDATE)";
 			
 			//DB 연결
 			conn = JdbcUtil.getConnection();

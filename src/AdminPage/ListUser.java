@@ -102,7 +102,7 @@ public class ListUser  extends JFrame {
 			String keyword = jtSearch.getText();
 			
 			que = "SELECT USER_NO, USER_ID, USER_NICK, USER_BIR, USER_CREDAY "
-					+ "FROM USER_T ";
+					+ "FROM T_USER ";
 			
 			if (!keyword.equals("")) {
 //				que += " WHERE USER_ID LIKE '%"+ keyword +"%'";

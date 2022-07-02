@@ -104,8 +104,8 @@ public class AdminMainPage extends JFrame {
 
 		try {
 			String que = "SELECT A.AUC_NO, A.PRO_NO, P.PRO_NAME, U.USER_ID "
-					+ "FROM AUCTION A, USER_T U, PRODUCT_T P "
-					+ "WHERE A.USER_NO = U.USER_NO AND A.PRO_NO = P.PRO_NO";
+					+ "FROM T_AUCTION A, T_USER U, T_PRODUCT P "
+					+ "WHERE A.USER_NO = U.USER_NO  AND A.PRO_NO = P.PRO_NO";
 
 			conn = dbConn.getConnection();
 			psmt = conn.prepareStatement(que);
@@ -227,7 +227,7 @@ public class AdminMainPage extends JFrame {
 
 		// 상품관리 버튼+텍스트
 		ALabel jlPdNotice = new ALabel("등록된 상품을 관리합니다");
-		jlPdNotice.setBounds(145, 585, 400, 20);
+		jlPdNotice.setBounds(110, 585, 400, 20);
 		c.add(jlPdNotice);
 
 		AButton btn_listPd = new AButton("상품관리");
@@ -244,7 +244,7 @@ public class AdminMainPage extends JFrame {
 
 		// 회원관리 버튼+텍스트
 		ALabel jlUserNotice = new ALabel("회원 목록을 조회하고 관리합니다");
-		jlUserNotice.setBounds(145, 630, 400, 20);
+		jlUserNotice.setBounds(110, 630, 400, 20);
 		c.add(jlUserNotice);
 
 		// 회원관리 버튼 이벤트
@@ -258,9 +258,29 @@ public class AdminMainPage extends JFrame {
 				new ListUser();
 			}
 		});
+		
+		
+		// 전자지갑관리 버튼+텍스트
+		ALabel jlWalletNotice = new ALabel("전자지갑 로그을 조회하고 관리합니다");
+		jlWalletNotice.setBounds(110, 675, 400, 20);
+		c.add(jlWalletNotice);
+
+		// 회원관리 버튼 이벤트
+		AButton btn_listWallet = new AButton("지갑관리");
+		btn_listWallet.setBounds(400, 675, 120, 25);
+		c.add(btn_listWallet);
+
+		btn_listWallet.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//지갑관리 버튼 클릭 시 발생이벤트 추가 영역
+			}
+		});
+		
+		
 
 		// main panel setting
-		setLocation(200, 100);
+		setLocation(150, 80);
 		setSize(600, 800);
 		setVisible(true);
 		setResizable(false);

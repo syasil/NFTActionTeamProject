@@ -99,7 +99,6 @@ public class ListPd extends JFrame {
 	
 	//목록 가져오기, 검색기능
 	private void getPdList() {
-		System.out.println("1.getPdList()");
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -110,13 +109,10 @@ public class ListPd extends JFrame {
 			String que = "";
 			String keyword = jtPdSearch.getText();
 			
-			que = "SELECT PRODUCT_NUMBER, PRODUCT_NAME, PRODUCT_DESCRIPTION, "
-					+ "PRODUCT_PRICE, PRODUCT_REGISTER_USER, "
-					+ "PRODUCT_REGISTER_DATE "
-					+ "FROM PRODUCT_B ";
+			que = "SELECT PRO_NO, PRO_NAME, PRO_EXP, PRO_PRICE, USER_NO, PRO_REGDAY FROM T_PRODUCT ";
 			
 			if (!keyword.equals("")) {
-				que += " WHERE PRODUCT_NAME LIKE '%"+ keyword +"%'";
+				que += " WHERE PRO_NAME LIKE '%"+ keyword +"%'";
 			}
 			
 			//DB 연결
@@ -142,7 +138,7 @@ public class ListPd extends JFrame {
 			conn.close();
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("getPdList()"+e.getMessage());
 		}
 	}
 	
