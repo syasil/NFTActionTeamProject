@@ -2,19 +2,27 @@ package user.proc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
 
+import Database.DatabaseLinker;
 import db.DB;
 import main.Main;
+import socket.Client;
 import user.UserLogin;
 
 public class LoginProc implements ActionListener {
+	
 	private UserLogin pnl;
 
+	private Connection conn = null;
+	private PreparedStatement psmt = null;
+	private ResultSet rs = null;
+	
 	public LoginProc(UserLogin instance) {
 		this.pnl = instance;
 	}
@@ -41,14 +49,17 @@ public class LoginProc implements ActionListener {
 		//////////////////////////////////
 		// 회원 로그인
 		//////////////////////////////////
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
+		
+		
 		try {
-			String sql = "select user_id, user_pass, user_nick from t_user where user_id = ? ";
-
-			conn = DB.get(); // DB연결
+			String sql = "select user_id, user_pass, user_nick from t_user where user_id = ?";
+		
+			
+			//conn = DB.get(); // DB연결
+			DatabaseLinker databaseLinker = new DatabaseLinker();
+			conn = databaseLinker.connectDB();
+			
+			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, pnl.txtUserID.getText());
 			rs = psmt.executeQuery();
@@ -58,6 +69,7 @@ public class LoginProc implements ActionListener {
 				String strUserPW = rs.getString("user_pass");
 				String strUserNick = rs.getString("user_nick");
 
+				
 				if (!strUserPW.equals(new String(pnl.txtUserPW.getPassword()))) {
 					JOptionPane.showMessageDialog(pnl.getParent(), "비밀번호를 확인해 주세요.");
 				} else {
@@ -77,6 +89,16 @@ public class LoginProc implements ActionListener {
 					pnl.setVisible(false);
 					pnl.txtUserID.setText("");
 					pnl.txtUserPW.setText("");
+					
+					Client clientSocket = new Client();
+					try {
+						
+						clientSocket.ConnectSocketServer();
+						
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 				}
 
 			} else {

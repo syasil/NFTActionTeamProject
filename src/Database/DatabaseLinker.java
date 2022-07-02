@@ -16,7 +16,7 @@ public class DatabaseLinker {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			connection = DriverManager.getConnection(url,id,pw);
-						
+			System.out.println("test");			
 			return connection;
 	}
 	
