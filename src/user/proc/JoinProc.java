@@ -6,9 +6,9 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import Database.DatabaseLinker;
 import db.DB;
 import functions.ResizeImage;
 import functions.SlidingAnimate;
@@ -79,10 +79,14 @@ public class JoinProc implements ActionListener {
 		PreparedStatement psmt = null;
 		
 		try {
-			String sql = "INSERT INTO T_USER (USER_NO, USER_ID, USER_PASS, USER_BIR, USER_NICK, WAL_NO, USER_ICON, USER_CREDAY)"
+			String sql = "INSERT INTO T_USER (USER_NO, USER_ID, USER_PASS, USER_BIR, USER_NICK, USER_WALLET, USER_ICON, USER_CREDAY)"
 				+ " VALUES (SEQ_T_USER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
 
-			conn = DB.get(); // DB연결
+			//conn = DB.get(); // DB연결
+			DatabaseLinker databaseLinker = new DatabaseLinker();
+			conn = databaseLinker.connectDB();
+			
+			
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, pnl.txtUserID.getText());

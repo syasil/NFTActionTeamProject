@@ -16,7 +16,7 @@ public class PanelMain  extends CPanel {
 	private CLabel lblRemainTime;
 	
 	// 카운트 다운 시계
-	private Countdown cd;
+	//private Countdown cd;
 	
 	public PanelMain() {
 		super("images/bg.jpg");
@@ -56,9 +56,10 @@ public class PanelMain  extends CPanel {
 		add(pnlAuction);
 		add(lblRemainText);
 		add(lblRemainTime);
-		
+		/*
 		if(cd != null) cd.stopCountdown();
 		cd = new Countdown(lblRemainTime, 500); // 쓰레드객체생성
 		cd.start(); // 쓰레드실행
+		*/
 	}
 }
