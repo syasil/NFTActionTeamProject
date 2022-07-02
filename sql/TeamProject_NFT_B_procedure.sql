@@ -24,3 +24,23 @@ variable uid varchar2;
 execute PRO_USER_AUC_LIST(:rc, 'TESTus%');
 print rc;
 
+-------- 프로시저 연습---------------------------------------------------------
+create or replace NONEDITIONABLE PROCEDURE T_PROC_AUCTION_JOIN(
+    C_USER IN OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN C_USER FOR
+    SELECT PRO_NO,AUC_END,AUC_LPRICE FROM
+    T_AUCTION;
+END;
+/
+------ 내가 등록한 목록
+SELECT PRO_NO,AUC_END,AUC_LPRICE, a.user_no
+from t_auction a inner join T_user u on
+a.user_no=u.user_no
+where u.user_no=1;
+
+SELECT user_no, auc_no, PRO_NO, AUC_END, AUC_LPRICE
+from t_auction
+where user_no=1;
