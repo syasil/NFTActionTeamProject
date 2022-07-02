@@ -14,25 +14,26 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ImageProcesser.ImageSizeModifider;
-import ImageProcesser.ProductImageSaver;
+import ImageProcesser.ImageFileSaver;
 import ProductRegisterPage.ProductRegisterImageContentTextPane;
 import ProductRegisterPage.ProductRegisterImageLabel;
 
 
 public class FileFinder {
 
-	
 	private JFrame frame;
 	private JFileChooser fileChooser;
 	private BufferedImage image;
 	private String url;
 	
-	private ImageSizeModifider imageSizeModifider = new ImageSizeModifider();
+	
+	private File sourceimage;
+	private File file;
+	
 	
 
-	public FileFinder(JFrame frame) {
+	public FileFinder() {
 		
-		this.frame = frame;
 		
 		fileChooser = new JFileChooser();
 		
@@ -41,24 +42,24 @@ public class FileFinder {
 		fileChooser.setMultiSelectionEnabled(false); //다중 선택 불가
 		
 		if(fileChooser.showOpenDialog(frame) == fileChooser.APPROVE_OPTION) {
-			url=fileChooser.getSelectedFile().toString();
-			System.out.println(url);
+			url = fileChooser.getSelectedFile().toString();
+
 			ProductRegisterImageContentTextPane.setContentTextPane(url);
+			
 			try {
 				
-				File sourceimage = new File(url);
-				image = ImageIO.read(sourceimage);
+				file = new File(url);
+				//image = ImageIO.read(sourceimage);
 			
-			} catch (IOException e) {
+			} catch (Exception e) {
 				
 				e.printStackTrace();
 				
 			}
-			ProductImageSaver productImageSaver = new ProductImageSaver();
-			productImageSaver.setImage(image);
 			
+			ImageFileSaver.getInstance().setFile(file);;			
 		
-			ProductRegisterImageLabel.setImage(new ImageIcon(imageSizeModifider.resizeImageFile(image, 100, 100)));
+			//ProductRegisterImageLabel.setImage(new ImageIcon(imageSizeModifider.resizeImageFile(image, 100, 100)));
 			
 		}
 		

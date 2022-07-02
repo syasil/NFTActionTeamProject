@@ -12,12 +12,7 @@ public class Client {
 	public void ConnectSocketServer() throws IOException{
 		
 		clientSocket = new Socket("127.0.0.1",8080);
-		
-		ReceiveThread receiveThread = new ReceiveThread();
-		receiveThread.setSocket(clientSocket);
-		receiveThread.start();
-		
-		
+	
 		
 	}
 

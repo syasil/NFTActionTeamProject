@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,11 +19,16 @@ import javax.swing.border.TitledBorder;
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import FileFinder.FileFinder;
+import ImageProcesser.ImageFileSaver;
+import ImageProcesser.ImageSizeModifider;
 
 public class ProductRegisterImageLabel {
 	private JFrame frame;
 	private static JLabel label;
-	private static ImageIcon image;
+	private static BufferedImage image;
+	private static ImageIcon imageIcon;
+	private FileFinder fileFinder; 
+	
 	
 	private int x;
 	private int y;
@@ -46,8 +54,21 @@ public class ProductRegisterImageLabel {
 		frame.getContentPane().add(label);
 		label.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				FileFinder filefinder = new FileFinder(frame);
+			
+				fileFinder = new FileFinder();
+				try {
+					
+					image = ImageIO.read(ImageFileSaver.getFile());
+					setImage(ImageSizeModifider.getInstance().resizeImageFile(image, 100, 100));
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
+
+			
 		});
 		
 	}
@@ -61,15 +82,11 @@ public class ProductRegisterImageLabel {
 		label.setBounds(x, y, width, height);
 	}
 
-	public static void setImage(ImageIcon imageIcon) {
+	
+	private void setImage(Image resizeImageFile) {
 		
-		System.out.println("ProductRegisterImageLabel::setImage");
-		image = imageIcon;
-		label.setIcon(image);
+		label.setIcon(new ImageIcon(resizeImageFile));
 		
-	}
-	public static ImageIcon getImage() {
-		return image;
 	}
 	
 }

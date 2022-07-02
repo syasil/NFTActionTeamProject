@@ -2,7 +2,15 @@ package ImageProcesser;
 
 import java.awt.Image;
 
+
+
 public class ImageSizeModifider {
+	
+	
+	private static ImageSizeModifider instance = new ImageSizeModifider();
+	public static ImageSizeModifider getInstance() {
+		return instance;
+	}
 	
 	public Image resizeImageFile(Image image, int width, int height) {
 		

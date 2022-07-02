@@ -1,5 +1,9 @@
 package ProductRegisterDataBase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +16,12 @@ import com.sun.imageio.plugins.png.PNGMetadata;
 import com.sun.xml.internal.ws.api.addressing.WSEndpointReference.Metadata;
 
 import Database.DatabaseLinker;
-import ImageProcesser.ProductImageSaver;
+import ImageProcesser.ImageFileSaver;
 import ProductRegisterPage.ProductRegisterContentTextField;
 import ProductRegisterPage.ProductRegisterImageLabel;
 import ProductRegisterPage.ProductRegisterNameTextField;
+import main.Main;
+import user.proc.LoginProc;
 
 public class DatabaseProductInsert {
 	DatabaseLinker databaseLinker = new DatabaseLinker();
@@ -26,9 +32,11 @@ public class DatabaseProductInsert {
 	
 	String productName;
 	String productContent;
-	ImageIcon productImage;
+	File productImage;
 	
 	String sql;
+
+	private FileInputStream image;
 	
 	public void dataInsert() {
 		try {
@@ -36,7 +44,7 @@ public class DatabaseProductInsert {
 			getData();
 			connection = databaseLinker.connectDB();
 			postData();
-			ProductImageSaver.saveImage(getProductImageMetadata());
+			//ImageFileSaver.saveImage(getProductImageMetadata());
 			
 			
 		} catch (Exception e) {
@@ -50,7 +58,7 @@ public class DatabaseProductInsert {
 		
 		productName = ProductRegisterNameTextField.getTextFieldValue();
 		productContent = ProductRegisterContentTextField.getTextFieldValue();
-		productImage = ProductRegisterImageLabel.getImage();
+		productImage = ImageFileSaver.getFile();
 		
 		
 		
@@ -58,16 +66,18 @@ public class DatabaseProductInsert {
 	}
 	private void postData() throws SQLException, Exception{
 		
-		sql ="insert into product "
-				+ "(product_number, product_name, product_description, product_register_date, product_image_metadata)"
+		sql ="insert into t_product "
+				+ "(PRO_NO, USER_NO, PRO_NAME, PRO_REGDAY, PRO_EXP, PRO_IMG)"
 				+ " values "
-				+ "(product_number_seq.NEXTVAL,?,?,sysdate,product_number_seq.NEXTVAL)";
+				+ "(SEQ_T_PRO_NO.NEXTVAL, ?, ?, sysdate, ?, ?)";
 		
 		psmt = connection.prepareStatement(sql);
 		
+		psmt.setString(1, Main.USER_NO);
+		psmt.setString(2, productName);
+		psmt.setString(3, productContent);
+		psmt.setBlob(4,new FileInputStream(productImage));
 		
-		psmt.setString(1, productName);
-		psmt.setString(2, productContent);
 		
 		
 		

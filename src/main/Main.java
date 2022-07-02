@@ -6,12 +6,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.peer.LabelPeer;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
 
+import ProductRegisterPage.FacadeProductRegisterPage;
+import ProductRegisterPage.ProductRegister;
 import functions.SlidingAnimate;
 import product.ProductAdd;
 import socket.Client;
@@ -45,6 +48,7 @@ public class Main extends JFrame {
 	public static PanelOpaque pnlOpaque;
 
 	public static CButton btnAddProduct;
+	private ProductRegister pannelProductRegister;
 
 	public Main() {
 		initComponents();
@@ -52,6 +56,7 @@ public class Main extends JFrame {
 
 	private void initComponents() {
 
+		initNet();
 		setTitle("NFT 클라이언트");
 
 		/////////////////////////////////////////////
@@ -77,7 +82,8 @@ public class Main extends JFrame {
 		pnlPassword = new FindPassword();
 
 		// 상품 등록
-		pnlProduct = new ProductAdd();
+		//pnlProduct = new ProductAdd();
+		pannelProductRegister = ProductRegister.getInstance();
 
 		// 메인 페이지 관련
 		pnlTop = new PanelTop();
@@ -102,16 +108,23 @@ public class Main extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Main.pnlOpaque.setVisible(true);
-
+				//System.out.println("test");
+				Main.pnlOpaque.setVisible(false);
+				//Main.pnlMain.setVisible(false);
+				/*
 				if (Main.pnlProduct.isVisible() != true) {
-					new SlidingAnimate(Main.pnlLogin, "DOWN").start();
+					new SlidingAnimate(Main.pnlProduct, "DOWN").start();
+				}*/
+				if(!Main.USER_ID.equals("")) {
+					FacadeProductRegisterPage facadeProductRegisterPage = new FacadeProductRegisterPage();
 				}
+				
+				//pannelProductRegister.Hello();
+				//pannelProductRegister.setVisible(true);
 			}
 		});
 		btnAddProduct.setBounds(520, 820, 65, 65);
-		btnAddProduct.setVisible(false);
+		btnAddProduct.setVisible(true);
 		pane.add(btnAddProduct, new Integer(30));
 
 		// 프레임을 원하는 사이즈로 하려면 아래와 같이 해야 한다.
@@ -121,18 +134,20 @@ public class Main extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		initNet();
+		
 	}
 
 	private void initNet() {
+		
 		Client clientSocket = new Client();
 		try {
 			
 			clientSocket.ConnectSocketServer();
 			
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
 		}
 		
 	}

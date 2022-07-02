@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import Database.DatabaseLinker;
 import db.DB;
 import functions.ResizeImage;
 import functions.SlidingAnimate;
@@ -76,7 +77,9 @@ public class PanelTop extends JPanel {
 					ResultSet rs = null;
 
 					try {
-						conn = DB.get();
+						DatabaseLinker databaseLinker = new DatabaseLinker();
+						conn = databaseLinker.connectDB();
+						
 						psmt = conn.prepareStatement("select * from t_user where user_id = ? ");
 						psmt.setString(1, Main.USER_ID);
 						rs = psmt.executeQuery();

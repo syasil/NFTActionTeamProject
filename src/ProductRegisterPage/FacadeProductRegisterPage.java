@@ -18,7 +18,7 @@ public class FacadeProductRegisterPage {
 		
 		productRegisterFrame = new JFrame();
 		productRegisterFrame.setBounds(100, 100, 600, 630);
-		productRegisterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		productRegisterFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		productRegisterFrame.getContentPane().setLayout(null);
 		
 		productRegisterFrame.setVisible(true);
