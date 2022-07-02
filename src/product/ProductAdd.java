@@ -1,4 +1,4 @@
-package user;
+package product;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
@@ -25,19 +25,16 @@ import swing.CPasswordField;
 import swing.CTextField;
 import user.proc.JoinProc;
 
-public class UserJoin extends CPanel {
-	private UserJoin instance;
+public class ProductAdd extends CPanel {
+	private ProductAdd instance;
 	
 	public CTextField txtUserID;
 	public CPasswordField txtUserPW;
-	public CPasswordField txtUserPW_Re;
 	public CTextField txtUserBirth;
-	public CTextField txtUserNickname;
-	public CTextField txtUserWallet;
 	public File selectedFile;
 	public CImageButton btnProfile;
 
-	public UserJoin() {
+	public ProductAdd() {
 		super(30);
 		this.instance = this;
 		initComponents();
@@ -61,7 +58,6 @@ public class UserJoin extends CPanel {
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				instance.setVisible(false);
-				Main.pnlOpaque.setVisible(false);
 			}
 		});
 		add(lblClose);
@@ -70,7 +66,7 @@ public class UserJoin extends CPanel {
 		/////////////////////////
 		// 타이틀
 		/////////////////////////
-		CLabel lblTitle = new CLabel("회원가입", 28);
+		CLabel lblTitle = new CLabel("상품등록", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
 		add(lblTitle);
 
@@ -79,92 +75,51 @@ public class UserJoin extends CPanel {
 		// 아이디
 		/////////////////////////
 		CLabel lblID = new CLabel("아이디 (이메일)");
-		lblID.setBounds(25, 94, 347, 30);
+		lblID.setText("상품명");
+		lblID.setBounds(25, 325, 347, 30);
 		add(lblID);
 		
 		txtUserID = new CTextField();
-		txtUserID.setBounds(25, 130, 226, 40);
+		txtUserID.setBounds(25, 361, 347, 40);
 		add(txtUserID);
-		
-		CButton btnVerifyID = new CButton("중복확인", "DARK");
-		btnVerifyID.setBounds(257, 136, 115, 25);
-		add(btnVerifyID);
 
 
 		/////////////////////////
 		// 비밀번호, 비밀번호 확인
 		/////////////////////////
 		CLabel lblPW = new CLabel("비밀번호");
-		lblPW.setBounds(25, 180, 174, 30);
+		lblPW.setText("상품 가격");
+		lblPW.setBounds(25, 411, 174, 30);
 		add(lblPW);
 		
 		txtUserPW = new CPasswordField();
-		txtUserPW.setBounds(25, 213, 170, 40);
+		txtUserPW.setBounds(25, 441, 347, 40);
 		add(txtUserPW);
-		
-		CLabel lblPWCheck = new CLabel("비밀번호 확인");
-		lblPWCheck.setBounds(202, 180, 170, 30);
-		add(lblPWCheck);
-		
-		txtUserPW_Re = new CPasswordField();
-		txtUserPW_Re.setBounds(202, 213, 170, 40);
-		add(txtUserPW_Re);
 
 		
 		/////////////////////////
 		// 생년월일
 		/////////////////////////
 		CLabel lblBirthday = new CLabel("생년월일");
-		lblBirthday.setBounds(25, 260, 92, 30);
+		lblBirthday.setText("상품 설명");
+		lblBirthday.setBounds(25, 491, 92, 30);
 		add(lblBirthday);
 		
 		txtUserBirth = new CTextField();
-		txtUserBirth.setBounds(25, 292, 170, 40);
+		txtUserBirth.setBounds(25, 531, 347, 40);
 		add(txtUserBirth);
-		
-		
-		/////////////////////////
-		// 닉네임
-		/////////////////////////
-		CLabel lblNickname = new CLabel("닉네임");
-		lblNickname.setBounds(202, 260, 92, 30);
-		add(lblNickname);
-		
-		txtUserNickname = new CTextField();
-		txtUserNickname.setBounds(202, 292, 170, 40);
-		add(txtUserNickname);
-
-		
-		/////////////////////////
-		// 전자 지갑
-		/////////////////////////
-		CLabel lblWallet = new CLabel("전자지갑 번호");
-		lblWallet.setBounds(25, 342, 347, 30);
-		add(lblWallet);
-		
-		txtUserWallet = new CTextField();
-		txtUserWallet.setBounds(25, 374, 226, 40);
-		add(txtUserWallet);
-		
-		CButton btnVerifyWallet = new CButton("인증하기", "DARK");
-		btnVerifyWallet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(), txtUserWallet.getText() + "전자지갑 인층 처리");
-			}
-		});
-		btnVerifyWallet.setBounds(257, 382, 115, 25);
-		add(btnVerifyWallet);
 
 		
 		//////////////////////////////////
 		// 프로필 사진
 		//////////////////////////////////
 		CLabel lblProfilePic = new CLabel("프로필 사진");
-		lblProfilePic.setBounds(227, 485, 101, 30);
+		lblProfilePic.setText("상품 이미지");
+		lblProfilePic.setBounds(153, 306, 92, 30);
 		add(lblProfilePic);
 		
 		btnProfile = new CImageButton(ResizeImage.resize("images/profile.jpg", 130, 130), 130);
-		btnProfile.setBounds(55, 441, 130, 130);
+		btnProfile.setBounds(95, 86, 210, 210);
 		
 		btnProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -191,8 +146,9 @@ public class UserJoin extends CPanel {
 		// 가입하기 버튼
 		//////////////////////////////////
 		CButton btnJoin = new CButton("가입하기");
+		btnJoin.setText("등록하기");
 		btnJoin.setBounds(25, 594, 347, 40);
-		btnJoin.addActionListener(new JoinProc(instance));
+		//btnJoin.addActionListener(new JoinProc(instance));
 		add(btnJoin);
 	}
 	

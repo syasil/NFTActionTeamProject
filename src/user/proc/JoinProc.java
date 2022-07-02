@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import db.DB;
@@ -24,7 +25,6 @@ public class JoinProc implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		
 		//////////////////////////////////
 		// 입력값 체크
@@ -49,6 +49,12 @@ public class JoinProc implements ActionListener {
 			return;
 		}
 
+		if (pnl.txtUserBirth.getText().equals("")) {
+			JOptionPane.showMessageDialog(pnl.getParent(), "생년월일을 입력해 주세요.");
+			pnl.txtUserBirth.requestFocus();
+			return;
+		}
+
 		if (pnl.txtUserNickname.getText().equals("")) {
 			JOptionPane.showMessageDialog(pnl.getParent(), "닉네임을 입력해 주세요.");
 			pnl.txtUserNickname.requestFocus();
@@ -61,26 +67,35 @@ public class JoinProc implements ActionListener {
 			return;
 		}
 		
+		ExecuteUpdate();
+	}
+	
+	private void ExecuteUpdate() {
+
+		//////////////////////////////////
+		// 쿼리 실행
+		//////////////////////////////////
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		
 		try {
-			String sql = "INSERT INTO USERS (USER_NO, USER_ID, USER_PASS, USER_NICK, USER_WALLET, USER_ICON, USER_CREDAY)"
-				+ " values (seq_users.nextval, ?, ?, ?, ?, ?, SYSDATE)";
+			String sql = "INSERT INTO T_USER (USER_NO, USER_ID, USER_PASS, USER_BIR, USER_NICK, WAL_NO, USER_ICON, USER_CREDAY)"
+				+ " VALUES (SEQ_T_USER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
 
 			conn = DB.get(); // DB연결
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, pnl.txtUserID.getText());
 			psmt.setString(2, new String(pnl.txtUserPW.getPassword()));
-			psmt.setString(3, pnl.txtUserNickname.getText());
-			psmt.setString(4, pnl.txtUserWallet.getText());
+			psmt.setString(3, pnl.txtUserBirth.getText());
+			psmt.setString(4, pnl.txtUserNickname.getText());
+			psmt.setString(5, pnl.txtUserWallet.getText());
 
 			if (pnl.selectedFile != null) {
 				FileInputStream fis = new FileInputStream(pnl.selectedFile);
-				psmt.setBinaryStream(5, fis, (int)pnl.selectedFile.length());
+				psmt.setBinaryStream(6, fis, (int)pnl.selectedFile.length());
 			} else {
-				psmt.setBinaryStream(5, null);
+				psmt.setBinaryStream(6, null);
 			}
 			
 			int result = psmt.executeUpdate();
@@ -99,7 +114,7 @@ public class JoinProc implements ActionListener {
 				
 				
 				UserJoinWelcome pnlWelcome = new UserJoinWelcome();
-				Main.pane.add(pnlWelcome, new Integer(30));
+				Main.pane.add(pnlWelcome, new Integer(40));
 				new SlidingAnimate(pnlWelcome, "DOWN").start();
 				
 			}else

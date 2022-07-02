@@ -38,7 +38,7 @@ public class AdminMain extends JFrame {
 		setTitle("관리자");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 365, 254);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,27 +55,31 @@ public class AdminMain extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(30, 10, 140, 83);
+		btnNewButton.setBounds(12, 10, 140, 44);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("전자지갑 목록");
-		btnNewButton_1.setBounds(30, 116, 140, 83);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(12, 118, 140, 44);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("상품목록");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ProductList frmProductList = new ProductList();
+				ProductListTable frmProductList = new ProductListTable();
 				frmProductList.setVisible(true);
 				
 			}
 		});
-		btnNewButton_1_1.setBounds(182, 10, 140, 83);
+		btnNewButton_1_1.setBounds(12, 64, 140, 44);
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_1_1 = new JButton("전자지갑 로그");
-		btnNewButton_1_1_1.setBounds(182, 116, 140, 83);
+		btnNewButton_1_1_1.setBounds(12, 172, 140, 33);
 		contentPane.add(btnNewButton_1_1_1);
 	}
 }
