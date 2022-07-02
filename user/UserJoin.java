@@ -26,6 +26,10 @@ import swing.CTextField;
 import user.proc.JoinProc;
 
 public class UserJoin extends CPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public UserJoin instance;
 	public CTextField txtUserID;
 	public CPasswordField txtUserPW;

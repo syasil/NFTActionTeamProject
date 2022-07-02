@@ -13,11 +13,15 @@ import javax.swing.*;
 
 import db.DB;
 import functions.ResizeImage;
-import functions.SlidingAnimate;
 import main.Main;
 import swing.*;
 
 public class UserJoinWelcome extends CPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private CPanel instance;
 	
 	private CImageButton pnlProfileImg;

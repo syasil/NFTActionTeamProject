@@ -35,7 +35,7 @@ public class ImagePaneExample {
 				}
 
 				try {
-					BufferedImage img = ImageIO.read(new File("C:\\hold\\thumbnails\\2005-09-29-3957.jpeg"));
+					BufferedImage img = ImageIO.read(new File("C:\\Users\\lee31\\Pictures\\images\\profile.jpg"));
 					ImagePane imgPane = new ImagePane();
 					imgPane.setImage(img);
 					imgPane.setRounded(true);
@@ -57,6 +57,10 @@ public class ImagePaneExample {
 
 	public class ImagePane extends JPanel {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private BufferedImage img;
 		private BufferedImage renderImg;
 		private boolean rounded;
