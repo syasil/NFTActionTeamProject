@@ -35,9 +35,8 @@ public class UserJoinWelcome extends CPanel {
 		/////////////////////////
 		// 패널 기본 설정
 		/////////////////////////
-		setLayout(null);
-		setBackground(Color.decode("#1A1A25"));
-		setBounds(100, (900 - 355) / 2, 400, 355);
+		setBounds(100, 0, 400, 355);
+		setVisible(false);
 
 		//////////////////////////////////
 		// 패널 닫기
@@ -48,6 +47,7 @@ public class UserJoinWelcome extends CPanel {
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				instance.setVisible(false);
+				Main.pnlOpaque.setVisible(false);
 			}
 		});
 		add(lblClose);
@@ -91,7 +91,7 @@ public class UserJoinWelcome extends CPanel {
 
 		try {
 			conn = DB.get();
-			psmt = conn.prepareStatement("select user_nick, user_icon from users where user_id = ? ");
+			psmt = conn.prepareStatement("select user_nick, user_icon from t_user where user_id = ? ");
 			psmt.setString(1, Main.USER_ID);
 			rs = psmt.executeQuery();
 			

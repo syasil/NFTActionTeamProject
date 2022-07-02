@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import main.Main;
@@ -16,12 +17,10 @@ import swing.CButton;
 import swing.CLabel;
 import swing.CPanel;
 import swing.CTextField;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class Sample extends CPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private CPanel instance;
 	private CTextField txtUserID;
 	private CTextField txtUserPW;
@@ -44,7 +43,7 @@ public class Sample extends CPanel {
 		/////////////////////////
 		setLayout(null);
 		setBackground(Color.decode("#1A1A25"));
-		setBounds(100, 0, 400, 436);
+		setBounds(100, 0, 400, 631);
 		
 		CLabel lblTitle = new CLabel("로그인");
 		lblTitle.setBounds(25, 26, 174, 50);
@@ -127,6 +126,11 @@ public class Sample extends CPanel {
 			}
 		});
 		add(lblClose);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.RED));
+		panel.setBounds(25, 436, 347, 170);
+		add(panel);
 		
 	}
 	

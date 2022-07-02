@@ -1,6 +1,5 @@
 package swing;
 
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -75,7 +74,7 @@ public class CImageButton extends JButton {
 		g2d.setBackground(new Color(255, 255, 255, 0));
 		g2d.clearRect(0, 0, mask.getWidth(), mask.getHeight());
 		g2d.setBackground(new Color(255, 255, 255, 255));
-		g2d.fillRoundRect(0, 0, mask.getWidth(), mask.getHeight(), mask.getHeight(), mask.getHeight());
+		g2d.fillRoundRect(0, 0, mask.getWidth(), mask.getHeight(), roundSize, roundSize);
 		g2d.dispose();
 
 		BufferedImage comp = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);

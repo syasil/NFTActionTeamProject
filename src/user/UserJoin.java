@@ -26,10 +26,12 @@ import swing.CTextField;
 import user.proc.JoinProc;
 
 public class UserJoin extends CPanel {
-	public UserJoin instance;
+	private UserJoin instance;
+	
 	public CTextField txtUserID;
 	public CPasswordField txtUserPW;
 	public CPasswordField txtUserPW_Re;
+	public CTextField txtUserBirth;
 	public CTextField txtUserNickname;
 	public CTextField txtUserWallet;
 	public File selectedFile;
@@ -47,6 +49,7 @@ public class UserJoin extends CPanel {
 		// 패널 기본 설정
 		/////////////////////////
 		setBounds(100, 0, 400, 662);
+		setVisible(false);
 
 		
 		//////////////////////////////////
@@ -58,6 +61,7 @@ public class UserJoin extends CPanel {
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				instance.setVisible(false);
+				Main.pnlOpaque.setVisible(false);
 			}
 		});
 		add(lblClose);
@@ -105,17 +109,29 @@ public class UserJoin extends CPanel {
 		txtUserPW_Re = new CPasswordField();
 		txtUserPW_Re.setBounds(202, 213, 170, 40);
 		add(txtUserPW_Re);
-		
 
+		
+		/////////////////////////
+		// 생년월일
+		/////////////////////////
+		CLabel lblBirthday = new CLabel("생년월일");
+		lblBirthday.setBounds(25, 260, 92, 30);
+		add(lblBirthday);
+		
+		txtUserBirth = new CTextField();
+		txtUserBirth.setBounds(25, 292, 170, 40);
+		add(txtUserBirth);
+		
+		
 		/////////////////////////
 		// 닉네임
 		/////////////////////////
 		CLabel lblNickname = new CLabel("닉네임");
-		lblNickname.setBounds(25, 263, 347, 30);
+		lblNickname.setBounds(202, 260, 92, 30);
 		add(lblNickname);
 		
 		txtUserNickname = new CTextField();
-		txtUserNickname.setBounds(25, 292, 347, 40);
+		txtUserNickname.setBounds(202, 292, 170, 40);
 		add(txtUserNickname);
 
 		

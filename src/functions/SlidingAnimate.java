@@ -14,6 +14,7 @@ public class SlidingAnimate extends Thread {
 	}
 
 	public void run() {
+		panel.setLocation(panel.getX(), 0);
 		panel.setVisible(true);
 		
 		if (direction.equals("DOWN")) {

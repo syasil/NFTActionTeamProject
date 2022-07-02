@@ -18,7 +18,8 @@ import swing.CTextField;
 import user.proc.LoginProc;
 
 public class UserLogin extends CPanel {
-	public UserLogin instance;
+	private UserLogin instance;
+	
 	public CTextField txtUserID;
 	public CPasswordField txtUserPW;
 	
@@ -33,9 +34,8 @@ public class UserLogin extends CPanel {
 		/////////////////////////
 		// 패널 기본 설정
 		/////////////////////////
-		setLayout(null);
-		setBackground(Color.decode("#1A1A25"));
 		setBounds(100, 0, 400, 436);
+		setVisible(false);
 
 		
 		//////////////////////////////////
@@ -47,12 +47,15 @@ public class UserLogin extends CPanel {
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				instance.setVisible(false);
+				Main.pnlOpaque.setVisible(false);
 			}
 		});
 		add(lblClose);
-		
-		
-		
+
+
+		//////////////////////////////////
+		// 화면 디자인
+		//////////////////////////////////
 		CLabel lblTitle = new CLabel("로그인", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
 		add(lblTitle);
@@ -71,6 +74,7 @@ public class UserLogin extends CPanel {
 		
 		txtUserPW = new CPasswordField();
 		txtUserPW.setBounds(25, 213, 347, 40);
+		txtUserPW.addActionListener(new LoginProc(instance));
 		add(txtUserPW);
 
 		
@@ -108,21 +112,21 @@ public class UserLogin extends CPanel {
 		// 비밀번호 찾기
 		//////////////////////////////////
 		CButton btnFindPw = new CButton("비밀번호 찾기", "DARK");
+		btnFindPw.setBounds(229, 388, 143, 25);
 		btnFindPw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				instance.setVisible(false);
-				Main.pnlPassword.setVisible(true);
+
+				if (Main.pnlPassword.isVisible() != true) { 
+					new SlidingAnimate(Main.pnlPassword, "DOWN").start();
+				}
 			}
 		});
-		btnFindPw.setBounds(229, 388, 143, 25);
 		add(btnFindPw);
 
 		CLabel lblFindPw = new CLabel("비밀번호를 잊으셨나요?");
 		lblFindPw.setBounds(25, 385, 347, 30);
 		add(lblFindPw);
-
-
-
 	}
 	
 	public static void main(String args[]) {

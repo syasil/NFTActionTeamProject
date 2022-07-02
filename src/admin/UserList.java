@@ -6,34 +6,43 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import db.DB;
+import functions.ResizeImage;
 import swing.CButton;
+import swing.CImageButton;
 import swing.CLabel;
+import swing.CPanel;
 import swing.CScrollPane;
 import swing.CTextField;
 
 public class UserList extends JFrame {
+	
+	private final int FRAME_WIDTH = 600;
+	private final int FRAME_HEIGHT = 400;
 
 	private JPanel contentPane;
 	private CTextField txtKeyword;
-
-	private DefaultTableModel model;
-	private JTable tblUser;
-	private DefaultTableCellRenderer cellRenderer;
-
+	private CPanel pnlList;
 
 	/**
 	 * Launch the application.
@@ -62,71 +71,73 @@ public class UserList extends JFrame {
 	private void initComponents() {
 		setTitle("회원 관리");
 		setResizable(false);
+		getRootPane().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		pack();
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 360);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setBackground(Color.decode("#1A1A25"));
 		contentPane.setLayout(null);
-
+		
+		
 		CLabel lblKeyword = new CLabel("회원 목록", 22);
 		lblKeyword.setBounds(12, 23, 165, 30);
 		contentPane.add(lblKeyword);
 
 		txtKeyword = new CTextField();
-		txtKeyword.setBounds(310, 25, 130, 30);
+		txtKeyword.setBounds(321, 25, 130, 30);
+		txtKeyword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getList();
+			}
+		});
 		contentPane.add(txtKeyword);
 
+		
+		////////////////////////
+		// 검색 버튼
+		////////////////////////
 		CButton btnSearch = new CButton("검색하기");
-		btnSearch.setBounds(452, 25, 120, 30);
+		btnSearch.setBounds(463, 25, 120, 30);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getList();
 			}
 		});
 		contentPane.add(btnSearch);
+		
+		pnlList = new CPanel();
+		pnlList.setBorder(null);
+		pnlList.setLayout(new BoxLayout(pnlList, BoxLayout.Y_AXIS));
 
-		model = new DefaultTableModel(new String[] { "번호", "아이디", "닉네임", "전자지갑", "가입일" }, 0);
+		////////////////////////
+		// 스크롤 패널로 감싸기
+		////////////////////////
+		CScrollPane scrollPane = new CScrollPane(pnlList);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 70, FRAME_WIDTH, FRAME_HEIGHT - 70);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
-		tblUser = new JTable(model);
-		tblUser.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
-		tblUser.setEnabled(false);
-		tblUser.getTableHeader().setPreferredSize(new Dimension(0, 30));
-		tblUser.getTableHeader().setFont(new Font("맑은 고딕", Font.PLAIN, 16));
-		tblUser.setAutoCreateRowSorter(true);
-		tblUser.setRowHeight(30);
-		tblUser.setIntercellSpacing(new Dimension(20, 1));
-		tblUser.getColumnModel().getColumn(0).setPreferredWidth(20);
-		tblUser.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tblUser.getColumnModel().getColumn(2).setPreferredWidth(80);
-		tblUser.getColumnModel().getColumn(3).setPreferredWidth(50);
-		tblUser.getColumnModel().getColumn(4).setPreferredWidth(100);
-
-		cellRenderer = new DefaultTableCellRenderer();
-		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-		tblUser.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
-
-		CScrollPane scrollPane = new CScrollPane(tblUser);
-		scrollPane.setSize(584, 245);
-		scrollPane.setLocation(0, 76);
 		contentPane.add(scrollPane);
 	}
 
 	private void getList() {
+		pnlList.removeAll();
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 
-		// 기존 데이타 다 지워주고 다시 넣어주려고
-		model.setRowCount(0);
-
 		try {
 			String sql = "";
-			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
+			String keyword = txtKeyword.getText(); // 대문자로 들어가 있어서 대문자로 검색
 
-			sql = "select user_no, user_id, user_nick, user_creday, user_wallet, user_icon from users ";
+			sql = "select user_no, user_id, user_nick, user_creday, wal_no, user_icon from t_user ";
 
 			if (!keyword.equals("")) {
 				sql += " where user_id like '%" + keyword + "%' ";
@@ -137,19 +148,49 @@ public class UserList extends JFrame {
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+			
+			Dimension dimMax = new Dimension(FRAME_WIDTH - 10, 60);
+			Dimension dimPrefer = new Dimension(FRAME_WIDTH - 10, 60);
 
 			while (rs.next()) {
-				String[] strRow = { 
-					rs.getString("user_no"), rs.getString("user_id"), rs.getString("user_nick"), rs.getString("user_wallet"), rs.getString("user_creday")
-				};
-				model.addRow(strRow);
-			}
+				CPanel pnlItem = new CPanel();
+				pnlItem.setLayout(null);
+				pnlItem.setPreferredSize(dimPrefer);
+				pnlItem.setMaximumSize(dimMax);
+				
+				CImageButton btnImage;
 
+				Blob blob = rs.getBlob("user_icon");
+				if (blob != null) {
+					BufferedImage bfImg = ImageIO.read(blob.getBinaryStream(1, blob.length()));
+					btnImage = new CImageButton(ResizeImage.resize(bfImg, 50, 50), 50);
+				} else {
+					btnImage = new CImageButton(ResizeImage.resize("images/profile.jpg", 50, 50), 50);
+				}
+				btnImage.setBounds(10, 10, 50, 50);
+				
+				CLabel lbl1 = new CLabel("ID : " + rs.getString("user_id"));
+				lbl1.setBounds(80, 15, 200, 20);
+
+				CLabel lbl2 = new CLabel("반가워요.. 제목을 넣어요", 14);
+				lbl2.setForeground(Color.LIGHT_GRAY);
+				lbl2.setBounds(80, 37, 200, 20);
+				
+				pnlItem.add(btnImage);
+				pnlItem.add(lbl1);
+				pnlItem.add(lbl2);
+				
+				pnlList.add(pnlItem);
+			}
+			
 			rs.close();
 			psmt.close();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		pnlList.revalidate();
+		pnlList.repaint();
 	}
 }
