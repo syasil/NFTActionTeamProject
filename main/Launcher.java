@@ -9,13 +9,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import admin.AdminMain;
-import server.ServerMain;
 import swing.CButton;
 
 public class Launcher {
 
 	private JFrame frame;
-	private ServerMain serverMain;
 	private AdminMain adminMain;
 
 	/**
