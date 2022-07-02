@@ -20,11 +20,16 @@ import javax.swing.table.DefaultTableModel;
 
 import db.DB;
 import swing.CButton;
+import swing.CLabel;
 import swing.CScrollPane;
 import swing.CTextField;
 
 public class UserList extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private CTextField txtKeyword;
 
@@ -69,10 +74,8 @@ public class UserList extends JFrame {
 		contentPane.setBackground(Color.decode("#1A1A25"));
 		contentPane.setLayout(null);
 
-		JLabel lblKeyword = new JLabel("회원 목록");
+		CLabel lblKeyword = new CLabel("회원 목록", 22);
 		lblKeyword.setBounds(12, 23, 165, 30);
-		lblKeyword.setForeground(Color.WHITE);
-		lblKeyword.setFont(new Font("맑은 고딕", Font.BOLD, 22));
 		contentPane.add(lblKeyword);
 
 		txtKeyword = new CTextField();
@@ -88,16 +91,21 @@ public class UserList extends JFrame {
 		});
 		contentPane.add(btnSearch);
 
-		model = new DefaultTableModel(new String[] { "번호", "아이디", "닉네임", "가입일" }, 0);
+		model = new DefaultTableModel(new String[] { "번호", "아이디", "닉네임", "전자지갑", "가입일" }, 0);
 
 		tblUser = new JTable(model);
+		tblUser.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		tblUser.setEnabled(false);
 		tblUser.getTableHeader().setPreferredSize(new Dimension(0, 30));
+		tblUser.getTableHeader().setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		tblUser.setAutoCreateRowSorter(true);
 		tblUser.setRowHeight(30);
-		tblUser.getColumnModel().getColumn(0).setPreferredWidth(30);
-		tblUser.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tblUser.getColumnModel().getColumn(2).setPreferredWidth(150);
+		tblUser.setIntercellSpacing(new Dimension(20, 1));
+		tblUser.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblUser.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblUser.getColumnModel().getColumn(2).setPreferredWidth(80);
+		tblUser.getColumnModel().getColumn(3).setPreferredWidth(50);
+		tblUser.getColumnModel().getColumn(4).setPreferredWidth(100);
 
 		cellRenderer = new DefaultTableCellRenderer();
 		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -121,25 +129,22 @@ public class UserList extends JFrame {
 			String sql = "";
 			String keyword = txtKeyword.getText().toUpperCase(); // 대문자로 들어가 있어서 대문자로 검색
 
-			sql = "select user_no, user_id, userNick, user_creday from user_t ";
+			sql = "select user_no, user_id, user_nick, user_creday, user_wallet, user_icon from users ";
 
 			if (!keyword.equals("")) {
-				sql += " where ename like '%" + keyword + "%' ";
+				sql += " where user_id like '%" + keyword + "%' ";
 			}
 
-			sql += " order by hiredate desc";
+			sql += " order by user_creday desc";
 
 			conn = DB.get();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				String empno = rs.getString(1);
-				String ename = rs.getString(2);
-				String job = rs.getString("JOB");
-				String hiredate = rs.getString("hiredate");
-
-				String[] strRow = { empno, ename, job, hiredate };
+				String[] strRow = { 
+					rs.getString("user_no"), rs.getString("user_id"), rs.getString("user_nick"), rs.getString("user_wallet"), rs.getString("user_creday")
+				};
 				model.addRow(strRow);
 			}
 

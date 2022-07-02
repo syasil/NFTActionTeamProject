@@ -13,15 +13,12 @@ import javax.swing.JButton;
 
 public class CImageButton extends JButton {
 	
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private BufferedImage img;
-	private BufferedImage renderImg;
-
+	private BufferedImage imgBackground;
+	private BufferedImage imageRender;
 	private int roundSize;
 
 	public CImageButton(ImageIcon img) {
@@ -29,7 +26,7 @@ public class CImageButton extends JButton {
 	}
 	
 	public CImageButton(ImageIcon img, int roundSize) {
-		this.img = imageIconToBufferedImage(img);
+		this.imgBackground = imageIconToBufferedImage(img);
 		this.roundSize = roundSize;
 		setContentAreaFilled(false);
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -41,11 +38,11 @@ public class CImageButton extends JButton {
 	public void setImage(ImageIcon icon) {
 		BufferedImage value = imageIconToBufferedImage(icon);
 		
-		if (value != img) {
-			BufferedImage old = img;
-			img = value;
-			renderImg = null;
-			firePropertyChange("image", old, img);
+		if (value != imgBackground) {
+			BufferedImage old = imgBackground;
+			imgBackground = value;
+			imageRender = null;
+			firePropertyChange("image", old, imgBackground);
 			repaint();
 		}
 	}	
@@ -71,7 +68,7 @@ public class CImageButton extends JButton {
 	}
 	
 	protected BufferedImage getImageToRender() {
-		BufferedImage source = img;
+		BufferedImage source = imgBackground;
 		BufferedImage mask = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = mask.createGraphics();
 		applyQualityRenderHints(g2d);
@@ -91,11 +88,10 @@ public class CImageButton extends JButton {
 		g2d.drawImage(mask, 0, 0, this);
 		g2d.dispose();
 
-		renderImg = comp;
+		imageRender = comp;
 
-		return renderImg;
+		return imageRender;
 	}
-	
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -110,7 +106,7 @@ public class CImageButton extends JButton {
 			g2d.drawImage(img, x, y, this);
 			g2d.dispose();
 		} else {
-			g.drawImage(img, 0, 0, null);
+			g.drawImage(imgBackground, 0, 0, null);
 		}
 	}
 }

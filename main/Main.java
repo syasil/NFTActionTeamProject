@@ -26,15 +26,18 @@ import swing.*;
 import user.*;
 
 public class Main extends JFrame {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private int mainID;
+
 	//////////////////////////////////////////
 	// 프로그램 전체에서 쓰이는 변수 선언
 	//////////////////////////////////////////
-	public static String USER_ID = "MOMO";
+	public static String USER_ID = "";
 	public static String USER_NICKNAME = "";
 	public static String USER_NO = "";
 	
@@ -42,6 +45,8 @@ public class Main extends JFrame {
 	//////////////////////////////////////////
 	// 각 패널들 변수 선언
 	//////////////////////////////////////////
+	
+	public static JLayeredPane pane; // 패널들을 넣을 레이어드 팬
 	public static UserLogin pnlLogin;
 	public static UserJoin pnlJoin;
 	public static FindPassword pnlPassword;
@@ -66,8 +71,11 @@ public class Main extends JFrame {
 	public Main() {
 		initComponents();
 	}
-
+	
 	private void initComponents() {
+		
+		setTitle("NFT 클라이언트");
+		
 
 		/////////////////////////////////////////////
 		// 경고창 배경색, 글씨 크기 변경
@@ -81,7 +89,7 @@ public class Main extends JFrame {
 		/////////////////////////////////////////////
 		// 레이어드 패인 설정
 		/////////////////////////////////////////////
-		JLayeredPane pane = getLayeredPane();
+		pane = getLayeredPane();
 		
 
 		/////////////////////////////////////////////
@@ -95,8 +103,6 @@ public class Main extends JFrame {
 
 		pnlPassword = new FindPassword();
 		pnlPassword.setVisible(false);
-
-		
 		
 		pnlTop = new JPanel();
 		pnlTop.setLayout(null);
@@ -150,28 +156,32 @@ public class Main extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Connection conn = null;
-				PreparedStatement psmt = null;
-				ResultSet rs = null; 
 
-				try {
-					conn = DB.get();
-					psmt = conn.prepareStatement("select * from users where user_id = 'charismo@naver.com'");
-					rs = psmt.executeQuery();
-					
-					if (rs.next()) {
-						Blob blob = rs.getBlob("user_icon");
-						BufferedImage imgByte = ImageIO.read(blob.getBinaryStream(1, blob.length()));
-						ImageIcon imgOriginal = new ImageIcon(imgByte);
-						btnProfile.setImage(ResizeImage.resize(imgOriginal, 50, 50));
+				if (!USER_ID.equals("")) {
+					Connection conn = null;
+					PreparedStatement psmt = null;
+					ResultSet rs = null; 
+
+					try {
+						conn = DB.get();
+						psmt = conn.prepareStatement("select * from users where user_id = ? ");
+						psmt.setString(1, USER_ID);
+						rs = psmt.executeQuery();
+						
+						if (rs.next()) {
+							Blob blob = rs.getBlob("user_icon");
+							BufferedImage imgByte = ImageIO.read(blob.getBinaryStream(1, blob.length()));
+							btnProfile.setImage(ResizeImage.resize(imgByte, 50, 50));
+						}
+						
+						rs.close(); 
+						psmt.close();
+						conn.close();
+					} catch (Exception err) {
+						err.printStackTrace();
 					}
-					
-					rs.close(); 
-					psmt.close();
-					conn.close();
-				} catch (Exception err) {
-					err.printStackTrace();
 				}
+				
 			}
 		});
 		pnlTop.add(btnProfile);
@@ -189,7 +199,6 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(15, 60, 500, 20);
 		lblAuthor.setForeground(Color.LIGHT_GRAY);
 		
-		//CPanel pnlAuction = new CPanel(new ImageIcon("images/sample3.png").getImage(), 20);
 		ImageIcon img = ResizeImage.resize("images/sample2.jpg", 500, 500);
 		CPanel pnlAuction = new CPanel(img, 20);
 		pnlAuction.setLayout(null);
@@ -213,7 +222,7 @@ public class Main extends JFrame {
 		pnlMain.add(lblRemainText);
 		pnlMain.add(lblRemainTime);
 
-		
+
 		// 각 페널 프레임에 추가
 		pane.add(pnlLogin, new Integer(30));
 		pane.add(pnlJoin, new Integer(30));
@@ -221,7 +230,7 @@ public class Main extends JFrame {
 		
 		pane.add(pnlTop, new Integer(20));
 		pane.add(pnlMain, new Integer(10));
-		
+
 
 		// 프레임을 원하는 사이즈로 하려면 아래와 같이 해야 한다.
 		// setSize 로 하면 사이즈가 안 맞음

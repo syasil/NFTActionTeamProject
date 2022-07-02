@@ -1,21 +1,30 @@
 package user;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import functions.SlidingAnimate;
 import main.Main;
-import swing.*;
+import swing.CButton;
+import swing.CLabel;
+import swing.CPanel;
+import swing.CPasswordField;
+import swing.CTextField;
+import user.proc.LoginProc;
 
 public class UserLogin extends CPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private CPanel instance;
-	private CTextField txtUserID;
-	private CPasswordField txtUserPW;
+	public UserLogin instance;
+	public CTextField txtUserID;
+	public CPasswordField txtUserPW;
 	
 	public UserLogin() {
 		super(30);
@@ -31,6 +40,22 @@ public class UserLogin extends CPanel {
 		setLayout(null);
 		setBackground(Color.decode("#1A1A25"));
 		setBounds(100, 0, 400, 436);
+
+		
+		//////////////////////////////////
+		// 패널 닫기
+		//////////////////////////////////
+		CLabel lblClose = new CLabel("×", 40);
+		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblClose.setBounds(358, 12, 30, 30);
+		lblClose.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				instance.setVisible(false);
+			}
+		});
+		add(lblClose);
+		
+		
 		
 		CLabel lblTitle = new CLabel("로그인", 28);
 		lblTitle.setBounds(25, 26, 174, 50);
@@ -58,29 +83,7 @@ public class UserLogin extends CPanel {
 		//////////////////////////////////
 		CButton btnLogin = new CButton("로 그 인");
 		btnLogin.setBounds(25, 272, 347, 40);
-		btnLogin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if (txtUserID.getText().equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "아이디를 입력해 주세요.");
-					txtUserID.requestFocus();
-					return;
-				}
-				
-				String userPW = new String(txtUserPW.getPassword());
-				if (userPW.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "비밀번호를 입력해 주세요.");
-					txtUserPW.requestFocus();
-					return;
-				}
-
-				
-				Main.USER_ID = txtUserID.getText();
-				
-				// 화면 전환.
-			}
-		});
+		btnLogin.addActionListener(new LoginProc(instance));
 		add(btnLogin);
 
 		
@@ -123,18 +126,7 @@ public class UserLogin extends CPanel {
 		add(lblFindPw);
 
 
-		//////////////////////////////////
-		// 패널 닫기
-		//////////////////////////////////
-		CLabel lblClose = new CLabel("×", 40);
-		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblClose.setBounds(358, 12, 30, 30);
-		lblClose.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				instance.setVisible(false);
-			}
-		});
-		add(lblClose);
+
 	}
 	
 	public static void main(String args[]) {

@@ -7,10 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import db.DB;
 import functions.ResizeImage;
 import main.Main;
 import swing.CButton;
@@ -28,19 +23,17 @@ import swing.CLabel;
 import swing.CPanel;
 import swing.CPasswordField;
 import swing.CTextField;
+import user.proc.JoinProc;
 
 public class UserJoin extends CPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private CPanel instance;
-	private CTextField txtUserID;
-	private CPasswordField txtUserPW;
-	private CPasswordField txtUserPW_Re;
-	private CTextField txtUserNickname;
-	private CTextField txtUserWallet;
-	private File selectedFile;
+	public UserJoin instance;
+	public CTextField txtUserID;
+	public CPasswordField txtUserPW;
+	public CPasswordField txtUserPW_Re;
+	public CTextField txtUserNickname;
+	public CTextField txtUserWallet;
+	public File selectedFile;
+	public CImageButton btnProfile;
 
 	public UserJoin() {
 		super(30);
@@ -154,8 +147,7 @@ public class UserJoin extends CPanel {
 		lblProfilePic.setBounds(227, 485, 101, 30);
 		add(lblProfilePic);
 		
-		ImageIcon img = ResizeImage.resize("images/profile.jpg", 130, 130);
-		CImageButton btnProfile = new CImageButton(img, 130);
+		btnProfile = new CImageButton(ResizeImage.resize("images/profile.jpg", 130, 130), 130);
 		btnProfile.setBounds(55, 441, 130, 130);
 		
 		btnProfile.addActionListener(new ActionListener() {
@@ -184,48 +176,8 @@ public class UserJoin extends CPanel {
 		//////////////////////////////////
 		CButton btnJoin = new CButton("가입하기");
 		btnJoin.setBounds(25, 594, 347, 40);
-		btnJoin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Connection conn = null;
-				PreparedStatement psmt = null;
-				
-				
-				try {
-					String sql = "INSERT INTO USERS (USER_NO, USER_ID, USER_PASS, USER_NICK, USER_WALLET, USER_ICON, USER_CREDAY)"
-						+ " values (seq_users.nextval, ?, ?, ?, ?, ?, SYSDATE)";
-
-					conn = DB.get(); // DB연결
-					psmt = conn.prepareStatement(sql);
-
-					
-					psmt.setString(1, txtUserID.getText());
-					psmt.setString(2, new String(txtUserPW.getPassword()));
-					psmt.setString(3, txtUserNickname.getText());
-					psmt.setString(4, txtUserWallet.getText());
-
-					FileInputStream fis = new FileInputStream(selectedFile);
-
-					psmt.setBinaryStream(5, fis,(int)selectedFile.length());
-					int result = psmt.executeUpdate();
-					
-					if(result > 0){
-						System.out.println("삽입성공");
-					}else
-					{
-						System.out.println("실패");
-					}
-					
-					psmt.close();
-					conn.close();
-				} catch (Exception err) {
-					err.printStackTrace();
-				}
-				
-				JOptionPane.showMessageDialog(getParent(), "회원가입 처리");
-			}
-		});
-		add(btnJoin);	
+		btnJoin.addActionListener(new JoinProc(instance));
+		add(btnJoin);
 	}
 	
 	public static void main(String args[]) {
