@@ -1,18 +1,22 @@
 package NftAuction;
 
+import java.awt.Button;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import ProductRegisterPage.FacadeProductRegisterPage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
 
+import Auction.AuctionRegisterPage;
+import Auction.AuctionView;
+import Auction.ProductList;
+import ProductRegisterPage.FacadeProductRegisterPage;
+import Socket.Client;
+import Socket.SendThread;
 
 public class Main {
-	
 	
 
 	private JFrame mainFrame;
@@ -51,13 +55,61 @@ public class Main {
 		mainFrame.getContentPane().setLayout(null);
 		
 		
+		Client clientSocket = new Client();
+		try {
+			
+			clientSocket.ConnectSocketServer();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
-		//FacadeProductRegisterPage facadeprodictRegisterPage = new FacadeProductRegisterPage(mainFrame);
-		//상품 등록 페이지 생성 객체 나중에 버튼 연결해야함
+		JButton productRegisterPageButton= new JButton();
+		productRegisterPageButton.setBounds(20, 20, 20, 20);
+		productRegisterPageButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				FacadeProductRegisterPage facadeproductRegisterPage = new FacadeProductRegisterPage();
+				
+			}
+		});
+		mainFrame.add(productRegisterPageButton);
 		
-		//FacadeJoinPage GeneralUserJoinPage = new FacadeJoinPage(1, mainFrame);
-		//1 == 일반회원 ,2 == 관리자회원
+		
+		
+		JButton productListButton= new JButton();
+		productListButton.setBounds(20, 60, 20, 20);
+		productListButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//ProductList productList = new ProductList();
+				//productList.selectList();
+				AuctionRegisterPage auctionRegisterPage = new AuctionRegisterPage();
+			
+				
+				
+			}
+		});
+		mainFrame.add(productListButton);
+		
+		JButton auctionViewButton= new JButton();
+		auctionViewButton.setBounds(20, 100, 20, 20);
+		auctionViewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				new AuctionView();
+	
+			}
+		});
+		mainFrame.add(auctionViewButton);
 		
 	}
 }

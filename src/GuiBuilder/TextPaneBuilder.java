@@ -1,11 +1,16 @@
-package ProductRegisterPage;
+package GuiBuilder;
 
 import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
-public class ProductRegisterTextPaneBuilder {
+import ProductRegisterPage.ProductRegisterContentTextPane;
+import ProductRegisterPage.ProductRegisterImageContentTextPane;
+import ProductRegisterPage.ProductRegisterNameTextPane;
+import ProductRegisterPage.ProductRegisterTitleTextPane;
+
+public class TextPaneBuilder {
 
 	private JFrame frame;
 	
@@ -14,7 +19,9 @@ public class ProductRegisterTextPaneBuilder {
 
 	private ProductRegisterImageContentTextPane productRegisterImageContentTextPane;
 
-	public ProductRegisterTextPaneBuilder(JFrame frame) {
+	private ProductRegisterTitleTextPane productRegisterTitleTextPane;
+
+	public TextPaneBuilder(JFrame frame) {
 		
 		this.frame = frame;
 		
@@ -34,6 +41,12 @@ public class ProductRegisterTextPaneBuilder {
 	public void BuildProductRegisterImageContentTextPane(int x, int y,int width, int height,  SystemColor color, String text) {
 
 		productRegisterImageContentTextPane = new ProductRegisterImageContentTextPane(x, y, width, height, frame, color, text);
+		
+	}
+
+	public void BuildProductRegisterTitleTextPane(int x, int y,int width, int height,  SystemColor color, String text) {
+		
+		productRegisterTitleTextPane = new ProductRegisterTitleTextPane(x, y, width, height, frame, color, text);
 		
 	}
 

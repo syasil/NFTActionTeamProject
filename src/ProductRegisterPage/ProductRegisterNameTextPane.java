@@ -1,5 +1,6 @@
 package ProductRegisterPage;
 
+import java.awt.Font;
 import java.awt.SystemColor;
 
 import javax.swing.JFrame;
@@ -34,6 +35,8 @@ public class ProductRegisterNameTextPane implements ProductRegisterTextpane{
 		SetBackgroundTextPane(color);
 		setContentTextPane(text);
 		frame.getContentPane().add(textPane);
+		textPane.setFont(new Font("맑은 고딕",Font.BOLD,15));
+		
 		
 	}
 

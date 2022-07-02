@@ -1,4 +1,4 @@
-package ProductRegisterPage;
+package Auction;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,28 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import FileFinder.FileFinder;
 import ProductRegisterDataBase.DatabaseProductInsert;
 
-public class ProductRegisterEnterButton implements ProductRegisterButton{
+public class ProductSearchButton {
 	private JFrame frame;
 	private JButton button;
 	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+
+	public ProductSearchButton(int x, int y, int width, int height ,JFrame frame, String text) {
 	
-	
-	public ProductRegisterEnterButton(int x, int y, int width, int height ,JFrame frame, String text) {
-		
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
 		this.frame = frame;
-		
-		System.out.println("ProductRegisterEnterButton::buildJButton");
 		
 		button = new JButton();
 		setBoundButton(x, y, width, height);
@@ -46,8 +34,9 @@ public class ProductRegisterEnterButton implements ProductRegisterButton{
 			public void actionPerformed(ActionEvent e) {
 				
 				System.out.println("addActionListener::ProductRegisterEnterButton");
-				DatabaseProductInsert databaseProductInsert = new DatabaseProductInsert();
-				databaseProductInsert.dataInsert();
+				ProductList productList = new ProductList();
+				productList.selectList(ProductSearchTextField.getTextFieldValue());
+				
 			
 			}
 		});
@@ -55,7 +44,6 @@ public class ProductRegisterEnterButton implements ProductRegisterButton{
 	}
 
 	//  button 의 위치와 크기를 x, y, width, height 값으로 set
-	@Override
 	public void setBoundButton(int x,int y, int width, int height) {
 		
 		System.out.println("ProductRegisterEnterButton::setJButton");
@@ -63,11 +51,9 @@ public class ProductRegisterEnterButton implements ProductRegisterButton{
 		button.setBounds(x, y, width, height);
 	}
 
-	@Override
 	public void setContentButton(String text) {
 	
 		button.setText(text);
 		
 	}
-
 }

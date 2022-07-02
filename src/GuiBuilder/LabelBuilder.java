@@ -1,14 +1,16 @@
-package ProductRegisterPage;
+package GuiBuilder;
 
 import javax.swing.JFrame;
 
-public class ProductRegisterLabelBuilder {
+import ProductRegisterPage.ProductRegisterImageLabel;
+
+public class LabelBuilder {
 private JFrame frame;
 	
 	private ProductRegisterImageLabel productRegisterImageLabel;
 	
 
-	public ProductRegisterLabelBuilder(JFrame frame) {
+	public LabelBuilder(JFrame frame) {
 		
 		this.frame = frame;
 	}
