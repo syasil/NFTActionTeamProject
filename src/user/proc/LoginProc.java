@@ -90,15 +90,7 @@ public class LoginProc implements ActionListener {
 					pnl.txtUserID.setText("");
 					pnl.txtUserPW.setText("");
 					
-					Client clientSocket = new Client();
-					try {
-						
-						clientSocket.ConnectSocketServer();
-						
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
+					
 				}
 
 			} else {

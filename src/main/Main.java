@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -13,6 +14,7 @@ import javax.swing.UIManager;
 
 import functions.SlidingAnimate;
 import product.ProductAdd;
+import socket.Client;
 import swing.CButton;
 import user.FindPassword;
 import user.UserJoin;
@@ -118,6 +120,21 @@ public class Main extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		initNet();
+	}
+
+	private void initNet() {
+		Client clientSocket = new Client();
+		try {
+			
+			clientSocket.ConnectSocketServer();
+			
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 	}
 
 	public static void main(String args[]) {
