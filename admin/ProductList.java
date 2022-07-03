@@ -91,7 +91,7 @@ public class ProductList extends JFrame {
 		});
 		contentPane.add(btnSearch);
 
-		model = new DefaultTableModel(new String[] { "번호", "아이디", "닉네임", "전자지갑", "가입일" }, 0);
+		model = new DefaultTableModel(new String[] { "번호", "상품이름", "가격", "설명", "등록일" }, 0);
 
 		tblUser = new JTable(model);
 		tblUser.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
