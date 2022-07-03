@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -63,7 +64,7 @@ public class ProductList extends JFrame {
 	}
 
 	private void initComponents() {
-		setTitle("회원 관리");
+		setTitle("상품 관리");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 360);
@@ -144,6 +145,7 @@ public class ProductList extends JFrame {
 			while (rs.next()) {
 				String[] strRow = { 
 					rs.getString("pro_no"), rs.getString("pro_name"), rs.getString("pro_price"), rs.getString("pro_exp"), rs.getString("pro_regday")
+
 				};
 				model.addRow(strRow);
 			}
