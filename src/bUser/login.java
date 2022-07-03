@@ -30,8 +30,8 @@ public class login {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					logIn window = new logIn();
-					// window.frame.setVisible(true);
+					login window = new login();
+//					 window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +42,7 @@ public class login {
 	/**
 	 * Create the application.
 	 */
-	public logIn() {
+	public login() {
 		initialize();
 		// getUserInfo();
 	}
@@ -56,14 +56,14 @@ public class login {
 
 		frameAfter.setSize(600, 900);
 
-		APanel pnlAfter = new APanel();
+		CPanel pnlAfter = new CPanel();
 
-		AButton bntlogOut = new AButton("로그아웃");
-		ALabel lblTitle = new ALabel("NFT 경매 시스템");
-		ALabel lblWelcome = new ALabel("환영합니다");
-		ALabel lblUserID = new ALabel(Basic.userNick + " 님");
-		ALabel lblPoint = new ALabel("포인트");
-		ALabel lblPoint_1 = new ALabel(Basic.userPoint + "");
+		CButton bntlogOut = new CButton("로그아웃");
+		CLabel lblTitle = new CLabel("NFT 경매 시스템");
+		CLabel lblWelcome = new CLabel("환영합니다");
+		CLabel lblUserID = new CLabel(Basic.userNick + " 님");
+		CLabel lblPoint = new CLabel("포인트");
+		CLabel lblPoint_1 = new CLabel(Basic.userPoint + "");
 		JLabel lblImg = new JLabel(Basic.userIcon);
 		frameAfter.setVisible(false);
 

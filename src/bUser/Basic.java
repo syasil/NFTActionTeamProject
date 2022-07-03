@@ -17,9 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import AdminPage.*;
+import DBConnection.JdbcUtil;
 import swing.*;
 
 public class Basic {
+	
+	static JdbcUtil dbConn = new JdbcUtil();
+	
 	public static String userNo = "";
 	public static String userID = "";
 	public static String userPw = "";
@@ -58,11 +62,11 @@ public class Basic {
 	 */
 	private void initialize() {
 		frameBefore = new JFrame();
-		frameBefore.setSize(600, 900);
+		frameBefore.setSize(600, 200);
 
-		APanel pnlBefore = new APanel();
-		ALabel lblID = new ALabel("ID: ");
-		ALabel lblPw = new ALabel("PW:");
+		CPanel pnlBefore = new CPanel();
+		CLabel lblID = new CLabel("ID: ");
+		CLabel lblPw = new CLabel("PW:");
 		ATextField txtfID = new ATextField(10);
 		CPasswordField txtfPw = new CPasswordField(10);
 		CButton bntlogIn = new CButton("로그인");
@@ -76,7 +80,7 @@ public class Basic {
 		lblID.setBounds(345, 25, 30, 30);
 		txtfID.setBounds(377, 25, 100, 30);
 		lblPw.setBounds(345, 60, 30, 30);
-		bntlogIn.setBounds(480, 15, 100, 80);
+		bntlogIn.setBounds(480, 60, 100, 30);
 		txtfPw.setBounds(377, 60, 100, 30);
 		bntSign.setBounds(345, 100, 108, 20);
 		bntMissing.setBounds(455, 100, 125, 20);
@@ -89,7 +93,7 @@ public class Basic {
 
 		// *************폰트*********************
 		// Font font = new Font("맑은 고딕", Font.ITALIC, 40);
-		lblTitle.setFont(new Font("맑은 고딕", Font.ITALIC, 40));
+//		lblTitle.setFont(new Font("맑은 고딕", Font.ITALIC, 40));
 
 		// ***********add*******************
 		frameBefore.getContentPane().add(pnlBefore);
@@ -127,16 +131,16 @@ public class Basic {
 				Connection conn = null;
 				PreparedStatement psmt = null;
 				ResultSet rs = null;
-
+				
 				try {
 
 					String que = "select*from t_user natural join t_wallet where user_id='" + txtfID.getText() + "'";
 
-					conn = connecDb.get();
+//					conn = connecDb.get();
+					conn = dbConn.getConnection();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
-
 					if (rs.next()) {
 
 						String no = rs.getString(2);
@@ -146,15 +150,15 @@ public class Basic {
 						String nick = rs.getString(6);
 						int point = rs.getInt(10);
 
-						Blob blob = rs.getBlob("user_icon"); // 이미지파일 불러오는중
-						InputStream inputStream = blob.getBinaryStream();
-						int bytesRead = -1;
-						byte[] buffer = new byte[4096];
-						inputStream.close();
-
-						ImageIcon icon = new ImageIcon(blob.getBytes(1, (int) blob.length()), "description"); // 이미지 불러옴
-						Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // 크기조절 후 이미지에 넣기
-						ImageIcon icon2 = new ImageIcon(image); // ImageIcon에 조절된 이지 넣기
+//						Blob blob = rs.getBlob("user_icon"); // 이미지파일 불러오는중
+//						InputStream inputStream = blob.getBinaryStream();
+//						int bytesRead = -1;
+//						byte[] buffer = new byte[4096];
+//						inputStream.close();
+//
+//						ImageIcon icon = new ImageIcon(blob.getBytes(1, (int) blob.length()), "description"); // 이미지 불러옴
+//						Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // 크기조절 후 이미지에 넣기
+//						ImageIcon icon2 = new ImageIcon(image); // ImageIcon에 조절된 이지 넣기
 
 						if (txtfPw.getText().equals(rs.getString(4))) {
 							frameBefore.setVisible(false);
@@ -162,12 +166,12 @@ public class Basic {
 							userID = id;
 							userNick = nick;
 							userBirth = birth;
-							userIcon = icon2;
+//							userIcon = icon2;
 							userPoint = point;
 							if (userID.equals("vft")) {
 								new AdminMainPage().setVisible(true);
 							} else {
-								new logIn().setVisible(true);
+								new login().setVisible(true);
 							}
 
 						} else {

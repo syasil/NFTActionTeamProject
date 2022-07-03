@@ -3,24 +3,30 @@ package NftAuction;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import AdminPage.AdminMainPage;
+import DBConnection.JdbcUtil;
 //import 오류로 [FacadeJoinPage] 와 같이 임시 주석처리함
 //import ProductRegister.FacadeProductRegisterPage;
 import UserJoin.FacadeJoinPage;
-import swing.AButton;
+import bUser.*;
+import swing.*;
 
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Main {
-
 
 	private JFrame mainFrame;
 
@@ -47,8 +53,6 @@ public class Main {
 
 	
 	private void initialize() {
-		
-		
 		mainFrame = new JFrame();
 		mainFrame.setBounds(100, 100, 600, 900);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +65,7 @@ public class Main {
 		
 		///////////////////////////////////////////////////////
 		// 관리자 연결 - 버튼
+		///////////////////////////////////////////////////////
 		AButton btn_adminPage = new AButton("관리자페이지");
 		btn_adminPage.setBounds(350, 35, 130, 25);
 		mainFrame.add(btn_adminPage);
@@ -71,9 +76,22 @@ public class Main {
 				new AdminMainPage();
 			}
 		});
+		
 		///////////////////////////////////////////////////////
-		
-		
+		// 로그인 - 버튼
+		///////////////////////////////////////////////////////
+		AButton btn_Login = new AButton("로그인");
+		btn_Login.setBounds(350, 75, 130, 25);
+		mainFrame.add(btn_Login);
+		// 버튼이벤트
+		btn_Login.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Basic();
+//				mainFrame.setVisible(false);
+			}
+		});
 		
 	}
+
 }

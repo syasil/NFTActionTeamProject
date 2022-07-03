@@ -198,6 +198,13 @@ drop SEQUENCE SEQ_INCREASE_USER_NO;
 drop SEQUENCE SEQ_INCREASE_PRO_NO;
 drop SEQUENCE SEQ_INCREASE_AUC_NO;
 
+insert into t_user values (SEQ_T_USER_NO.NEXTVAL, 'vft', '1234', TO_DATE('2000-01-10', 'YYYY/MM/DD'), '관리자', TO_DATE('2022-01-01', 'YYYY/MM/DD'), 1111,  NULL);
+
+-------- 테스트 ------
+select*from t_user natural join t_wallet where user_id='test1';
+select*from t_user natural join t_wallet where user_id='vft';
+
+
 
 
 -- 기존 작업하던 테이블과 데이터 -----------------------------------------------
