@@ -1,6 +1,7 @@
 package bUser;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -14,10 +15,17 @@ import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 import AdminPage.*;
 import DBConnection.JdbcUtil;
+import bMyPage.Join;
+import bMyPage.Mysell;
 import swing.*;
 
 public class Basic {
@@ -62,29 +70,30 @@ public class Basic {
 	 */
 	private void initialize() {
 		frameBefore = new JFrame();
-		frameBefore.setSize(600, 200);
+		frameBefore.setSize(600, 300);
 
-		CPanel pnlBefore = new CPanel();
-		CLabel lblID = new CLabel("ID: ");
-		CLabel lblPw = new CLabel("PW:");
+		APanel pnlBefore = new APanel();
+		ALabel lblID = new ALabel("ID: ");
+		ALabel lblPw = new ALabel("PW:");
 		ATextField txtfID = new ATextField(10);
 		CPasswordField txtfPw = new CPasswordField(10);
-		CButton bntlogIn = new CButton("로그인");
-		CButton bntSign = new CButton("회원가입");
-		CButton bntMissing = new CButton("ID / PW찾기");
+		AButton bntlogIn = new AButton("로그인");
+		AButton bntSign = new AButton("회원가입");
+		AButton bntMissing = new AButton("ID / PW찾기");
 		bntMissing.setText("ID/PW찾기");
-		CLabel lblTitle = new CLabel("NFT 경매 시스템");
+		ALabel lblTitle = new ALabel("NFT 경매 시스템");
 
 		// ***********좌표 설정***************
 		pnlBefore.setLayout(null);
-		lblID.setBounds(345, 25, 30, 30);
-		txtfID.setBounds(377, 25, 100, 30);
-		lblPw.setBounds(345, 60, 30, 30);
-		bntlogIn.setBounds(480, 60, 100, 30);
-		txtfPw.setBounds(377, 60, 100, 30);
-		bntSign.setBounds(345, 100, 108, 20);
-		bntMissing.setBounds(455, 100, 125, 20);
-		lblTitle.setBounds(12, -10, 336, 155);
+		lblTitle.setBounds(20, -40, 336, 155);
+		
+		lblID.setBounds(345, 65, 30, 30);
+		txtfID.setBounds(377, 65, 100, 30);
+		lblPw.setBounds(345, 100, 30, 30);
+		bntlogIn.setBounds(485, 105, 90, 23);
+		txtfPw.setBounds(377, 100, 100, 30);
+		bntSign.setBounds(348, 140, 105, 23);
+		bntMissing.setBounds(463, 140, 115, 23);
 
 		// ************색상********************
 		bntlogIn.setBackground(Color.LIGHT_GRAY);
@@ -199,4 +208,6 @@ public class Basic {
 	public void setVisible(boolean b) {
 		frameBefore.setVisible(b);
 	}
+	
+
 }

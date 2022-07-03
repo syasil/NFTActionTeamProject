@@ -12,6 +12,7 @@ import DBConnection.JdbcUtil;
 //import 오류로 [FacadeJoinPage] 와 같이 임시 주석처리함
 //import ProductRegister.FacadeProductRegisterPage;
 import UserJoin.FacadeJoinPage;
+import bMyPage.Mypage;
 import bUser.*;
 import swing.*;
 
@@ -51,7 +52,6 @@ public class Main {
 		initialize();
 	}
 
-	
 	private void initialize() {
 		mainFrame = new JFrame();
 		mainFrame.setBounds(100, 100, 600, 900);
@@ -91,6 +91,21 @@ public class Main {
 //				mainFrame.setVisible(false);
 			}
 		});
+		
+		///////////////////////////////////////////////////////
+		// 마이페이지 - 버튼
+		///////////////////////////////////////////////////////
+		AButton btn_mypage = new AButton("마이페이지");
+		btn_mypage.setBounds(350, 75, 130, 25);
+		btn_mypage.add(btn_mypage);
+		// 버튼이벤트
+		btn_mypage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Mypage();
+			}
+		});
+		
 		
 	}
 

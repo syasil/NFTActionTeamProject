@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DBConnection.GetData;
 import DBConnection.JdbcUtil;
+import bUser.Basic;
 import swing.AButton;
 import swing.ALabel;
 import swing.APanel;
@@ -64,6 +65,7 @@ public class AdminMainPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				new Basic();
 			}
 		});		
 
@@ -206,7 +208,7 @@ public class AdminMainPage extends JFrame {
 					rs.close(); psmt.close(); conn.close();
 
 				} catch (Exception e1) {
-					System.out.println(e1.getMessage());
+					System.out.println("경매검색 오류: "+e1.getMessage());
 				}
 				// 테이블 생성 2 끝
 				

@@ -1,6 +1,7 @@
 package bUser;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+
+import bMyPage.Join;
+import bMyPage.Mypage;
+import bMyPage.Mysell;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -68,6 +77,22 @@ public class login {
 		frameAfter.setVisible(false);
 
 		pnlAfter.setLayout(null);
+		
+		///////////////////////////////////////////////////////
+		// 마이페이지 - 버튼
+		///////////////////////////////////////////////////////
+		AButton btn_mypage = new AButton("마이페이지");
+		btn_mypage.setBounds(430, 135, 130, 25);
+		// 버튼이벤트
+		btn_mypage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Mypage();
+//				mainFrame.setVisible(false);
+			}
+		});
+		pnlAfter.add(btn_mypage);
+		
 
 		// ***********좌표 설정***************
 
@@ -114,5 +139,4 @@ public class login {
 	public void setVisible(boolean b) {
 		frameAfter.setVisible(b);
 	}
-
 }
