@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 
 import ProductRegisterPage.FacadeProductRegisterPage;
 import ProductRegisterPage.ProductRegister;
+import blockchain.BlockChain;
 import functions.SlidingAnimate;
 import product.ProductAdd;
 import socket.Client;
@@ -149,6 +150,12 @@ public class Main extends JFrame {
 			e.printStackTrace();
 			
 		}
+		BlockChain blockChain = new BlockChain();
+		Thread blockChainThread = new Thread(blockChain);
+		blockChainThread.start();
+		
+		
+		
 		
 	}
 
