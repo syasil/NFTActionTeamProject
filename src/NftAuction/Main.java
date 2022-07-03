@@ -50,20 +50,19 @@ public class Main {
 		
 		
 		mainFrame = new JFrame();
-		mainFrame.setBounds(100, 100, 900, 600);
+		mainFrame.setBounds(100, 100, 600, 900);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.getContentPane().setLayout(null);
 		
 		
 		//FacadeProductRegisterPage facadeprodictRegisterPage = new FacadeProductRegisterPage(mainFrame);
-		
 //		FacadeJoinPage GeneralUserJoinPage = new FacadeJoinPage(1, mainFrame);
 		//1 == 일반회원 ,2 == 관리자회원
 		
 		///////////////////////////////////////////////////////
 		// 관리자 연결 - 버튼
-		AButton btn_adminPage = new AButton("관리자페이지띄우기");
-		btn_adminPage.setBounds(400, 35, 120, 25);
+		AButton btn_adminPage = new AButton("관리자페이지");
+		btn_adminPage.setBounds(350, 35, 130, 25);
 		mainFrame.add(btn_adminPage);
 		// 버튼이벤트
 		btn_adminPage.addActionListener(new ActionListener() {
