@@ -13,6 +13,9 @@ public class AuctionThread extends Thread implements Runnable{
 	private Socket socket;
 	private int second;
 	private static String price;
+	private static String name;
+	
+	AuctionEndProductInsert productInsert = new AuctionEndProductInsert(); 
 
 	public AuctionThread(String[] strArray, Server server, Socket socket) {
 		
@@ -21,8 +24,9 @@ public class AuctionThread extends Thread implements Runnable{
 		this.socket = socket;
 		this.second = Integer.parseInt(strArray[2]);
 		this.price = strArray[3];
+		this.name= strArray[4];
 		
-		AuctionEndProductInsert productInsert = new AuctionEndProductInsert(); 
+		
 		
 		
 	}
@@ -55,7 +59,10 @@ public class AuctionThread extends Thread implements Runnable{
 				System.out.println(">> SERVER: Auction has ended.");
 				server.broadCasting(",auctionEnd");
 				
-				productInsert.
+				productInsert.setData(strArray[1],price, name);
+				productInsert.postProduct();
+				productInsert.getData();
+				productInsert.postBlock();
 				
 				
 				
@@ -67,9 +74,12 @@ public class AuctionThread extends Thread implements Runnable{
 
 	}
 
-	public static void setPrice(String str) {
+	public static void setData(String str1, String str2) {
 		
-		price = str;
+		price = str1;
+		name = str2;
 		
 	}
+	
+	
 }

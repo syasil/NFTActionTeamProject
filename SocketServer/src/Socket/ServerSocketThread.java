@@ -139,8 +139,9 @@ public class ServerSocketThread extends Thread implements Serializable{
 					
 				case "bid":
 					System.out.println(str_in);
-					AuctionThread.setPrice(strArray[1]);
+					AuctionThread.setData(strArray[1], strArray[2]);
 					server.broadCasting(",priceChange," + strArray[1]);
+					
 					
 					break;
 
