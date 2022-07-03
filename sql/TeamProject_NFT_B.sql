@@ -13,12 +13,13 @@ BEGIN
   open presult for
 
   SELECT A.AUC_NO, U.USER_ID, P.PRO_NAME, A.AUC_LPRICE, TO_CHAR(A.AUC_END)
-         FROM T_AUCTION A, USER_T  U, PRODUCT_T  P
+         FROM T_AUCTION A, T_USER  U, T_PRODUCT  P
       WHERE A.USER_NO = U.USER_NO
         AND A.PRO_NO = P.PRO_NO
         AND U.USER_ID like in_userId;
 END PRO_USER_AUC_LIST;
 /
+
 
 -- 프로시저 실행
 variable rc refcursor;
