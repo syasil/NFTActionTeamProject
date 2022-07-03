@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import Socket.Client;
+import socket.Client;
 
 
 public class AuctionStartFrame extends JFrame implements ActionListener, Runnable{
@@ -81,7 +81,7 @@ public class AuctionStartFrame extends JFrame implements ActionListener, Runnabl
 		
 		
 		str = "auctionStart" + "," + data + "," + ((Integer.parseInt(minuteTextField.getText())*60)+(Integer.parseInt(secondTextField.getText()))) + 
-				"," + priceTextField.getText();
+				"," + priceTextField.getText() + ",0";
 		out.println(str);
 		
 		dispose();

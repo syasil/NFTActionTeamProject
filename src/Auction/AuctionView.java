@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import Socket.Client;
+import socket.Client;
 
 public class AuctionView extends JFrame implements Runnable{
 
@@ -168,7 +168,7 @@ public class AuctionView extends JFrame implements Runnable{
 		}
 		
 		System.out.println(bidPrice);
-		out.println("bid,"+bidPrice+",name");
+		out.println("bid,"+bidPrice+",0"); //0 관리자; 입찰자 없음 noBidder
 		
 			
 		
@@ -182,9 +182,7 @@ public class AuctionView extends JFrame implements Runnable{
 		
 		while(true) {
 			try {
-				
-				
-				
+
 				in_str= in.readLine();
 				data = in_str.split(",");
 				System.out.println(in_str);

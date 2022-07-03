@@ -40,10 +40,10 @@ public class ProductList {
 				
 				dataModel.addRow(new Object[] {
 						
-					rs.getString("product_number"),
-					rs.getString("product_name"),	
-					rs.getString("product_register_user"),	
-					rs.getString("product_register_date"),	
+					rs.getString("pro_no"),
+					rs.getString("pro_name"),	
+					rs.getString("user_no"),	
+					rs.getString("pro_regday"),	
 						
 				});
 			}
@@ -61,15 +61,15 @@ public class ProductList {
 
 	private PreparedStatement bindSQL(String reference) throws SQLException {
 		
-		sql ="SELECT product_number, product_name, product_register_user,product_register_date FROM product";
+		sql ="SELECT pro_no, pro_name, user_no, pro_regday FROM t_product";
 		if(!reference.equals("")) {
 			
-			sql += " where product_name=? order by product_number";
+			sql += " where pro_name=? order by pro_no";
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, reference);
 			
 		}else {
-			sql += " order by product_number";
+			sql += " order by pro_no";
 			psmt = connection.prepareStatement(sql);
 			
 		}
