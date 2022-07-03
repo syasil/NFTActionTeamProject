@@ -24,7 +24,7 @@ import main.Main;
 import user.proc.LoginProc;
 
 public class DatabaseProductInsert {
-	DatabaseLinker databaseLinker = new DatabaseLinker();
+
 
 	Connection connection; 
 	PreparedStatement psmt = null;
@@ -42,7 +42,7 @@ public class DatabaseProductInsert {
 		try {
 			
 			getData();
-			connection = databaseLinker.connectDB();
+			connection = DatabaseLinker.getInstance().connectDB();
 			postData();
 			//ImageFileSaver.saveImage(getProductImageMetadata());
 			

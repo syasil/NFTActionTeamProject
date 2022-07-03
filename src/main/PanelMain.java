@@ -101,7 +101,7 @@ public class PanelMain  extends CPanel implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(!Main.USER_ID.equals("")) {
-					
+					System.out.println("bid,"+lblMinBidPrice.getText()+","+Main.USER_NO);
 					out.println("bid,"+lblMinBidPrice.getText()+","+Main.USER_NO);
 					
 				}

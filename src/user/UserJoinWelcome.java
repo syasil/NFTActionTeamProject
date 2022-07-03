@@ -91,8 +91,7 @@ public class UserJoinWelcome extends CPanel {
 		ResultSet rs = null;
 
 		try {
-			DatabaseLinker databaseLinker = new DatabaseLinker();
-			conn = databaseLinker.connectDB();
+			conn = DatabaseLinker.getInstance().connectDB();
 			
 			psmt = conn.prepareStatement("select user_nick, user_icon from t_user where user_id = ? ");
 			psmt.setString(1, Main.USER_ID);

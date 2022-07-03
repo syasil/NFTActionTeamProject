@@ -45,7 +45,7 @@ public class ProductRegisterImageButton implements ProductRegisterButton{
 				
 			
 				System.out.println("actionPerformed");
-				FileFinder filefinder = new FileFinder(frame);
+				FileFinder filefinder = new FileFinder();
 				
 			}
 		});

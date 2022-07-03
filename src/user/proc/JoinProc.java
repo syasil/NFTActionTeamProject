@@ -83,8 +83,7 @@ public class JoinProc implements ActionListener {
 				+ " VALUES (SEQ_T_USER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
 
 			//conn = DB.get(); // DB연결
-			DatabaseLinker databaseLinker = new DatabaseLinker();
-			conn = databaseLinker.connectDB();
+			conn = DatabaseLinker.getInstance().connectDB();
 			
 			
 			psmt = conn.prepareStatement(sql);

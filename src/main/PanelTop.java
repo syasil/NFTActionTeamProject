@@ -77,8 +77,7 @@ public class PanelTop extends JPanel {
 					ResultSet rs = null;
 
 					try {
-						DatabaseLinker databaseLinker = new DatabaseLinker();
-						conn = databaseLinker.connectDB();
+						conn = DatabaseLinker.getInstance().connectDB();
 						
 						psmt = conn.prepareStatement("select * from t_user where user_id = ? ");
 						psmt.setString(1, Main.USER_ID);

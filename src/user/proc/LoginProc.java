@@ -56,8 +56,7 @@ public class LoginProc implements ActionListener {
 		
 			
 			//conn = DB.get(); // DB연결
-			DatabaseLinker databaseLinker = new DatabaseLinker();
-			conn = databaseLinker.connectDB();
+			conn = DatabaseLinker.getInstance().connectDB();
 			
 			
 			psmt = conn.prepareStatement(sql);
