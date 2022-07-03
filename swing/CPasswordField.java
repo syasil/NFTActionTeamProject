@@ -9,10 +9,12 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 public class CPasswordField extends JPasswordField {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Shape shape;
 	
 	public CPasswordField() {

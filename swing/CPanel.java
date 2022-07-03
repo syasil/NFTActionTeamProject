@@ -1,3 +1,4 @@
+
 package swing;
 
 import java.awt.Color;
@@ -63,4 +64,5 @@ public class CPanel extends JPanel {
 			g.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}
+
 }

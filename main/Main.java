@@ -1,3 +1,4 @@
+
 package main;
 
 import java.awt.Color;
@@ -247,4 +248,5 @@ public class Main extends JFrame {
 			}
 		});
 	}
+
 }

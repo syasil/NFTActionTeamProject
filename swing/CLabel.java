@@ -6,10 +6,12 @@ import java.awt.Font;
 import javax.swing.JLabel;
 
 public class CLabel extends JLabel {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private String fontName = "맑은 고딕";
 	
 	public CLabel() {

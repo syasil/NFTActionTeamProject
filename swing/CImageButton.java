@@ -1,3 +1,4 @@
+
 package swing;
 
 import java.awt.AlphaComposite;
@@ -109,4 +110,5 @@ public class CImageButton extends JButton {
 			g.drawImage(imgBackground, 0, 0, null);
 		}
 	}
+
 }

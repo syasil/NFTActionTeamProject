@@ -1,3 +1,4 @@
+
 package admin;
 
 import java.awt.EventQueue;
@@ -82,3 +83,4 @@ public class AdminMain extends JFrame {
 		contentPane.add(btnNewButton_1_1_1);
 	}
 }
+

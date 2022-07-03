@@ -61,6 +61,7 @@ public class ImagePaneExample {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private BufferedImage img;
 		private BufferedImage renderImg;
 		private boolean rounded;

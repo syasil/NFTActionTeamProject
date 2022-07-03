@@ -19,10 +19,12 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 public class CButton extends JButton {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Color color1 = new Color(197, 38, 157);
 	private Color color2 = new Color(133, 5, 171);
 	private final Timer timer;

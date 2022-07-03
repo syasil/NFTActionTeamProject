@@ -10,10 +10,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class CTextField extends JTextField {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Shape shape;
 	
 	public CTextField() {
