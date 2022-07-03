@@ -52,7 +52,7 @@ public class LoginProc implements ActionListener {
 		
 		
 		try {
-			String sql = "select user_id, user_pass, user_nick from t_user where user_id = ?";
+			String sql = "select user_no, user_id, user_pass, user_nick from t_user where user_id = ?";
 		
 			
 			//conn = DB.get(); // DB연결
@@ -65,6 +65,7 @@ public class LoginProc implements ActionListener {
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
+				String strUserNo = rs.getString("user_no");
 				String strUserID = rs.getString("user_id");
 				String strUserPW = rs.getString("user_pass");
 				String strUserNick = rs.getString("user_nick");
@@ -76,6 +77,7 @@ public class LoginProc implements ActionListener {
 					Main.pnlOpaque.setVisible(false);
 					
 					// 로그인 성공
+					Main.USER_NO = strUserNo;
 					Main.USER_ID = strUserID;
 					Main.USER_NICKNAME = strUserNick;
 					

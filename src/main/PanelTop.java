@@ -111,6 +111,7 @@ public class PanelTop extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				Main.USER_NO = "";
 				Main.USER_ID = "";
 				Main.USER_NICKNAME = "";
 				
