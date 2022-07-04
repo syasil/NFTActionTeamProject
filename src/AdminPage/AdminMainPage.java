@@ -10,18 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DBConnection.GetData;
@@ -29,7 +25,6 @@ import DBConnection.JdbcUtil;
 import bUser.Basic;
 import swing.AButton;
 import swing.ALabel;
-import swing.APanel;
 import swing.AScrollPane;
 import swing.ATable;
 import swing.ATextField;
@@ -300,7 +295,7 @@ public class AdminMainPage extends JFrame {
 		g2.draw(lin2);
 	}
 
-	public static void main(String[] args) throws SQLException {
-		new AdminMainPage();
-	}
+//	public static void main(String[] args) throws SQLException {
+//		new AdminMainPage();
+//	}
 }

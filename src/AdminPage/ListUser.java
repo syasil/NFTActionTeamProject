@@ -9,11 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DBConnection.JdbcUtil;
-import swing.*;
+import swing.AButton;
+import swing.ALabel;
+import swing.APanel;
+import swing.AScrollPane;
+import swing.ATable;
+import swing.ATextField;
 
 public class ListUser  extends JFrame {
 	//회원목록 패널
@@ -25,9 +29,9 @@ public class ListUser  extends JFrame {
 	private DefaultTableModel model;
 	private ATable UserListTable;
 	
-	public static void main(String[] args) {
-		new ListUser();
-	}
+//	public static void main(String[] args) {
+//		new ListUser();
+//	}
 	
 	public ListUser() {
 		initSet();
