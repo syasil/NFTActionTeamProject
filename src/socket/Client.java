@@ -17,7 +17,7 @@ public class Client {
 	}
 
 	public static Socket getSocket() {
-		// TODO Auto-generated method stub
+		
 		return clientSocket;
 	}
 	

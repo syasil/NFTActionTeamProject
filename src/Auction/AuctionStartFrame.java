@@ -21,7 +21,7 @@ import javax.swing.JTextPane;
 import socket.Client;
 
 
-public class AuctionStartFrame extends JFrame implements ActionListener, Runnable{
+public class AuctionStartFrame extends JFrame implements ActionListener{
 
 	JTextField minuteTextField;
 	JTextField secondTextField;
@@ -48,12 +48,13 @@ public class AuctionStartFrame extends JFrame implements ActionListener, Runnabl
 	
 	}
 	
+	
+	//서버에 연결
 	private void initServer() {
 		try {
 			
 			socket = Client.getSocket();
 			
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 			
 		} catch (UnknownHostException e) {
@@ -70,12 +71,8 @@ public class AuctionStartFrame extends JFrame implements ActionListener, Runnabl
 		
 	}
 
-	@Override
-	public void run() {
-		
-		
-	}
 
+	// 30분 30초가 입력되면 분에는 60을 곱하여 1830을 second로 사용, auctionStart 구문을 포함하여 경매진행시간과 경매가, 관리자를 뜻하는 유저고유번호 0을 서버에 전송
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -83,7 +80,6 @@ public class AuctionStartFrame extends JFrame implements ActionListener, Runnabl
 		str = "auctionStart" + "," + data + "," + ((Integer.parseInt(minuteTextField.getText())*60)+(Integer.parseInt(secondTextField.getText()))) + 
 				"," + priceTextField.getText() + ",0";
 		out.println(str);
-		
 		dispose();
 	}
 	

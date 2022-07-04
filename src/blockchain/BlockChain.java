@@ -32,7 +32,7 @@ public class BlockChain implements Runnable{
 	private int resultset;
 
 
-	
+	//t_blocks 테이블에서 경매 고유 번호를 기준으로 그룹해서 가장 최근의 row 하나의 정보를 가져와 각 변수에 할당한다.
 	private void getPreviousBlock() {
 		
 		try {
@@ -65,6 +65,9 @@ public class BlockChain implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	//스레드 시작
+	//클라이언트가 켜지면 자동으로 생성되는 스레드로, 클라이언트가 켜져있는 동안 경매기록으로 만들어진 블럭들중 가장 최근에 만들어진 블럭중 하나와 연결되는 새로운 블럭을 생성
 	@Override
 	public void run() {
 
@@ -76,19 +79,19 @@ public class BlockChain implements Runnable{
 			
 		}
 		while(true) {
-			
+			/*
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
 			
 			getPreviousBlock();
 			
 			random = (int) (Math.random() * (list.size()));
 			
-			System.out.println("경매기록고유번호 : " + list.get(random).get(3)+"의 "+list.get(random).get(5)+ "번째 블럭 채굴을 시작합니다.");
+			System.out.println("경매기록고유번호 : " + list.get(random).get(3)+"의 "+list.get(random).get(5)+ "번째 블럭 생성을 시작합니다.");
 			token = list.get(random).get(5);
 			previousHash = list.get(random).get(6);
 			
@@ -102,7 +105,7 @@ public class BlockChain implements Runnable{
 				psmt.setString(1, token);
 				psmt.executeQuery();
 				
-				if(rs.next()) continue;
+				if(rs.next()) continue; //만약 다른 클라이언트에서 같은 블럭을 먼저 생성하여 같은 해쉬를 가진 블럭이 존재할 경우, 테이블에 블럭을 입력하지 않는다.
 				
 				
 				sql = "insert into t_blocks VALUES (?, ?, ?, ?, to_date((?), 'YYYY-MM-DD HH24:MI:SS'), ?, ?, sysdate)";
@@ -128,24 +131,27 @@ public class BlockChain implements Runnable{
 		}
 		
 	}
+	//작업 증명
+	//블럭의 해쉬 데이터를 가져와 연결된 블럭을 생성
+	//2진수 문자열 000000000이 포함된 해쉬가 생성될 때까지 반복
 	private String proof_of_work(String previousHash) {
 		
 		while(true) {
 			
 		
 			binaryStr="";
-			md.update(previousHash.getBytes());
+			md.update(previousHash.getBytes()); 
 			hex = bytesToHex(md.digest());
 			hexToBinary();
 			
-			if(binaryStr.contains("0000")) return hex;
+			if(binaryStr.contains("000000000")) return hex; 
 
 			
 		}
 
 	}
 
-	
+	//바이트를 16진수로 바꾸는 함수
 	private static String bytesToHex(byte[] digest) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -155,7 +161,7 @@ public class BlockChain implements Runnable{
 			
 		return sb.toString();
 	}
-
+	//16진수를  2진수로 바꾸는 함수
 	private void hexToBinary() {
 		
 		char[] hexaarray = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};

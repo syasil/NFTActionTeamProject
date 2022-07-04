@@ -12,7 +12,6 @@ import Database.DatabaseLinker;
 
 public class ProductList {
 	
-	DatabaseLinker databaseLinker = new DatabaseLinker();
 	
 	Connection connection; 
 	PreparedStatement psmt = null;
@@ -24,17 +23,18 @@ public class ProductList {
 	String[] columnType = { "번호", "이름", "등록인", "등록일", "버튼"};
 	private DefaultTableModel dataModel = new DefaultTableModel(columnType, 0);
 	
+	// t_product에서 데이터를 받아와 Jtable로 보여준다
+	//각 row 옆에 달린 버튼을 클릭하면 해당 데이터로 경매를 진행할 수 있는 페이지를 띄운다
 	public DefaultTableModel selectList(String reference) {
 
 		try {
 			
-			connection = databaseLinker.connectDB();
-			
-			
+			DatabaseLinker.getInstance().connectDB();
+
 			
 			psmt = bindSQL(reference);
 			rs = psmt.executeQuery();
-			 //DML(insert, update, delete) executeUpdate();
+			
 			 
 			while(rs.next()) {
 				
@@ -79,8 +79,5 @@ public class ProductList {
 		
 	}
 
-	public static void getRowData() {
-		 
-		
-	}
+	
 }

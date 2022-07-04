@@ -41,10 +41,7 @@ public class PanelMain  extends CPanel implements Runnable {
 	private int price;
 	private Object bidPrice;
 	
-	
-	
-	// 카운트 다운 시계
-	//private Countdown cd;
+
 	
 	public PanelMain() {
 		super("images/bg.jpg");
@@ -70,6 +67,8 @@ public class PanelMain  extends CPanel implements Runnable {
 		
 		pnlAuction.add(lblTitle);
 		pnlAuction.add(lblAuthor);
+		
+		
 		
 		lblRemainText = new CLabel("Auction end in");
 		lblRemainText.setBounds(50, 630, 500, 30);
@@ -128,13 +127,11 @@ public class PanelMain  extends CPanel implements Runnable {
 			
 			try {
 				
-				socket = Client.getSocket();
-				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				socket = Client.getSocket(); // 소켓 서버 연결
+				in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
 				out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 				
-				
-				
-				
+
 			} catch (UnknownHostException e) {
 				
 				System.out.println("IP 주소가 다릅니다.");
@@ -145,43 +142,44 @@ public class PanelMain  extends CPanel implements Runnable {
 				
 			}
 			
-			Thread thread = new Thread(this);
-			thread.start();
+			Thread thread = new Thread(this); 
+			thread.start(); //스레드 실행
 			
 		}
 
 	
-	
+	//스레드 실행
 	@Override
 	public void run() {
+		
 		while(true) {
 			try {
 	
-				data = in.readLine().split(",");
+				data = in.readLine().split(","); //소켓서버에서 받은 데이터를 ,를 기준으로 나누어 data에 할당
 
-				switch (data[1]) {
+				switch (data[1]) { 
 				
-					case "timer":
+					case "timer": //데이터 타입이 timer일 경우 : 소켓서버는 1초마다 남은 시간,현재 가격 등의 정보를 모든 클라이언트에 전송함
+					
+						timer = Integer.parseInt(data[3]); 
+						price = (int) Math.floor(Float.parseFloat(data[4])); //받은 데이터에서 소수점 제거
 						
 						
-						timer = Integer.parseInt(data[3]);
-						price = (int) Math.floor(Float.parseFloat(data[4]));
-						
-						
-						lblRemainTime.setText(timer/3600 + " h " + timer/60 + " m " + timer%60 + " s" );	
-						lblcurrentPrice.setText("" + price);
-						lblMinBidPrice.setText("" + (int)Math.floor(price * 1.1));
-						lblMinBidPrice.setLocation(50-(25*lblcurrentPrice.getText().length()),714);
+						lblRemainTime.setText(timer/3600 + " h " + timer/60 + " m " + timer%60 + " s" ); //남은 시간을 보여주는 클라이언트의 패널을  형식에 맞게 수정	
+						lblcurrentPrice.setText("" + price); //현재 경매가를 보여주는 클라이언트의 패널을 형식에 맞게 수정
+						lblMinBidPrice.setText("" + (int)Math.floor(price * 1.1)); //최소 입찰가를 현재경매가에서 1.1를 곱하여 구한 뒤 소수점을 버리고 패널에 입력
+						lblMinBidPrice.setLocation(50-(25*lblcurrentPrice.getText().length()),714); //현재경매가의 문자열 길이에 비례하여 겹치지 않도록 최소입찰가 패널 위치를 변경
 						
 						
 						break;
 						
-					case "priceChange":
-						System.out.println("priceChange"+data[2]);
-						price = (int) Math.floor(Float.parseFloat(data[2]));
+					case "priceChange": //데이터 타입이 priceChange일 경우 : 서버는 클라이언트에서 입찰을 하면 수정된 가격정보를 모든 클라이언트에 전송한다. 
 						
-						lblcurrentPrice.setText("" + price);
-						lblMinBidPrice.setText("" + (int)Math.floor(price * 1.1));
+						
+						price = (int) Math.floor(Float.parseFloat(data[2])); // 받은 가격정보의 소수점을 버리고 price에 할당
+						
+						lblcurrentPrice.setText("" + price); //현재 경매가를 보여주는 클라이언트의 패널을 형식에 맞게 수정
+						lblMinBidPrice.setText("" + (int)Math.floor(price * 1.1)); //최소 입찰가를 현재경매가에서 1.1를 곱하여 구한 뒤 소수점을 버리고 패널에 입력
 						
 						break;
 	

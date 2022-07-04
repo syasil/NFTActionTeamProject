@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -17,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import admin.AdminMainPage;
+import blockchain.BlockChain;
+import socket.Client;
 import swing.CButton;
 import swing.CLabel;
 import swing.CPanel;
@@ -37,11 +40,8 @@ public class Basic extends JFrame{
 	public static int userPoint = 0;
 	public static ImageIcon userIcon = null;
 
-	private JFrame frameBefore;
-	private int bytesRead;
-	private byte[] buffer;
+	
 	private CPasswordField txtfPw;
-	private InputStream inputStream;
 	private Blob blob;
 	private ImageIcon icon;
 	private Image image;
@@ -54,6 +54,10 @@ public class Basic extends JFrame{
 	private CButton bntMissing;
 	private CLabel lblTitle;
 	private String pw;
+	private Thread blockChainThread;
+	private InputStream inputStream;
+	private int bytesRead;
+	private byte[] buffer;
 
 	public static Basic instance;
 	
@@ -86,6 +90,10 @@ public class Basic extends JFrame{
 	private void initialize() {
 		
 		
+		initNet();
+		BlockChain blockChain = new BlockChain();
+		Thread blockChainThread = new Thread(blockChain);
+		blockChainThread.start();
 		setSize(600, 900);
 
 		pnlBefore = new CPanel();
@@ -184,6 +192,20 @@ public class Basic extends JFrame{
 		});
 	}
 
+	private void initNet() {
+		
+		Client clientSocket = new Client();
+		try {
+			
+			clientSocket.ConnectSocketServer();
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+		}
+	}
+
 	private void LogIn() throws SQLException, Exception {
 		
 		
@@ -246,6 +268,7 @@ public class Basic extends JFrame{
 		return instance;
 		
 	}
+	
 
 }
 
