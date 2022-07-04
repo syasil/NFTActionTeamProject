@@ -230,6 +230,9 @@ public class NewUser {
 
 		// ------------------------------------------------------------------
 		bntSignup.addActionListener(new ActionListener() { // 확인버튼 ->db데이터 넣기
+			private Connection conn;
+			private int updateResult;
+
 			public void actionPerformed(ActionEvent e) {
 
 				if ((txtfID.getText()).equals("")) {
@@ -260,33 +263,34 @@ public class NewUser {
 				}
 
 				else {
-					String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
-					String que = "insert into t_user(USER_NO,USER_ID,USER_PASS,USER_BIR,USER_NICK,USER_CREDAY,WAl_NO,USER_ICON)"
-							+ "values(SEQ_INCREASE_USER_NO.NEXTVAL,?,?,?,?,to_date(sysdate,'yyyy/mm/dd'),?,?)";
+					
+					String que = "insert into t_user "
+							+ "(USER_NO , USER_ID, USER_PASS, USER_BIR, USER_NICK, USER_CREDAY, user_wallet, USER_ICON)"
+							+ "values "
+							+ "(SEQ_T_USER_NO.NEXTVAL,?,?,?,?,to_date(sysdate,'yyyy/mm/dd'),?,?)";
 
-					Connection con = null;
+					conn = connectDb.getInstance().get(); // 커넥션 객체를 호출합니다.
+					
 					PreparedStatement pstmt = null;
 					try {
-						Class.forName("oracle.jdbc.driver.OracleDriver");
-						con = DriverManager.getConnection(url, "JYY", "@Tt38003800");
-
-						pstmt = con.prepareStatement(que);
+						pstmt = conn.prepareStatement(que);
 
 						pstmt.setString(1, txtfID.getText());
 						pstmt.setString(2, txtfPw.getText());
 						pstmt.setString(3, txtfBirth.getText());
 						pstmt.setString(4, txtfNick.getText());
 						pstmt.setString(5, txtfWallet.getText());
+						if(fis != null) pstmt.setBinaryStream(6, fis, (int) file.length()); // 이미지 db에 저장
+						
 
-						pstmt.setBinaryStream(6, fis, (int) file.length()); // 이미지 db에 저장
-
-						int n = pstmt.executeUpdate();
+						updateResult = pstmt.executeUpdate();
+						System.out.println("변경된 row개수 : " + updateResult);
 
 					} catch (Exception e1) {
 						e1.printStackTrace();
 
 					}
-					String resultStr = null;
+
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
 					frame.dispose();
 				}
@@ -346,14 +350,14 @@ public class NewUser {
 					if (rs.next()) {
 						String id = rs.getString(2);
 						if (txtfID.getText().equals(id)) {
-							JOptionPane.showMessageDialog(null, "중복된 아이디 입니다..");
+							JOptionPane.showMessageDialog(null, "중복된 아이디 입니다.");
 							txtfID.setText(null);
 
 						}
 					} else {
 						if (!txtfID.getText().equals("")) {
 							txtfID.setEnabled(false);
-							JOptionPane.showMessageDialog(null, "확인 되었습니다.");
+							JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.");
 						}
 					}
 
@@ -390,7 +394,7 @@ public class NewUser {
 					} else {
 						if (!txtfNick.getText().equals("")) {
 							txtfNick.setEnabled(false);
-							JOptionPane.showMessageDialog(null, "확인 되었습니다.");
+							JOptionPane.showMessageDialog(null, "사용 가능한 별명입니다.");
 						}
 					}
 

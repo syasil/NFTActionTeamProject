@@ -155,7 +155,7 @@ public class Basic {
 			
 					String que = "select * from t_user natural join t_wallet where user_id= ? ";//sql 
 
-					conn = connectDb.getInstance().get();
+					conn = connectDb.getInstance().get(); // 커넥션 객체를 호출합니다.
 					
 					psmt = conn.prepareStatement(que);
 					psmt.setString(1, txtfID.getText());
@@ -168,7 +168,7 @@ public class Basic {
 						
 					} else {
 						
-						JOptionPane.showMessageDialog(null, "등록된" + txtfID.getText() + "가 없습니다.");
+						JOptionPane.showMessageDialog(null, "등록된 " + txtfID.getText() + "가 없습니다.");
 
 					}
 				
@@ -216,7 +216,8 @@ public class Basic {
 		
 		pw = rs.getString("user_pass"); // 패스워드 데이터 가져오기
 		
-		if (txtfPw.getPassword().equals(pw)) {
+		if (txtfPw.getText().equals(pw)) {
+			
 			
 			LogIn();
 			
