@@ -13,12 +13,13 @@ BEGIN
   open presult for
 
   SELECT A.AUC_NO, U.USER_ID, P.PRO_NAME, A.AUC_LPRICE, TO_CHAR(A.AUC_END)
-         FROM T_AUCTION A, USER_T  U, PRODUCT_T  P
+         FROM T_AUCTION A, T_USER  U, T_PRODUCT  P
       WHERE A.USER_NO = U.USER_NO
         AND A.PRO_NO = P.PRO_NO
         AND U.USER_ID like in_userId;
 END PRO_USER_AUC_LIST;
 /
+
 
 -- 프로시저 실행
 variable rc refcursor;
@@ -197,6 +198,13 @@ SELECT * FROM T_WALLET_LOG;
 drop SEQUENCE SEQ_INCREASE_USER_NO;
 drop SEQUENCE SEQ_INCREASE_PRO_NO;
 drop SEQUENCE SEQ_INCREASE_AUC_NO;
+
+insert into t_user values (SEQ_T_USER_NO.NEXTVAL, 'vft', '1234', TO_DATE('2000-01-10', 'YYYY/MM/DD'), '관리자', TO_DATE('2022-01-01', 'YYYY/MM/DD'), 1111,  NULL);
+
+-------- 테스트 ------
+select*from t_user natural join t_wallet where user_id='test1';
+select*from t_user natural join t_wallet where user_id='vft';
+
 
 
 
