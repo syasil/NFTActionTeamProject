@@ -126,6 +126,7 @@ public class Basic {
 		// ---------------------------------------------------
 		bntlogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 				Connection conn = null;
 				PreparedStatement psmt = null;
 				ResultSet rs = null;
@@ -134,7 +135,7 @@ public class Basic {
 
 					String que = "select*from t_user natural join t_wallet where user_id='" + txtfID.getText() + "'";
 
-					conn = connecDb.get();
+					conn = DB.get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();

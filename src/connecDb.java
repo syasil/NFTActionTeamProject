@@ -1,7 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class connecDb {
+public class DB {
 
 	public static Connection get() {
 		Connection conn = null;
@@ -21,11 +21,6 @@ public class connecDb {
 			e.printStackTrace();
 		}
 		return conn;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
