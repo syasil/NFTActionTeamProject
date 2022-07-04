@@ -104,7 +104,7 @@ public class MissingID {
 				try {
 					String que = "select * from t_user";
 
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
@@ -144,7 +144,7 @@ public class MissingID {
 				try {
 					String que = "select * from t_user";
 
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();

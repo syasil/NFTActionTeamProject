@@ -84,7 +84,7 @@ public class practice extends JFrame{
 				try {
 					String que="select * from enrol1";
 					
-					conn=connecDb.get(); 
+					conn = connectDb.getInstance().get();
 					
 					psmt=conn.prepareStatement(que);
 					rs=psmt.executeQuery();
@@ -129,7 +129,7 @@ public class practice extends JFrame{
 				try {
 					String que="select * from enrol1";
 					
-					conn=connecDb.get(); //DB����
+					conn = connectDb.getInstance().get();
 					
 					psmt=conn.prepareStatement(que);
 					rs=psmt.executeQuery();
