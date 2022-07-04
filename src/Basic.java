@@ -134,7 +134,7 @@ public class Basic {
 
 					String que = "select*from t_user natural join t_wallet where user_id='" + txtfID.getText() + "'";
 
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
