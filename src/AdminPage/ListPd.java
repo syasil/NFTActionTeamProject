@@ -2,21 +2,22 @@ package AdminPage;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Line2D;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DBConnection.JdbcUtil;
-import swing.*;
+import swing.AButton;
+import swing.ALabel;
+import swing.APanel;
+import swing.AScrollPane;
+import swing.ATable;
+import swing.ATextField;
 
 public class ListPd extends JFrame {
 	//상품목록 패널
@@ -29,9 +30,9 @@ public class ListPd extends JFrame {
 	private DefaultTableModel model;
 	private ATable pdListTable;
 	
-	public static void main(String[] args) {
-		new ListPd();
-	}
+//	public static void main(String[] args) {
+//		new ListPd();
+//	}
 	
 	public ListPd() {
 		initSet();
