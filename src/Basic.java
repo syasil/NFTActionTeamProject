@@ -9,7 +9,9 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,6 +24,11 @@ import swing.CPasswordField;
 import swing.CTextField;
 
 public class Basic {
+	
+	private Connection conn = null;
+	private PreparedStatement psmt = null;
+	private ResultSet rs = null;
+	
 	public static String userNo = "";
 	public static String userID = "";
 	public static String userPw = "";
@@ -31,6 +38,22 @@ public class Basic {
 	public static ImageIcon userIcon = null;
 
 	private JFrame frameBefore;
+	private int bytesRead;
+	private byte[] buffer;
+	private CPasswordField txtfPw;
+	private InputStream inputStream;
+	private Blob blob;
+	private ImageIcon icon;
+	private Image image;
+	private CPanel pnlBefore;
+	private CLabel lblID;
+	private CLabel lblPw;
+	private CTextField txtfID;
+	private CButton bntlogIn;
+	private CButton bntSign;
+	private CButton bntMissing;
+	private CLabel lblTitle;
+	private String pw;
 
 	/**
 	 * Launch the application.11
@@ -59,19 +82,20 @@ public class Basic {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frameBefore = new JFrame();
 		frameBefore.setSize(600, 900);
 
-		CPanel pnlBefore = new CPanel();
-		CLabel lblID = new CLabel("ID: ");
-		CLabel lblPw = new CLabel("PW:");
-		CTextField txtfID = new CTextField(10);
-		CPasswordField txtfPw = new CPasswordField(10);
-		CButton bntlogIn = new CButton("로그인");
-		CButton bntSign = new CButton("회원가입");
-		CButton bntMissing = new CButton("ID / PW찾기");
+		pnlBefore = new CPanel();
+		lblID = new CLabel("ID: ");
+		lblPw = new CLabel("PW:");
+		txtfID = new CTextField(10);
+		txtfPw = new CPasswordField(10);
+		bntlogIn = new CButton("로그인");
+		bntSign = new CButton("회원가입");
+		bntMissing = new CButton("ID / PW찾기");
 		bntMissing.setText("ID/PW찾기");
-		CLabel lblTitle = new CLabel("NFT 경매 시스템");
+		lblTitle = new CLabel("NFT 경매 시스템");
 
 		// ***********좌표 설정***************
 		pnlBefore.setLayout(null);
@@ -91,7 +115,7 @@ public class Basic {
 
 		// *************폰트*********************
 		// Font font = new Font("맑은 고딕", Font.ITALIC, 40);
-		lblTitle.setFont(new Font("맑은 고딕", Font.ITALIC, 40));
+		lblTitle.setFont(new Font("맑은 고딕", Font.PLAIN, 40));
 
 		// ***********add*******************
 		frameBefore.getContentPane().add(pnlBefore);
@@ -125,76 +149,84 @@ public class Basic {
 		});
 		// ---------------------------------------------------
 		bntlogIn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Connection conn = null;
-				PreparedStatement psmt = null;
-				ResultSet rs = null;
-
+			public void actionPerformed(ActionEvent e) {	
 				try {
 
-					String que = "select*from t_user natural join t_wallet where user_id='" + txtfID.getText() + "'";
+			
+					String que = "select * from t_user natural join t_wallet where user_id= ? ";//sql 
 
 					conn = connectDb.getInstance().get();
-
+					
 					psmt = conn.prepareStatement(que);
+					psmt.setString(1, txtfID.getText());
+					
 					rs = psmt.executeQuery();
 
 					if (rs.next()) {
-
-						String no = rs.getString(2);
-						String id = rs.getString(3);
-						String pw = rs.getString(4);
-						String birth = rs.getString(5);
-						String nick = rs.getString(6);
-						int point = rs.getInt(10);
-
-						Blob blob = rs.getBlob("user_icon"); // 이미지파일 불러오는중
-						InputStream inputStream = blob.getBinaryStream();
-						int bytesRead = -1;
-						byte[] buffer = new byte[4096];
-						inputStream.close();
-
-						ImageIcon icon = new ImageIcon(blob.getBytes(1, (int) blob.length()), "description"); // 이미지 불러옴
-						Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // 크기조절 후 이미지에 넣기
-						ImageIcon icon2 = new ImageIcon(image); // ImageIcon에 조절된 이지 넣기
-
-						if (txtfPw.getText().equals(rs.getString(4))) {
-							frameBefore.setVisible(false);
-							userNo = no;
-							userID = id;
-							userNick = nick;
-							userBirth = birth;
-							userIcon = icon2;
-							userPoint = point;
-							if (userID.equals("vft")) {
-								new AdminMainPage().setVisible(true);
-							} else {
-								new logIn().setVisible(true);
-							}
-
-						} else {
-							JOptionPane.showMessageDialog(null, "비밀번호가 잘못되었습니다.");
-//							
-						}
+						
+						PasswordCheck();
+						
 					} else {
+						
 						JOptionPane.showMessageDialog(null, "등록된" + txtfID.getText() + "가 없습니다.");
 
 					}
-//					
-
-					rs.close();
-					psmt.close();
-					conn.close();
-				} catch (Exception e1) {
-					e1.getStackTrace();
-				}
-
+				
+				} catch (Exception e1) {}
 			}
 		});
-
 	}
 
-	public void setVisible(boolean b) {
-		frameBefore.setVisible(b);
+	private void LogIn() throws SQLException {
+		
+		
+		userNo = rs.getString("user_no");
+		userID = rs.getString("user_id");
+		userBirth = rs.getString("user_bir");
+		userNick = rs.getString("user_nick");
+		userPoint = rs.getInt(10);
+
+		blob = rs.getBlob("user_icon"); // 이미지파일 불러오는중
+		inputStream = blob.getBinaryStream();
+		
+		bytesRead = -1;
+		buffer = new byte[4096];
+		
+		icon = new ImageIcon(blob.getBytes(1, (int) blob.length()), "description"); // 이미지 불러옴
+		image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // 크기조절 후 이미지에 넣기
+		userIcon = new ImageIcon(image); // ImageIcon에 조절된 이지 넣기
+
+		
+		
+		if (userID.equals("vft")) { //유저 아이디가 vft 관리자일경우 
+			
+			new AdminMainPage().setVisible(true);  //관리자 페이지 생성
+			
+		} else {
+			
+			new logIn().setVisible(true);//유저 페이지 생성
+			
+		}
+		frameBefore.setVisible(false);
+		
 	}
+	
+	
+	private void PasswordCheck() throws SQLException {
+		
+		pw = rs.getString("user_pass"); // 패스워드 데이터 가져오기
+		
+		if (txtfPw.getPassword().equals(pw)) {
+			
+			LogIn();
+			
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "비밀번호가 잘못되었습니다.");
+		
+		}
+		
+	}
+
 }
+
