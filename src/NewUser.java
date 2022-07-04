@@ -302,7 +302,8 @@ public class NewUser {
 				try {
 					String que = "select * from t_wallet where wal_no='" + txtfWallet.getText() + "'";
 					// 1,정의영 2,모승범
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
+					
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
@@ -338,7 +339,7 @@ public class NewUser {
 				try {
 					String que = "select * from t_user where user_id='" + txtfID.getText() + "'";
 					//
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();
@@ -375,7 +376,7 @@ public class NewUser {
 				try {
 					String que = "select * from t_user where user_Nick='" + txtfNick.getText() + "'";
 
-					conn = connecDb.get();
+					conn = connectDb.getInstance().get();
 
 					psmt = conn.prepareStatement(que);
 					rs = psmt.executeQuery();

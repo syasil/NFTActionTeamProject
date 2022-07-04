@@ -1,11 +1,18 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DB {
+public class connectDb {
 
-	public static Connection get() {
-		Connection conn = null;
-		
+   public static connectDb instance = new connectDb();
+   private connectDb() {}
+   public static connectDb getInstance() {
+      return instance;
+   }
+   
+   Connection conn = null;
+   
+   public Connection get() {
+
 		try {
 
 			String id = "JYY";
