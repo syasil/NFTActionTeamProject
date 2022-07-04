@@ -64,7 +64,7 @@ public class Basic extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Basic instance = new Basic();
+					instance = new Basic();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -210,7 +210,7 @@ public class Basic extends JFrame{
 			
 		} else {
 			
-			System.out.println("login");
+			textFieldClear(); //텍스트 필드 지우기
 			LogIn.getInstance().setVisible(true);//유저 페이지 생성
 			
 		}
@@ -219,6 +219,13 @@ public class Basic extends JFrame{
 	}
 	
 	
+	private void textFieldClear() {
+
+		txtfID.setText("");
+		txtfPw.setText("");
+		
+	}
+
 	private void PasswordCheck() throws SQLException, Exception {
 		
 		pw = rs.getString("user_pass"); // 패스워드 데이터 가져오기

@@ -97,7 +97,7 @@ public class LogIn extends JFrame {
 		bntlogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frameAfter.setVisible(false);
+				setVisible(false);
 				Basic.userNo = "";
 				Basic.userID = "";
 				Basic.userNick = "";
@@ -107,6 +107,7 @@ public class LogIn extends JFrame {
 				Basic.userPw = "";
 				
 				Basic.getInstance().setVisible(true);
+				
 			}
 		});
 		
