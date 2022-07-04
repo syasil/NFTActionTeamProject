@@ -11,19 +11,27 @@ import swing.CButton;
 import swing.CLabel;
 import swing.CPanel;
 
-public class logIn extends JFrame {
+public class LogIn extends JFrame {
 //	JLabel lblImg;
 	private JFrame frameAfter;
 	private int point;
 
+	public static LogIn instance;
+	public static LogIn getInstance() {
+		
+		if(instance == null)instance = new LogIn();
+		return instance;
+		
+	}
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					logIn window = new logIn();
+					LogIn window = new LogIn();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,11 +39,12 @@ public class logIn extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the application.
 	 */
-	public logIn() {
+	private LogIn() {
 		initialize();
 		// getUserInfo();
 	}
@@ -45,9 +54,9 @@ public class logIn extends JFrame {
 	 */
 	private void initialize() {
 
-		frameAfter = new JFrame();
+		new JFrame();
 
-		frameAfter.setSize(600, 900);
+		setSize(600, 900);
 
 		CPanel pnlAfter = new CPanel();
 
@@ -58,7 +67,6 @@ public class logIn extends JFrame {
 		CLabel lblPoint = new CLabel("포인트");
 		CLabel lblPoint_1 = new CLabel(Basic.userPoint + "");
 		JLabel lblImg = new JLabel(Basic.userIcon);
-		frameAfter.setVisible(false);
 
 		pnlAfter.setLayout(null);
 
@@ -72,12 +80,11 @@ public class logIn extends JFrame {
 		lblPoint.setBounds(450, 54, 110, 22);
 		lblPoint_1.setBounds(450, 76, 110, 22);
 		// *************폰트*********************
-		Font font = new Font("맑은 고딕", Font.ITALIC, 40);
 		bntlogOut.setBackground(Color.LIGHT_GRAY);
 		lblTitle.setFont(new Font("맑은 고딕", Font.ITALIC, 40));
 
 		// ***********add*******************
-		frameAfter.getContentPane().add(pnlAfter);
+		getContentPane().add(pnlAfter);
 		pnlAfter.add(lblTitle);
 		pnlAfter.add(bntlogOut);
 		pnlAfter.add(lblWelcome);
@@ -98,13 +105,13 @@ public class logIn extends JFrame {
 				Basic.userIcon = null;
 				Basic.userBirth = "";
 				Basic.userPw = "";
-				new Basic().setVisible(true);
+				
+				Basic.getInstance().setVisible(true);
 			}
 		});
-
+		
 	}
 
-	public void setVisible(boolean b) {
-		frameAfter.setVisible(b);
-	}
+	
+
 }

@@ -23,7 +23,7 @@ import swing.CPanel;
 import swing.CPasswordField;
 import swing.CTextField;
 
-public class Basic {
+public class Basic extends JFrame{
 	
 	private Connection conn = null;
 	private PreparedStatement psmt = null;
@@ -55,6 +55,8 @@ public class Basic {
 	private CLabel lblTitle;
 	private String pw;
 
+	public static Basic instance;
+	
 	/**
 	 * Launch the application.11
 	 */
@@ -62,7 +64,7 @@ public class Basic {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Basic window = new Basic();
+					Basic instance = new Basic();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,8 +85,8 @@ public class Basic {
 	 */
 	private void initialize() {
 		
-		frameBefore = new JFrame();
-		frameBefore.setSize(600, 900);
+		
+		setSize(600, 900);
 
 		pnlBefore = new CPanel();
 		lblID = new CLabel("ID: ");
@@ -118,7 +120,7 @@ public class Basic {
 		lblTitle.setFont(new Font("맑은 고딕", Font.PLAIN, 40));
 
 		// ***********add*******************
-		frameBefore.getContentPane().add(pnlBefore);
+		getContentPane().add(pnlBefore);
 		pnlBefore.add(lblID);
 		pnlBefore.add(txtfID);
 		pnlBefore.add(lblPw);
@@ -127,8 +129,10 @@ public class Basic {
 		pnlBefore.add(bntSign);
 		pnlBefore.add(bntMissing);
 		pnlBefore.add(lblTitle);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frameBefore.setVisible(true);
+		setVisible(true);
 
 		// ***********기능*********
 		bntSign.addActionListener(new ActionListener() {
@@ -172,20 +176,22 @@ public class Basic {
 
 					}
 				
-				} catch (Exception e1) {}
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
 
-	private void LogIn() throws SQLException {
+	private void LogIn() throws SQLException, Exception {
 		
 		
 		userNo = rs.getString("user_no");
 		userID = rs.getString("user_id");
 		userBirth = rs.getString("user_bir");
 		userNick = rs.getString("user_nick");
-		userPoint = rs.getInt(10);
-
+		userPoint = rs.getInt("wal_amount");
 		blob = rs.getBlob("user_icon"); // 이미지파일 불러오는중
 		inputStream = blob.getBinaryStream();
 		
@@ -204,21 +210,21 @@ public class Basic {
 			
 		} else {
 			
-			new logIn().setVisible(true);//유저 페이지 생성
+			System.out.println("login");
+			LogIn.getInstance().setVisible(true);//유저 페이지 생성
 			
 		}
-		frameBefore.setVisible(false);
+		setVisible(false);
 		
 	}
 	
 	
-	private void PasswordCheck() throws SQLException {
+	private void PasswordCheck() throws SQLException, Exception {
 		
 		pw = rs.getString("user_pass"); // 패스워드 데이터 가져오기
 		
 		if (txtfPw.getText().equals(pw)) {
-			
-			
+				
 			LogIn();
 			
 		} else {
@@ -226,6 +232,11 @@ public class Basic {
 			JOptionPane.showMessageDialog(null, "비밀번호가 잘못되었습니다.");
 		
 		}
+		
+	}
+	public static JFrame getInstance() {
+		
+		return instance;
 		
 	}
 
